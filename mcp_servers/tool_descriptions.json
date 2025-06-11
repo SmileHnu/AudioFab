@@ -1,0 +1,3993 @@
+{
+  "query_tool": {
+    "description": "Query detailed information about any tool, including parameter specifications, usage examples, and functionality.",
+    "detailed_description": "An essential metadata discovery tool that provides comprehensive documentation about any available tool in the system. Before using a new tool, it's highly recommended to query its specifications first to understand parameter requirements, optional configurations, default values, and see concrete usage examples. This tool supports intelligent documentation retrieval with rich formatting to facilitate proper tool usage.",
+    "parameters": {
+      "tool_name": {
+        "type": "string",
+        "description": "Name of the tool to query information about",
+        "required": true
+      }
+    },
+    "examples": [
+      {
+        "task_description": "Query detailed information about the load_audio tool",
+        "Act": {
+          "tool": "query_tool",
+          "arguments": {
+            "tool_name": "load_audio"
+          }
+        }
+      }
+    ]
+  },
+  "list_available_tools": {
+    "description": "List all available tools with their brief descriptions.",
+    "detailed_description": "Provides a comprehensive inventory of all available tools in the system with their concise descriptions. This is the ideal starting point for tool discovery. For detailed information about specific tools, including parameter requirements and usage examples, use the query_tool with the specific tool name.",
+    "parameters": {},
+    "examples": [
+      {
+        "task_description": "List all available tools",
+        "Act": {
+          "tool": "list_available_tools",
+          "arguments": {}
+        }
+      }
+    ]
+  },
+  "search_tools_by_task": {
+    "description": "Intelligently search for relevant tools based on natural language task descriptions.",
+    "detailed_description": "An advanced AI-powered tool discovery system that identifies the most suitable tools for any given task using state-of-the-art natural language understanding. The system leverages multilingual semantic vector embeddings combined with optimized keyword matching to deeply comprehend the user's intent, even when there are no exact keyword matches. The intelligent ranking algorithm analyzes tool capabilities against the task requirements, providing a relevance-sorted list of the most appropriate tools with confidence scores. This system excels at understanding complex, multi-step tasks and recommending the optimal tool combinations for efficient workflow completion.",
+    "parameters": {
+      "task_description": {
+        "type": "string",
+        "description": "Natural language description of the task you want to accomplish",
+        "required": true
+      }
+    },
+    "examples": [
+      {
+        "task_description": "Search for audio resampling tools",
+        "Act": {
+          "tool": "search_tools_by_task",
+          "arguments": {
+            "task_description": "How can I change the sample rate of an audio file?"
+          }
+        }
+      },
+      {
+        "task_description": "Find voice cloning tools",
+        "Act": {
+          "tool": "search_tools_by_task",
+          "arguments": {
+            "task_description": "I need a speech synthesis tool that can mimic a specific voice"
+          }
+        }
+      },
+      {
+        "task_description": "Find emotion analysis tools",
+        "Act": {
+          "tool": "search_tools_by_task",
+          "arguments": {
+            "task_description": "I need to analyze the emotions expressed in a speech recording"
+          }
+        }
+      }
+    ]
+  },
+  "load_audio": {
+    "description": "加载音频数据。",
+    "detailed_description": "该工具用于加载音频文件并可选择性地重采样到指定采样率。它会将加载的音频保存为临时文件并返回相关信息。",
+    "parameters": {
+      "audio_path": {
+        "type": "string",
+        "description": "音频文件路径",
+        "required": true
+      },
+      "target_sr": {
+        "type": "integer",
+        "description": "目标采样率（可选）",
+        "required": "optional"
+      }
+    },
+    "examples": [
+      {
+        "task_description": "加载音频文件",
+        "Act": {
+          "tool": "load_audio",
+          "arguments": {
+            "audio_path": "input/my_audio.wav"
+          }
+        }
+      },
+      {
+        "task_description": "加载音频并重采样到16kHz",
+        "Act": {
+          "tool": "load_audio",
+          "arguments": {
+            "audio_path": "input/my_audio.wav",
+            "target_sr": 16000
+          }
+        }
+      }
+    ]
+  },
+  "resample_audio": {
+    "description": "重采样音频。",
+    "detailed_description": "该工具用于将音频从一个采样率转换到另一个采样率。它会保存重采样后的音频并返回相关信息。",
+    "parameters": {
+      "audio_path": {
+        "type": "string",
+        "description": "音频文件路径",
+        "required": true
+      },
+      "orig_sr": {
+        "type": "integer",
+        "description": "原始采样率",
+        "required": true
+      },
+      "target_sr": {
+        "type": "integer",
+        "description": "目标采样率",
+        "required": true
+      }
+    },
+    "examples": [
+      {
+        "task_description": "将44.1kHz音频重采样到16kHz",
+        "Act": {
+          "tool": "resample_audio",
+          "arguments": {
+            "audio_path": "output/audio/processed_20231215_123456.wav",
+            "orig_sr": 44100,
+            "target_sr": 16000
+          }
+        }
+      }
+    ]
+  },
+  "compute_stft": {
+    "description": "计算短时傅里叶变换。",
+    "detailed_description": "该工具计算音频信号的短时傅里叶变换（STFT），并将结果保存为NumPy数组文件。",
+    "parameters": {
+      "audio_path": {
+        "type": "string",
+        "description": "音频文件路径",
+        "required": true
+      },
+      "n_fft": {
+        "type": "integer",
+        "description": "FFT窗口大小",
+        "required": "optional",
+        "default": 2048
+      },
+      "hop_length": {
+        "type": "integer",
+        "description": "帧移",
+        "required": "optional",
+        "default": 512
+      }
+    },
+    "examples": [
+      {
+        "task_description": "计算音频的STFT",
+        "Act": {
+          "tool": "compute_stft",
+          "arguments": {
+            "audio_path": "output/audio/processed_20231215_123456.wav",
+            "n_fft": 2048,
+            "hop_length": 512
+          }
+        }
+      }
+    ]
+  },
+  "compute_mfcc": {
+    "description": "计算MFCC特征。",
+    "detailed_description": "该工具计算音频的梅尔频率倒谱系数（MFCC）特征，这是一种常用于语音识别和音频分析的特征。",
+    "parameters": {
+      "audio_path": {
+        "type": "string",
+        "description": "音频文件路径",
+        "required": true
+      },
+      "n_mfcc": {
+        "type": "integer",
+        "description": "MFCC系数数量",
+        "required": "optional",
+        "default": 13
+      }
+    },
+    "examples": [
+      {
+        "task_description": "计算音频的MFCC特征",
+        "Act": {
+          "tool": "compute_mfcc",
+          "arguments": {
+            "audio_path": "output/audio/processed_20231215_123456.wav",
+            "n_mfcc": 13
+          }
+        }
+      }
+    ]
+  },
+  "compute_mel_spectrogram": {
+    "description": "计算梅尔频谱图并生成可视化图像。",
+    "detailed_description": "该工具计算音频的梅尔频谱图，一种基于人类听觉感知的频谱表示，并可以选择性地生成可视化图像。在audio_processor中生成可视化，在dsp_processor中只生成数据文件。",
+    "parameters": {
+      "audio_path": {
+        "type": "string",
+        "description": "音频文件路径",
+        "required": true
+      },
+      "n_mels": {
+        "type": "integer",
+        "description": "梅尔滤波器组数量",
+        "required": "optional",
+        "default": 128
+      }
+    },
+    "examples": [
+      {
+        "task_description": "计算并可视化音频的梅尔频谱图",
+        "Act": {
+          "tool": "compute_mel_spectrogram",
+          "arguments": {
+            "audio_path": "output/audio/processed_20231215_123456.wav",
+            "n_mels": 128
+          }
+        }
+      }
+    ]
+  },
+  "add_reverb": {
+    "description": "添加混响效果。",
+    "detailed_description": "该工具对音频添加混响效果，可用于模拟不同空间声学环境下的声音。",
+    "parameters": {
+      "audio_path": {
+        "type": "string",
+        "description": "音频文件路径",
+        "required": true
+      },
+      "room_scale": {
+        "type": "float",
+        "description": "房间大小因子（0-1）",
+        "required": "optional",
+        "default": 0.8
+      }
+    },
+    "examples": [
+      {
+        "task_description": "为音频添加混响效果",
+        "Act": {
+          "tool": "add_reverb",
+          "arguments": {
+            "audio_path": "output/audio/processed_20231215_123456.wav",
+            "room_scale": 0.8
+          }
+        }
+      }
+    ]
+  },
+  "mix_audio": {
+    "description": "混合多个音频。",
+    "detailed_description": "该工具将多个音频文件混合成一个单一的音频文件，可以指定每个音频的混合权重。",
+    "parameters": {
+      "audio_paths": {
+        "type": "array",
+        "description": "音频文件路径列表",
+        "required": true
+      },
+      "weights": {
+        "type": "array",
+        "description": "混合权重列表（可选）",
+        "required": "optional"
+      }
+    },
+    "examples": [
+      {
+        "task_description": "混合两个音频文件",
+        "Act": {
+          "tool": "mix_audio",
+          "arguments": {
+            "audio_paths": [
+              "output/audio/processed_1.wav",
+              "output/audio/processed_2.wav"
+            ],
+            "weights": [
+              0.6,
+              0.4
+            ]
+          }
+        }
+      }
+    ]
+  },
+  "apply_fade": {
+    "description": "应用淡入淡出效果。",
+    "detailed_description": "该工具对音频应用淡入淡出效果，可以使音频的开始和结束更平滑。",
+    "parameters": {
+      "audio_path": {
+        "type": "string",
+        "description": "音频文件路径",
+        "required": true
+      },
+      "fade_duration": {
+        "type": "float",
+        "description": "淡入淡出时长（秒）",
+        "required": true
+      }
+    },
+    "examples": [
+      {
+        "task_description": "为音频添加1秒的淡入淡出效果",
+        "Act": {
+          "tool": "apply_fade",
+          "arguments": {
+            "audio_path": "output/audio/processed_20231215_123456.wav",
+            "fade_duration": 1.0
+          }
+        }
+      }
+    ]
+  },
+  "serve_local_audio": {
+    "description": "将本地音频文件转换为可访问的URL。",
+    "detailed_description": "该工具启动一个本地HTTP服务器，使音频文件可以通过网络URL访问，便于在网页或其他应用中播放。",
+    "parameters": {
+      "audio_path": {
+        "type": "string",
+        "description": "本地音频文件路径",
+        "required": true
+      },
+      "port": {
+        "type": "integer",
+        "description": "HTTP服务器端口号",
+        "required": "optional",
+        "default": 8000
+      }
+    },
+    "examples": [
+      {
+        "task_description": "将处理后的音频文件通过HTTP服务器提供访问",
+        "Act": {
+          "tool": "serve_local_audio",
+          "arguments": {
+            "audio_path": "output/audio/processed_20231215_123456.wav",
+            "port": 8080
+          }
+        }
+      }
+    ]
+  },
+  "stop_audio_server": {
+    "description": "停止音频文件上传服务器，并释放资源。",
+    "detailed_description": "该工具停止由serve_local_audio启动的HTTP服务器，并清理相关的临时文件。",
+    "parameters": {},
+    "examples": [
+      {
+        "task_description": "停止正在运行的音频服务器",
+        "Act": {
+          "tool": "stop_audio_server",
+          "arguments": {}
+        }
+      }
+    ]
+  },
+  "convert_audio_format": {
+    "description": "将音频从一种格式转换为另一种格式。",
+    "detailed_description": "该工具支持多种音频格式之间的转换，如WAV、MP3、OGG、FLAC等，同时可以调整采样率、通道数和位深度。",
+    "parameters": {
+      "input_path": {
+        "type": "string",
+        "description": "输入音频文件路径",
+        "required": true
+      },
+      "output_format": {
+        "type": "string",
+        "description": "输出格式（如 'wav', 'mp3', 'ogg', 'flac' 等）",
+        "required": "optional",
+        "default": "wav"
+      },
+      "sample_rate": {
+        "type": "integer",
+        "description": "目标采样率（可选）",
+        "required": "optional"
+      },
+      "channels": {
+        "type": "integer",
+        "description": "目标通道数（可选，1=单声道，2=立体声）",
+        "required": "optional"
+      },
+      "bit_depth": {
+        "type": "integer",
+        "description": "目标位深度（可选，仅适用于WAV格式）",
+        "required": "optional"
+      }
+    },
+    "examples": [
+      {
+        "task_description": "将MP3文件转换为44.1kHz、16位的WAV文件",
+        "Act": {
+          "tool": "convert_audio_format",
+          "arguments": {
+            "input_path": "input/music.mp3",
+            "output_format": "wav",
+            "sample_rate": 44100,
+            "bit_depth": 16
+          }
+        }
+      }
+    ]
+  },
+  "trim_audio": {
+    "description": "裁剪音频文件的指定时间区间。",
+    "detailed_description": "该工具用于从音频文件中提取指定时间段的内容，并可选择性地应用淡入淡出效果以使过渡更平滑。",
+    "parameters": {
+      "input_path": {
+        "type": "string",
+        "description": "输入音频文件路径",
+        "required": true
+      },
+      "start_time": {
+        "type": "float",
+        "description": "开始时间（秒）",
+        "required": true
+      },
+      "end_time": {
+        "type": "float",
+        "description": "结束时间（秒）",
+        "required": true
+      },
+      "fade_in": {
+        "type": "float",
+        "description": "淡入时长（秒，可选）",
+        "required": "optional"
+      },
+      "fade_out": {
+        "type": "float",
+        "description": "淡出时长（秒，可选）",
+        "required": "optional"
+      }
+    },
+    "examples": [
+      {
+        "task_description": "从音频文件中提取10秒到30秒的部分，并应用0.5秒的淡入淡出",
+        "Act": {
+          "tool": "trim_audio",
+          "arguments": {
+            "input_path": "input/long_audio.wav",
+            "start_time": 10.0,
+            "end_time": 30.0,
+            "fade_in": 0.5,
+            "fade_out": 0.5
+          }
+        }
+      }
+    ]
+  },
+  "align_audio_lengths": {
+    "description": "将多个音频文件对齐到相同长度。",
+    "detailed_description": "该工具使用多种方法（如填充、裁剪、循环或拉伸）将一组音频文件调整到相同的时长，便于后续处理或混合。",
+    "parameters": {
+      "audio_paths": {
+        "type": "array",
+        "description": "音频文件路径列表（至少2个）",
+        "required": true
+      },
+      "target_duration": {
+        "type": "float",
+        "description": "目标时长（秒，可选）。如果不指定，将使用最长音频的时长",
+        "required": "optional"
+      },
+      "method": {
+        "type": "string",
+        "description": "对齐方法: 'pad'（填充）, 'trim'（裁剪）, 'loop'（循环）或 'stretch'（拉伸）",
+        "required": "optional",
+        "default": "pad"
+      },
+      "fade_duration": {
+        "type": "float",
+        "description": "淡入淡出时长（秒），用于平滑过渡",
+        "required": "optional",
+        "default": 0.1
+      }
+    },
+    "examples": [
+      {
+        "task_description": "将两个音频文件对齐到15秒长度，使用填充方法并添加0.2秒淡入淡出",
+        "Act": {
+          "tool": "align_audio_lengths",
+          "arguments": {
+            "audio_paths": [
+              "output/audio/vocal.wav",
+              "output/audio/accompaniment.wav"
+            ],
+            "target_duration": 15.0,
+            "method": "pad",
+            "fade_duration": 0.2
+          }
+        }
+      }
+    ]
+  },
+  "get_gpu_info": {
+    "description": "获取 GPU 信息。",
+    "detailed_description": "该工具获取系统中可用的GPU信息，包括数量、型号、内存使用情况等。",
+    "parameters": {},
+    "examples": [
+      {
+        "task_description": "查询系统中的GPU信息",
+        "Act": {
+          "tool": "get_gpu_info",
+          "arguments": {}
+        }
+      }
+    ]
+  },
+  "set_gpu_device": {
+    "description": "设置当前使用的 GPU 设备。",
+    "detailed_description": "该工具用于切换当前活跃的GPU设备，在多GPU系统上进行操作时特别有用。",
+    "parameters": {
+      "device_id": {
+        "type": "integer",
+        "description": "GPU 设备 ID",
+        "required": true
+      }
+    },
+    "examples": [
+      {
+        "task_description": "将活跃GPU设备设置为ID为0的设备",
+        "Act": {
+          "tool": "set_gpu_device",
+          "arguments": {
+            "device_id": 0
+          }
+        }
+      }
+    ]
+  },
+  "load_numpy_file": {
+    "description": "加载 .npy 格式的 NumPy 数组文件。",
+    "detailed_description": "该工具用于加载NumPy数组文件并返回其维度、数据类型和基本统计信息等。",
+    "parameters": {
+      "file_path": {
+        "type": "string",
+        "description": "NumPy 文件路径",
+        "required": true
+      }
+    },
+    "examples": [
+      {
+        "task_description": "加载NumPy数组文件并查看其基本信息",
+        "Act": {
+          "tool": "load_numpy_file",
+          "arguments": {
+            "file_path": "output/tensors/stft_20231215_123456.npy"
+          }
+        }
+      }
+    ]
+  },
+  "load_torch_file": {
+    "description": "加载 .pth 格式的 PyTorch 张量文件。",
+    "detailed_description": "该工具用于加载PyTorch张量文件并返回其维度、数据类型和设备信息等。可以指定加载到CPU或GPU设备。",
+    "parameters": {
+      "file_path": {
+        "type": "string",
+        "description": "PyTorch 文件路径",
+        "required": true
+      },
+      "to_device": {
+        "type": "string",
+        "description": "加载到的设备 ('cpu' 或 'cuda')",
+        "required": "optional"
+      }
+    },
+    "examples": [
+      {
+        "task_description": "加载PyTorch张量文件到CPU并查看其基本信息",
+        "Act": {
+          "tool": "load_torch_file",
+          "arguments": {
+            "file_path": "output/tensors/model_weights.pth",
+            "to_device": "cpu"
+          }
+        }
+      }
+    ]
+  },
+  "convert_numpy_to_tensor": {
+    "description": "将 NumPy 数组转换为 PyTorch 张量并保存。",
+    "detailed_description": "该工具将NumPy数组文件加载并转换为PyTorch张量，可以指定目标设备，并将结果保存为.pth文件。",
+    "parameters": {
+      "numpy_path": {
+        "type": "string",
+        "description": "NumPy 文件路径",
+        "required": true
+      },
+      "tensor_path": {
+        "type": "string",
+        "description": "输出的张量文件路径（可选，默认在相同位置生成）",
+        "required": "optional"
+      },
+      "to_device": {
+        "type": "string",
+        "description": "转换后的设备（'cpu' 或 'cuda'）",
+        "required": "optional"
+      }
+    },
+    "examples": [
+      {
+        "task_description": "将NumPy数组转换为CUDA设备上的PyTorch张量",
+        "Act": {
+          "tool": "convert_numpy_to_tensor",
+          "arguments": {
+            "numpy_path": "output/tensors/mel_spec_20231215_123456.npy",
+            "to_device": "cuda"
+          }
+        }
+      }
+    ]
+  },
+  "convert_tensor_to_numpy": {
+    "description": "将 PyTorch 张量转换为 NumPy 数组并保存。",
+    "detailed_description": "该工具将PyTorch张量文件加载并转换为NumPy数组，然后保存为.npy文件。",
+    "parameters": {
+      "tensor_path": {
+        "type": "string",
+        "description": "PyTorch 张量文件路径",
+        "required": true
+      },
+      "numpy_path": {
+        "type": "string",
+        "description": "输出的 NumPy 文件路径（可选，默认在相同位置生成）",
+        "required": "optional"
+      }
+    },
+    "examples": [
+      {
+        "task_description": "将PyTorch张量转换为NumPy数组",
+        "Act": {
+          "tool": "convert_tensor_to_numpy",
+          "arguments": {
+            "tensor_path": "output/tensors/model_features.pth"
+          }
+        }
+      }
+    ]
+  },
+  "move_tensor_to_device": {
+    "description": "将张量移动到指定设备（CPU 或 CUDA）。",
+    "detailed_description": "该工具将PyTorch张量从一个设备移动到另一个设备（例如从CPU到GPU或反之），并保存结果。",
+    "parameters": {
+      "tensor_path": {
+        "type": "string",
+        "description": "张量文件路径",
+        "required": true
+      },
+      "device": {
+        "type": "string",
+        "description": "目标设备 ('cpu' 或 'cuda[:id]')",
+        "required": true
+      },
+      "output_path": {
+        "type": "string",
+        "description": "输出文件路径（可选）",
+        "required": "optional"
+      }
+    },
+    "examples": [
+      {
+        "task_description": "将张量从CPU移动到GPU设备",
+        "Act": {
+          "tool": "move_tensor_to_device",
+          "arguments": {
+            "tensor_path": "output/tensors/features.pth",
+            "device": "cuda"
+          }
+        }
+      }
+    ]
+  },
+  "concatenate_tensors": {
+    "description": "沿指定维度连接多个张量。",
+    "detailed_description": "该工具将多个PyTorch张量文件加载并沿指定维度连接成一个新的张量，然后保存结果。",
+    "parameters": {
+      "tensor_paths": {
+        "type": "array",
+        "description": "张量文件路径列表",
+        "required": true
+      },
+      "dim": {
+        "type": "integer",
+        "description": "连接的维度",
+        "required": "optional",
+        "default": 0
+      },
+      "output_path": {
+        "type": "string",
+        "description": "输出文件路径（可选）",
+        "required": "optional"
+      }
+    },
+    "examples": [
+      {
+        "task_description": "沿第0维连接两个特征张量",
+        "Act": {
+          "tool": "concatenate_tensors",
+          "arguments": {
+            "tensor_paths": [
+              "output/tensors/features1.pth",
+              "output/tensors/features2.pth"
+            ],
+            "dim": 0
+          }
+        }
+      }
+    ]
+  },
+  "split_tensor": {
+    "description": "沿指定维度拆分张量。",
+    "detailed_description": "该工具将PyTorch张量文件加载并沿指定维度拆分成多个小张量，然后将结果保存到指定目录。",
+    "parameters": {
+      "tensor_path": {
+        "type": "string",
+        "description": "张量文件路径",
+        "required": true
+      },
+      "dim": {
+        "type": "integer",
+        "description": "拆分的维度",
+        "required": "optional",
+        "default": 0
+      },
+      "sections": {
+        "type": "integer or array",
+        "description": "拆分方式：整数表示等大小的块，数组表示按索引拆分",
+        "required": "optional",
+        "default": 2
+      },
+      "output_dir": {
+        "type": "string",
+        "description": "输出目录（可选）",
+        "required": "optional"
+      }
+    },
+    "examples": [
+      {
+        "task_description": "将张量沿第0维拆分为两部分",
+        "Act": {
+          "tool": "split_tensor",
+          "arguments": {
+            "tensor_path": "output/tensors/features.pth",
+            "dim": 0,
+            "sections": 2
+          }
+        }
+      }
+    ]
+  },
+  "save_tensor": {
+    "description": "保存张量数据到 PyTorch .pth 文件。",
+    "detailed_description": "该工具根据指定的形状和可选的值创建一个PyTorch张量，并将其保存为.pth文件。如果不提供值，则生成随机张量。",
+    "parameters": {
+      "tensor_data": {
+        "type": "object",
+        "description": "张量数据字典，包含形状、值和数据类型",
+        "required": true
+      },
+      "output_path": {
+        "type": "string",
+        "description": "输出文件路径（可选）",
+        "required": "optional"
+      }
+    },
+    "examples": [
+      {
+        "task_description": "创建并保存一个3x3的单位矩阵张量",
+        "Act": {
+          "tool": "save_tensor",
+          "arguments": {
+            "tensor_data": {
+              "shape": [
+                3,
+                3
+              ],
+              "values": [
+                1,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                1
+              ],
+              "dtype": "float32"
+            },
+            "output_path": "output/tensors/identity_matrix.pth"
+          }
+        }
+      }
+    ]
+  },
+  "tensor_operations": {
+    "description": "对张量执行基本操作。",
+    "detailed_description": "该工具对PyTorch张量执行各种基本操作，如重塑、转置、克隆、加法、乘法、求均值、求和和求范数等，并保存结果。",
+    "parameters": {
+      "tensor_path": {
+        "type": "string",
+        "description": "张量文件路径",
+        "required": true
+      },
+      "operation": {
+        "type": "string",
+        "description": "操作类型：reshape、transpose、clone、add、multiply、mean、sum、norm",
+        "required": true
+      },
+      "params": {
+        "type": "object",
+        "description": "操作参数（可选）",
+        "required": "optional"
+      },
+      "output_path": {
+        "type": "string",
+        "description": "输出文件路径（可选）",
+        "required": "optional"
+      }
+    },
+    "examples": [
+      {
+        "task_description": "将张量重塑为新的形状",
+        "Act": {
+          "tool": "tensor_operations",
+          "arguments": {
+            "tensor_path": "output/tensors/features.pth",
+            "operation": "reshape",
+            "params": {
+              "shape": [
+                1,
+                -1
+              ]
+            }
+          }
+        }
+      },
+      {
+        "task_description": "计算张量的均值",
+        "Act": {
+          "tool": "tensor_operations",
+          "arguments": {
+            "tensor_path": "output/tensors/features.pth",
+            "operation": "mean"
+          }
+        }
+      }
+    ]
+  },
+  "AudioXTool": {
+    "description": "Generate audio or video content using the AudioX multimodal model with support for text, audio, and video inputs.",
+    "detailed_description": "AudioXTool leverages the AudioX model for multimodal audio/video generation. It can generate content from various input modalities including text prompts, audio references, and video references. The tool supports multiple use cases such as: Text-to-Audio (T2A), Audio-to-Audio (A2A) for audio extension or transformation, Video-to-Audio (V2A) for generating soundtracks for videos, and multimodal combinations (e.g., Text+Video-to-Audio). Invalid or missing inputs are handled gracefully with default prompts, ensuring the model always generates output. Generated audio can be optionally merged with the input video to create a complete audiovisual experience. The tool provides detailed control over generation parameters like duration, inference steps, sampler settings, and conditioning strength.",
+    "parameters": {
+      "text_prompt": {
+        "type": "string",
+        "description": "Text description for the content to generate. Can be used alone or combined with other modalities.",
+        "required": "optional",
+        "example": "A peaceful melody with soft piano and gentle rain in the background."
+      },
+      "audio_path": {
+        "type": "string",
+        "description": "Path to an audio file to use as a reference for generation. If invalid or empty, a default silent audio prompt will be used.",
+        "required": "optional"
+      },
+      "video_path": {
+        "type": "string",
+        "description": "Path to a video file to use as a reference for generation. If invalid or empty, a default blank video prompt will be used.",
+        "required": "optional"
+      },
+      "output_audio_path": {
+        "type": "string",
+        "description": "Custom path to save the generated audio file (WAV format). Default: output/audio/audiox_audio_[timestamp].wav",
+        "required": "optional"
+      },
+      "output_video_path": {
+        "type": "string",
+        "description": "Custom path to save the generated video file (MP4 format) with the generated audio. Default: output/video/audiox_video_[timestamp].mp4. Video is only generated if a valid input video_path was provided.",
+        "required": "optional"
+      },
+      "seconds_start": {
+        "type": "integer",
+        "description": "The start time (in seconds) for conditioning and generation window.",
+        "required": "optional",
+        "default": 0
+      },
+      "seconds_total": {
+        "type": "integer",
+        "description": "Total duration (in seconds) of the generated content.",
+        "required": "optional",
+        "default": 10
+      },
+      "steps": {
+        "type": "integer",
+        "description": "Number of inference steps. Higher values may improve quality but increase generation time.",
+        "required": "optional",
+        "default": 250
+      },
+      "cfg_scale": {
+        "type": "float",
+        "description": "Classifier-free guidance scale. Controls how strongly the model adheres to the conditioning inputs.",
+        "required": "optional",
+        "default": 7.0
+      },
+      "sigma_min": {
+        "type": "float",
+        "description": "Minimum sigma value for the sampler.",
+        "required": "optional",
+        "default": 0.3
+      },
+      "sigma_max": {
+        "type": "float",
+        "description": "Maximum sigma value for the sampler.",
+        "required": "optional",
+        "default": 500.0
+      },
+      "sampler_type": {
+        "type": "string",
+        "description": "Type of sampler to use for generation (e.g., \"dpmpp-3m-sde\").",
+        "required": "optional",
+        "default": "dpmpp-3m-sde"
+      },
+      "negative_prompt": {
+        "type": "string",
+        "description": "Text describing what you don't want in the generated content.",
+        "required": "optional"
+      },
+      "seed": {
+        "type": "integer",
+        "description": "Random seed for reproducibility. If None, a random seed is used.",
+        "required": "optional"
+      },
+      "device_selection": {
+        "type": "string",
+        "description": "Computing device to use for generation ('cuda' or 'cpu').",
+        "required": "optional",
+        "default": "cuda (if available) or cpu"
+      }
+    },
+    "examples": [
+      {
+        "task_description": "Generate peaceful piano music with a text prompt",
+        "Act": {
+          "tool": "AudioXTool",
+          "arguments": {
+            "text_prompt": "A peaceful piano piece with soft strings in the background",
+            "output_audio_path": "output/music/peaceful_piano.wav",
+            "seconds_total": 15,
+            "steps": 250,
+            "cfg_scale": 7.0
+          }
+        }
+      },
+      {
+        "task_description": "Generate audio for a video and merge them together",
+        "Act": {
+          "tool": "AudioXTool",
+          "arguments": {
+            "video_path": "input/video/silent_scene.mp4",
+            "text_prompt": "Ambient nature sounds with gentle wind and distant birds",
+            "output_audio_path": "output/audio/nature_sounds.wav",
+            "output_video_path": "output/video/scene_with_audio.mp4"
+          }
+        }
+      },
+      {
+        "task_description": "Extend and transform an existing audio sample",
+        "Act": {
+          "tool": "AudioXTool",
+          "arguments": {
+            "audio_path": "input/audio/short_melody.wav",
+            "text_prompt": "Extend this melody with orchestral accompaniment",
+            "output_audio_path": "output/audio/extended_orchestral.wav",
+            "seconds_total": 30,
+            "seed": 12345
+          }
+        }
+      }
+    ]
+  },
+  "ACEStepTool": {
+    "description": "Generate high-quality music using the ACE-Step foundation model with support for text prompts, lyrics, and audio-to-audio generation.",
+    "detailed_description": "ACEStepTool is a powerful music generation tool that leverages the ACE-Step foundation model to create original music across diverse genres. It supports multiple generation modes: Text2Music (creating music from text descriptions), Retake (adding variations to existing music), Repainting (selectively regenerating parts of music), Editing (modifying existing music by changing tags or lyrics), Extending (adding music to the beginning or end of an existing piece), and Audio2Audio (generating music based on a reference audio). The tool offers extensive customization options for both the creative aspects (like prompts and lyrics) and technical parameters (like diffusion settings and scheduler types). It also supports LoRA adaptations for specialized styles or genres.",
+    "parameters": {
+      "task": {
+        "type": "string",
+        "description": "The type of music generation task to perform.",
+        "required": "optional",
+        "default": "text2music",
+        "enum": [
+          "text2music",
+          "retake",
+          "repaint",
+          "edit",
+          "extend",
+          "audio2audio"
+        ]
+      },
+      "prompt": {
+        "type": "string",
+        "description": "Text description for the music to generate. Can include genres, moods, instruments, scene descriptions, etc.",
+        "required": "optional",
+        "example": "Epic orchestral music with powerful drums and emotional strings, suitable for a fantasy battle scene."
+      },
+      "lyrics": {
+        "type": "string",
+        "description": "Lyrics for the generated music. Can include structure tags like [verse], [chorus], and [bridge].",
+        "required": "optional",
+        "example": "[verse] Walking through the rain, memories flooding back\n[chorus] I remember everything, the good times and the bad"
+      },
+      "audio_prompt": {
+        "type": "string",
+        "description": "Path to a reference audio file for audio2audio generation. The generated music will be influenced by this audio.",
+        "required": "optional"
+      },
+      "ref_audio_strength": {
+        "type": "number",
+        "description": "Strength of reference audio influence (0-1, higher = more influence).",
+        "required": "optional",
+        "default": 0.5
+      },
+      "output_path": {
+        "type": "string",
+        "description": "Custom path to save the generated audio file. If not provided, a default path will be used.",
+        "required": "optional"
+      },
+      "format": {
+        "type": "string",
+        "description": "Output audio format.",
+        "required": "optional",
+        "default": "wav"
+      },
+      "audio_duration": {
+        "type": "number",
+        "description": "Duration of generated audio in seconds.",
+        "required": "optional",
+        "default": 30.0
+      },
+      "infer_step": {
+        "type": "integer",
+        "description": "Number of inference steps. Higher values produce better quality but take longer to process.",
+        "required": "optional",
+        "default": 60
+      },
+      "guidance_scale": {
+        "type": "number",
+        "description": "Classifier-free guidance scale. Higher values result in stronger adherence to the prompt.",
+        "required": "optional",
+        "default": 15.0
+      },
+      "scheduler_type": {
+        "type": "string",
+        "description": "Type of diffusion scheduler to use.",
+        "required": "optional",
+        "default": "euler",
+        "enum": [
+          "euler",
+          "heun",
+          "pingpong"
+        ]
+      },
+      "cfg_type": {
+        "type": "string",
+        "description": "Type of classifier-free guidance method.",
+        "required": "optional",
+        "default": "apg",
+        "enum": [
+          "apg",
+          "cfg",
+          "cfg_star"
+        ]
+      },
+      "omega_scale": {
+        "type": "number",
+        "description": "Scale for omega parameter in diffusion process.",
+        "required": "optional",
+        "default": 10.0
+      },
+      "seed": {
+        "type": "integer",
+        "description": "Random seed for reproducible generation. If not provided, a random seed will be used.",
+        "required": "optional"
+      },
+      "guidance_interval": {
+        "type": "number",
+        "description": "Interval for applying guidance during generation.",
+        "required": "optional",
+        "default": 0.5
+      },
+      "guidance_interval_decay": {
+        "type": "number",
+        "description": "Decay rate for guidance scale during generation.",
+        "required": "optional",
+        "default": 0.0
+      },
+      "min_guidance_scale": {
+        "type": "number",
+        "description": "Minimum value for guidance scale after decay.",
+        "required": "optional",
+        "default": 3.0
+      },
+      "use_erg_tag": {
+        "type": "boolean",
+        "description": "Whether to use enhanced tag generation.",
+        "required": "optional",
+        "default": true
+      },
+      "use_erg_lyric": {
+        "type": "boolean",
+        "description": "Whether to use enhanced lyric generation.",
+        "required": "optional",
+        "default": true
+      },
+      "use_erg_diffusion": {
+        "type": "boolean",
+        "description": "Whether to use enhanced diffusion process.",
+        "required": "optional",
+        "default": true
+      },
+      "oss_steps": {
+        "type": "string",
+        "description": "Comma-separated list of one-step sampling steps.",
+        "required": "optional"
+      },
+      "guidance_scale_text": {
+        "type": "number",
+        "description": "Guidance scale for text in double condition mode.",
+        "required": "optional",
+        "default": 0.0
+      },
+      "guidance_scale_lyric": {
+        "type": "number",
+        "description": "Guidance scale for lyrics in double condition mode.",
+        "required": "optional",
+        "default": 0.0
+      },
+      "retake_variance": {
+        "type": "number",
+        "description": "Variance for retake generation (0-1, higher = more different from original).",
+        "required": "optional",
+        "default": 0.5
+      },
+      "repaint_start": {
+        "type": "integer",
+        "description": "Start time (seconds) for repainting a specific section.",
+        "required": "optional",
+        "default": 0
+      },
+      "repaint_end": {
+        "type": "integer",
+        "description": "End time (seconds) for repainting a specific section.",
+        "required": "optional",
+        "default": 0
+      },
+      "src_audio_path": {
+        "type": "string",
+        "description": "Path to source audio for edit/repaint/extend tasks.",
+        "required": "optional"
+      },
+      "edit_target_prompt": {
+        "type": "string",
+        "description": "Target prompt for edit task (the new prompt to transform the music towards).",
+        "required": "optional"
+      },
+      "edit_target_lyrics": {
+        "type": "string",
+        "description": "Target lyrics for edit task (the new lyrics to transform the music towards).",
+        "required": "optional",
+        "example": "[verse] The city lights shine bright tonight\n[chorus] Under the stars we dance"
+      },
+      "edit_n_min": {
+        "type": "number",
+        "description": "Minimum normalized time step for edit diffusion.",
+        "required": "optional",
+        "default": 0.0
+      },
+      "edit_n_max": {
+        "type": "number",
+        "description": "Maximum normalized time step for edit diffusion.",
+        "required": "optional",
+        "default": 1.0
+      },
+      "edit_n_avg": {
+        "type": "integer",
+        "description": "Number of prediction averages for edit diffusion.",
+        "required": "optional",
+        "default": 1
+      },
+      "lora_name_or_path": {
+        "type": "string",
+        "description": "Path or name of a LoRA adaptation to use.If what you need to generate is a Chinese rap-style song, then use it; otherwise, don't use it.set it to 'none' if you don't want to use it.",
+        "required": "optional",
+        "default": "/home/chengz/LAMs/pre_train_models/models--ACE-Step--ACE-Step-v1-chinese-rap-LoRA"
+      },
+      "device_id": {
+        "type": "integer",
+        "description": "GPU device ID to use.",
+        "required": "optional",
+        "default": 0
+      },
+      "bf16": {
+        "type": "boolean",
+        "description": "Whether to use bfloat16 precision.",
+        "required": "optional",
+        "default": true
+      },
+      "torch_compile": {
+        "type": "boolean",
+        "description": "Whether to use torch.compile for optimization.",
+        "required": "optional",
+        "default": false
+      },
+      "cpu_offload": {
+        "type": "boolean",
+        "description": "Whether to offload model to CPU when not in use.",
+        "required": "optional",
+        "default": false
+      },
+      "overlapped_decode": {
+        "type": "boolean",
+        "description": "Whether to use overlapped decoding for long audio.",
+        "required": "optional",
+        "default": false
+      },
+      "debug": {
+        "type": "boolean",
+        "description": "Whether to print debug information.",
+        "required": "optional",
+        "default": false
+      }
+    },
+    "examples": [
+      {
+        "task_description": "Generate epic orchestral music from a text prompt",
+        "Act": {
+          "tool": "ACEStepTool",
+          "arguments": {
+            "task": "text2music",
+            "prompt": "Epic orchestral music with powerful drums and emotional strings, suitable for a fantasy battle scene",
+            "audio_duration": 60.0,
+            "guidance_scale": 15.0,
+            "infer_step": 100
+          }
+        }
+      },
+      {
+        "task_description": "Generate music with lyrics about a rainy day",
+        "Act": {
+          "tool": "ACEStepTool",
+          "arguments": {
+            "prompt": "Melancholic piano ballad with soft rain sounds in the background",
+            "lyrics": "[verse] Walking through the rain, memories flooding back\n[chorus] I remember everything, the good times and the bad",
+            "audio_duration": 45.0,
+            "output_path": "output/music/rainy_day_ballad.wav"
+          }
+        }
+      },
+      {
+        "task_description": "Generate a variation of an existing music piece",
+        "Act": {
+          "tool": "ACEStepTool",
+          "arguments": {
+            "task": "retake",
+            "src_audio_path": "input/audio/original_song.wav",
+            "retake_variance": 0.3,
+            "seed": 12345
+          }
+        }
+      },
+      {
+        "task_description": "Generate Chinese rap using a specialized LoRA model",
+        "Act": {
+          "tool": "ACEStepTool",
+          "arguments": {
+            "prompt": "Modern Chinese rap with heavy beats",
+            "lyrics": "[verse] 我的生活充满了挑战\n[chorus] 但我从不放弃",
+            "lora_name_or_path": "/home/chengz/LAMs/pre_train_models/models--ACE-Step--ACE-Step-v1-chinese-rap-LoRA",
+            "audio_duration": 30.0
+          }
+        }
+      },
+      {
+        "task_description": "Generate music inspired by a reference audio",
+        "Act": {
+          "tool": "ACEStepTool",
+          "arguments": {
+            "task": "audio2audio",
+            "audio_prompt": "input/audio/reference.wav",
+            "ref_audio_strength": 0.7,
+            "audio_duration": 60.0
+          }
+        }
+      },
+      {
+        "task_description": "Edit a specific section of an existing music piece",
+        "Act": {
+          "tool": "ACEStepTool",
+          "arguments": {
+            "task": "repaint",
+            "src_audio_path": "input/audio/original_piece.wav",
+            "repaint_start": 30,
+            "repaint_end": 60,
+            "prompt": "Add a dramatic crescendo with strings",
+            "output_path": "output/music/edited_piece.wav"
+          }
+        }
+      }
+    ]
+  },
+  "MusicGenTool": {
+    "description": "Generate music using Facebook's MusicGen model based on text prompts and optional melody.",
+    "detailed_description": "MusicGenTool leverages Facebook Audiocraft's MusicGen model to generate high-quality music based on text descriptions and optional melody input. The tool can create music in various styles and genres described by natural language prompts. You can also provide a melody audio file to guide the generation process, creating music that follows the melodic structure of the reference. The maximum generation duration is limited to 30 seconds. The tool supports batch generation of multiple musical pieces at once.",
+    "parameters": {
+      "prompt": {
+        "type": "string or list",
+        "description": "Text description for the music to generate. Can be a single string or a list of strings for batch generation.",
+        "required": true,
+        "example": "80s pop track with bassy drums and synth"
+      },
+      "melody_path": {
+        "type": "string",
+        "description": "Path to a melody audio file to use as reference for the generation.",
+        "required": "optional",
+        "example": "input/melodies/piano_melody.wav"
+      },
+      "melody_sample_rate": {
+        "type": "integer",
+        "description": "Sample rate of the melody file if provided.",
+        "required": "optional",
+        "default": 44100
+      },
+      "output_path": {
+        "type": "string",
+        "description": "Custom path to save the generated audio. If not provided, a default path will be used.",
+        "required": "optional"
+      },
+      "format": {
+        "type": "string",
+        "description": "Output audio format.",
+        "required": "optional",
+        "default": "wav"
+      },
+      "duration": {
+        "type": "float",
+        "description": "Duration of generated audio in seconds (maximum 30 seconds).",
+        "required": "optional",
+        "default": 10.0
+      },
+      "guidance_scale": {
+        "type": "float",
+        "description": "Classifier-free guidance scale (higher = more adherence to prompt).",
+        "required": "optional",
+        "default": 3.0
+      },
+      "seed": {
+        "type": "integer",
+        "description": "Random seed for reproducible generation.",
+        "required": "optional"
+      },
+      "apply_loudness_normalization": {
+        "type": "boolean",
+        "description": "Whether to apply loudness normalization to the generated audio.",
+        "required": "optional",
+        "default": true
+      },
+      "model_path": {
+        "type": "string",
+        "description": "Path to the MusicGen model.",
+        "required": "optional",
+        "default": "/home/chengz/LAMs/pre_train_models/models--facebook--musicgen-melody"
+      },
+      "device": {
+        "type": "string",
+        "description": "Computing device to use ('cuda' or 'cpu').",
+        "required": "optional",
+        "default": "cuda"
+      },
+      "dtype": {
+        "type": "string",
+        "description": "Precision to use for model inference ('float16' or 'float32').",
+        "required": "optional",
+        "default": "float16"
+      },
+      "batch_size": {
+        "type": "integer",
+        "description": "Number of audio samples to generate in parallel.",
+        "required": "optional",
+        "default": 1
+      }
+    },
+    "examples": [
+      {
+        "task_description": "Generate a pop music track with a specific style",
+        "Act": {
+          "tool": "MusicGenTool",
+          "arguments": {
+            "prompt": "80s pop track with bassy drums and synth",
+            "output_path": "output/audio/80s_pop.wav",
+            "duration": 15.0
+          }
+        }
+      },
+      {
+        "task_description": "Generate music based on a reference melody",
+        "Act": {
+          "tool": "MusicGenTool",
+          "arguments": {
+            "prompt": "orchestral arrangement with dramatic strings",
+            "melody_path": "input/melodies/piano_theme.wav",
+            "melody_sample_rate": 44100,
+            "guidance_scale": 4.0
+          }
+        }
+      },
+      {
+        "task_description": "Generate multiple music tracks in different styles",
+        "Act": {
+          "tool": "MusicGenTool",
+          "arguments": {
+            "prompt": [
+              "Jazz trio with saxophone solo",
+              "Epic orchestral film score with dramatic drums"
+            ],
+            "model_path": "models/audiocraft/musicgen-medium",
+            "guidance_scale": 4.0
+          }
+        }
+      }
+    ]
+  },
+  "AudioGenTool": {
+    "description": "Generate audio (environmental sounds, effects) using Facebook's AudioGen model based on text prompts.",
+    "detailed_description": "AudioGenTool utilizes Facebook Audiocraft's AudioGen model to generate environmental sounds, audio effects, and non-musical audio based on text descriptions. This tool is ideal for creating sound effects like animals, vehicles, natural phenomena, human activities, and other non-musical audio. AudioGen specializes in generating realistic audio elements that can be used in various applications like games, videos, and multimedia projects. The maximum generation duration is limited to 30 seconds. The tool includes advanced parameters for controlling the generation quality and sampling behavior.",
+    "parameters": {
+      "prompt": {
+        "type": "string or list",
+        "description": "Text description for the audio to generate. Can be a single string or a list of strings for batch generation.",
+        "required": true,
+        "example": "dog barking in the distance with birds chirping"
+      },
+      "output_path": {
+        "type": "string",
+        "description": "Custom path to save the generated audio. If not provided, a default path will be used.",
+        "required": "optional"
+      },
+      "format": {
+        "type": "string",
+        "description": "Output audio format.",
+        "required": "optional",
+        "default": "wav"
+      },
+      "duration": {
+        "type": "float",
+        "description": "Duration of generated audio in seconds (maximum 30 seconds).",
+        "required": "optional",
+        "default": 5.0
+      },
+      "guidance_scale": {
+        "type": "float",
+        "description": "Classifier-free guidance scale (higher = more adherence to prompt).",
+        "required": "optional",
+        "default": 3.0
+      },
+      "temperature": {
+        "type": "float",
+        "description": "Temperature for sampling (higher = more variation and randomness).",
+        "required": "optional",
+        "default": 1.0
+      },
+      "top_k": {
+        "type": "integer",
+        "description": "Top-k sampling parameter. Limits sampling to the k most likely tokens.",
+        "required": "optional",
+        "default": 250
+      },
+      "top_p": {
+        "type": "float",
+        "description": "Top-p (nucleus) sampling parameter. 0.0 means disabled, uses top_k instead.",
+        "required": "optional",
+        "default": 0.0
+      },
+      "seed": {
+        "type": "integer",
+        "description": "Random seed for reproducible generation.",
+        "required": "optional"
+      },
+      "apply_loudness_normalization": {
+        "type": "boolean",
+        "description": "Whether to apply loudness normalization to the generated audio.",
+        "required": "optional",
+        "default": true
+      },
+      "model_path": {
+        "type": "string",
+        "description": "Path to the AudioGen model.",
+        "required": "optional",
+        "default": "/home/chengz/LAMs/pre_train_models/models--facebook--audiogen-medium"
+      },
+      "device": {
+        "type": "string",
+        "description": "Computing device to use ('cuda' or 'cpu').",
+        "required": "optional",
+        "default": "cuda"
+      },
+      "dtype": {
+        "type": "string",
+        "description": "Precision to use for model inference ('float16' or 'float32').",
+        "required": "optional",
+        "default": "float16"
+      },
+      "extend_stride": {
+        "type": "float",
+        "description": "Stride length in seconds when generating audio longer than the native window (for audio > 10s).",
+        "required": "optional",
+        "default": 2.0
+      },
+      "batch_size": {
+        "type": "integer",
+        "description": "Number of audio samples to generate in parallel.",
+        "required": "optional",
+        "default": 1
+      }
+    },
+    "examples": [
+      {
+        "task_description": "Generate realistic animal sounds",
+        "Act": {
+          "tool": "AudioGenTool",
+          "arguments": {
+            "prompt": "wolf howling in a forest at night",
+            "output_path": "output/audio/wolf_howl.wav",
+            "duration": 8.0
+          }
+        }
+      },
+      {
+        "task_description": "Generate multiple environmental sound effects",
+        "Act": {
+          "tool": "AudioGenTool",
+          "arguments": {
+            "prompt": [
+              "heavy rain with thunder",
+              "ocean waves crashing on a rocky shore",
+              "crackling campfire"
+            ],
+            "model_path": "models/audiocraft/audiogen-large",
+            "duration": 10.0
+          }
+        }
+      },
+      {
+        "task_description": "Generate mechanical sound effect with specific sampling settings",
+        "Act": {
+          "tool": "AudioGenTool",
+          "arguments": {
+            "prompt": "old steam locomotive starting up and moving",
+            "duration": 15.0,
+            "guidance_scale": 5.0,
+            "temperature": 0.8,
+            "top_k": 100,
+            "seed": 12345
+          }
+        }
+      }
+    ]
+  },
+  "FunASRTool": {
+    "description": "Process speech audio for recognition, analysis, and understanding using FunASR's suite of speech processing models.",
+    "detailed_description": "FunASRTool is a comprehensive speech processing tool based on the FunASR toolkit. It provides multiple speech understanding capabilities including Automatic Speech Recognition (ASR), Inverse Text Normalization (ITN), Language Identification (LID), Voice Activity Detection (VAD), Punctuation Restoration, and Timestamp Prediction. The tool supports multiple languages including Mandarin Chinese, Cantonese, English, Japanese, and Korean. It also offers both standard batch processing and streaming recognition modes for real-time applications. Each task uses specialized models optimized for that particular capability, with automatic model selection based on the task and language specified.",
+    "parameters": {
+      "audio_path": {
+        "type": "string",
+        "description": "Path to the input audio file to process.",
+        "required": true,
+        "example": "input/audio/speech_sample.wav"
+      },
+      "task": {
+        "type": "string",
+        "description": "The speech processing task to perform. Options include: 'asr' (transcription), 'asr_itn' (transcription with text normalization), 'lid' (language identification), 'vad' (voice activity detection), 'punc' (punctuation restoration), 'timestamp' (word-level timestamp prediction), and 'streaming_asr' (streaming/real-time transcription).",
+        "required": "optional",
+        "default": "asr",
+        "enum": [
+          "asr",
+          "asr_itn",
+          "lid",
+          "vad",
+          "punc",
+          "timestamp",
+          "streaming_asr"
+        ]
+      },
+      "output_path": {
+        "type": "string",
+        "description": "Custom path to save the output. If not provided, a default path will be used.",
+        "required": "optional"
+      },
+      "output_format": {
+        "type": "string",
+        "description": "Format for saving the output results.",
+        "required": "optional",
+        "default": "json",
+        "enum": [
+          "json",
+          "txt"
+        ]
+      },
+      "language": {
+        "type": "string",
+        "description": "Language of the audio content. Options include: 'zh' (Mandarin Chinese), 'yue' (Cantonese), 'en' (English), 'ja' (Japanese), 'ko' (Korean), and 'auto' (automatic detection).",
+        "required": "optional",
+        "default": "auto",
+        "enum": [
+          "zh",
+          "yue",
+          "en",
+          "ja",
+          "ko",
+          "auto"
+        ]
+      },
+      "is_streaming": {
+        "type": "boolean",
+        "description": "Whether to use streaming mode for processing the audio. Only applicable when task is 'streaming_asr'.",
+        "required": "optional",
+        "default": false
+      },
+      "chunk_size": {
+        "type": "array",
+        "description": "Configuration for streaming ASR chunk processing, in format [0, chunk_size, look_ahead]. For example, [0, 10, 5] means 600ms chunk size (10*60ms) with 300ms (5*60ms) lookahead.",
+        "required": "optional",
+        "example": [
+          0,
+          10,
+          5
+        ]
+      },
+      "encoder_chunk_look_back": {
+        "type": "integer",
+        "description": "Number of encoder chunks to look back for streaming ASR.",
+        "required": "optional",
+        "default": 4
+      },
+      "decoder_chunk_look_back": {
+        "type": "integer",
+        "description": "Number of encoder chunks to look back for streaming ASR decoder cross-attention.",
+        "required": "optional",
+        "default": 1
+      },
+      "text_file": {
+        "type": "string",
+        "description": "Path to a text file containing transcription. Required only for timestamp prediction task.",
+        "required": "optional",
+        "example": "input/text/transcript.txt"
+      },
+      "model_name": {
+        "type": "string",
+        "description": "Custom model name to override the default automatic selection.",
+        "required": "optional",
+        "example": "paraformer-zh-streaming"
+      },
+      "model_revision": {
+        "type": "string",
+        "description": "Specific model revision to use.",
+        "required": "optional"
+      },
+      "device": {
+        "type": "string",
+        "description": "Computing device to use for model inference.",
+        "required": "optional",
+        "default": "cuda"
+      }
+    },
+    "examples": [
+      {
+        "task_description": "Transcribe Chinese speech to text",
+        "Act": {
+          "tool": "FunASRTool",
+          "arguments": {
+            "audio_path": "input/audio/chinese_speech.wav",
+            "task": "asr",
+            "language": "zh"
+          }
+        }
+      },
+      {
+        "task_description": "Detect voice activity segments in an audio file",
+        "Act": {
+          "tool": "FunASRTool",
+          "arguments": {
+            "audio_path": "input/audio/meeting_recording.wav",
+            "task": "vad",
+            "output_format": "json"
+          }
+        }
+      },
+      {
+        "task_description": "Identify the language spoken in an audio clip",
+        "Act": {
+          "tool": "FunASRTool",
+          "arguments": {
+            "audio_path": "input/audio/unknown_language.wav",
+            "task": "lid"
+          }
+        }
+      },
+      {
+        "task_description": "Generate word-level timestamps for a known transcription",
+        "Act": {
+          "tool": "FunASRTool",
+          "arguments": {
+            "audio_path": "input/audio/speech.wav",
+            "task": "timestamp",
+            "text_file": "input/text/transcript.txt",
+            "language": "zh"
+          }
+        }
+      },
+      {
+        "task_description": "Process audio in streaming mode to simulate real-time transcription",
+        "Act": {
+          "tool": "FunASRTool",
+          "arguments": {
+            "audio_path": "input/audio/long_speech.wav",
+            "task": "streaming_asr",
+            "is_streaming": true,
+            "chunk_size": [
+              0,
+              10,
+              5
+            ],
+            "encoder_chunk_look_back": 4,
+            "decoder_chunk_look_back": 1
+          }
+        }
+      }
+    ]
+  },
+  "EmotionRecognitionTool": {
+    "description": "Analyze emotions in speech audio using emotion2vec models to detect emotional states and characteristics.",
+    "detailed_description": "EmotionRecognitionTool utilizes the emotion2vec_plus_large model to perform advanced speech emotion recognition. It can analyze an audio recording to determine the emotional content and characteristics of the speaker's voice. The tool supports both utterance-level analysis (analyzing the entire audio file as one unit) and second-by-second analysis for tracking emotional changes over time. It can also extract emotion embeddings that capture the multidimensional representation of emotions in the speech, which can be useful for further analysis or fine-tuning applications. Results typically include emotion categories and their confidence scores.",
+    "parameters": {
+      "audio_path": {
+        "type": "string",
+        "description": "Path to the input audio file containing speech to analyze for emotional content.",
+        "required": true,
+        "example": "input/audio/emotional_speech.wav"
+      },
+      "output_dir": {
+        "type": "string",
+        "description": "Directory to save results and embeddings. If not provided, a default timestamped directory will be created.",
+        "required": "optional"
+      },
+      "granularity": {
+        "type": "string",
+        "description": "Level of analysis - 'utterance' for entire audio as one unit or 'second' for second-by-second emotion tracking.",
+        "required": "optional",
+        "default": "utterance",
+        "enum": [
+          "utterance",
+          "second"
+        ]
+      },
+      "extract_embedding": {
+        "type": "boolean",
+        "description": "Whether to extract and save emotion embeddings along with the emotion classifications.",
+        "required": "optional",
+        "default": false
+      },
+      "model_name": {
+        "type": "string",
+        "description": "Name or path of the emotion recognition model to use.",
+        "required": "optional",
+        "default": "/home/chengz/LAMs/pre_train_models/models--emotion2vec--emotion2vec_plus_large"
+      },
+      "device": {
+        "type": "string",
+        "description": "Computing device to use for model inference.",
+        "required": "optional",
+        "default": "cuda"
+      }
+    },
+    "examples": [
+      {
+        "task_description": "Analyze the overall emotion in a speech recording",
+        "Act": {
+          "tool": "EmotionRecognitionTool",
+          "arguments": {
+            "audio_path": "input/audio/speech_sample.wav",
+            "granularity": "utterance"
+          }
+        }
+      },
+      {
+        "task_description": "Track emotional changes second-by-second in an audio clip",
+        "Act": {
+          "tool": "EmotionRecognitionTool",
+          "arguments": {
+            "audio_path": "input/audio/emotional_dialogue.wav",
+            "granularity": "second",
+            "output_dir": "output/emotion_analysis/dialogue1"
+          }
+        }
+      },
+      {
+        "task_description": "Extract emotion embeddings along with classification results",
+        "Act": {
+          "tool": "EmotionRecognitionTool",
+          "arguments": {
+            "audio_path": "input/audio/speech.wav",
+            "extract_embedding": true
+          }
+        }
+      }
+    ]
+  },
+  "YuEMusicGenerationTool": {
+    "description": "Generate complete songs from lyrics with vocals using the YuE open-source music generation foundation model.",
+    "detailed_description": "YuEMusicGenerationTool leverages YuE (乐), an open-source foundation model for full-song music generation, which transforms lyrics into complete songs with vocals. YuE generates high-quality music with synchronized vocals that match provided lyrics, creating compositions that can last several minutes and include both vocals and instrumental accompaniment.\n\nThe tool offers three primary modes of operation:\n1) CoT (Chain-of-Thought) mode: Generates music based solely on lyrics and genre tags without audio reference\n2) Dual-track ICL mode: Uses separate vocal and instrumental reference tracks to guide music generation\n3) Single-track ICL mode: Uses a single mixed/vocal/instrumental reference track for style guidance\n\nYuE supports multiple languages including English, Mandarin Chinese, Cantonese, Japanese, and Korean, with specialized models for each language. The lyrics must be properly structured with session labels (e.g., [verse], [chorus]) and appropriate spacing.\n\nGenre tagging is crucial for guiding the musical style, and should include elements like genre, instruments, mood, gender, and vocal timbre. For optimal results, each lyric segment should be limited in length.",
+    "parameters": {
+      "genre": {
+        "type": "string",
+        "description": "Space-separated tags describing the musical style, instruments, mood, gender, and timbre. Should include all five components for stable results.",
+        "required": true,
+        "example": "inspiring female uplifting pop airy vocal electronic bright vocal vocal"
+      },
+      "lyrics": {
+        "type": "string",
+        "description": "Complete lyrics divided into structured segments with labels (e.g., [verse], [chorus], [bridge]) prepended. Each session should be separated by two newline characters.",
+        "required": true,
+        "example": "[verse]\nStaring at the sunset, colors paint the sky\nThoughts of you keep swirling, can't deny\n\n[chorus]\nEvery road you take, I'll be one step behind\nEvery dream you chase, I'm reaching for the light"
+      },
+      "language": {
+        "type": "string",
+        "description": "Primary language of the lyrics. Different models are optimized for different languages.",
+        "required": "optional",
+        "default": "english",
+        "enum": [
+          "english",
+          "chinese"
+        ]
+      },
+      "reasoning_method": {
+        "type": "string",
+        "description": "Generation mode: 'cot' for Chain-of-Thought (no audio reference), or 'icl' for in-context learning with audio references.",
+        "required": "optional",
+        "default": "cot",
+        "enum": [
+          "cot",
+          "icl"
+        ]
+      },
+      "max_new_tokens": {
+        "type": "integer",
+        "description": "Maximum tokens to generate. Each segment is approximately 30 seconds with the default value.",
+        "required": "optional",
+        "default": 3000
+      },
+      "repetition_penalty": {
+        "type": "float",
+        "description": "Penalty for repetitive content in generation. Higher values (1.0-2.0) reduce repetition.",
+        "required": "optional",
+        "default": 1.1
+      },
+      "run_n_segments": {
+        "type": "integer",
+        "description": "Number of lyric segments to generate music for. Increase based on your available GPU memory if you want a full song.",
+        "required": "optional",
+        "default": 2
+      },
+      "output_file": {
+        "type": "string",
+        "description": "Custom path to save the generated audio file. If not provided, a default timestamped path will be used.",
+        "required": "optional"
+      },
+      "use_audio_prompt": {
+        "type": "boolean",
+        "description": "Whether to use an audio file as a reference for the music style (Single-track ICL mode).",
+        "required": "optional",
+        "default": false
+      },
+      "audio_prompt_path": {
+        "type": "string",
+        "description": "Path to reference audio file for Single-track ICL mode. Used when use_audio_prompt=true.",
+        "required": "conditional"
+      },
+      "prompt_start_time": {
+        "type": "float",
+        "description": "Start time in seconds to extract from the reference audio. Recommended to use the chorus section for better musicality.",
+        "required": "optional",
+        "default": 0.0
+      },
+      "prompt_end_time": {
+        "type": "float",
+        "description": "End time in seconds to extract from the reference audio. Around 30 seconds is recommended for ICL modes.",
+        "required": "optional",
+        "default": 30.0
+      },
+      "use_dual_tracks_prompt": {
+        "type": "boolean",
+        "description": "Whether to use separate vocal and instrumental tracks as references (Dual-track ICL mode).",
+        "required": "optional",
+        "default": false
+      },
+      "vocal_track_prompt_path": {
+        "type": "string",
+        "description": "Path to vocal reference track for dual-track ICL mode. Used when use_dual_tracks_prompt=true.",
+        "required": "conditional"
+      },
+      "instrumental_track_prompt_path": {
+        "type": "string",
+        "description": "Path to instrumental reference track for dual-track ICL mode. Used when use_dual_tracks_prompt=true.",
+        "required": "conditional"
+      },
+      "keep_intermediate": {
+        "type": "boolean",
+        "description": "Whether to keep intermediate files generated during the process.",
+        "required": "optional",
+        "default": false
+      },
+      "disable_offload_model": {
+        "type": "boolean",
+        "description": "Whether to disable model offloading to CPU. Enabling this uses more GPU memory but may be faster.",
+        "required": "optional",
+        "default": false
+      },
+      "cuda_idx": {
+        "type": "integer",
+        "description": "CUDA device index to use for generation.",
+        "required": "optional",
+        "default": 0
+      },
+      "seed": {
+        "type": "integer",
+        "description": "Random seed for reproducible generation.",
+        "required": "optional",
+        "default": 42
+      },
+      "rescale": {
+        "type": "boolean",
+        "description": "Whether to rescale output audio to avoid clipping.",
+        "required": "optional",
+        "default": true
+      }
+    },
+    "examples": [
+      {
+        "task_description": "Generate a pop song with English lyrics",
+        "Act": {
+          "tool": "YuEMusicGenerationTool",
+          "arguments": {
+            "genre": "inspirational female pop electronic piano bright melody",
+            "lyrics": "[verse]\nMorning light breaks through my window\nA brand new day begins to show\n\n[chorus]\nI'm ready for whatever comes my way\nGonna face the world and seize the day",
+            "language": "english",
+            "reasoning_method": "cot",
+            "run_n_segments": 2
+          }
+        }
+      },
+      {
+        "task_description": "Generate a Chinese song with audio reference",
+        "Act": {
+          "tool": "YuEMusicGenerationTool",
+          "arguments": {
+            "genre": "energetic male rock ballad electric-guitar drums powerful emotional",
+            "lyrics": "[verse]\n站在高山之巅\n俯瞰这世界\n\n[chorus]\n让风吹过我的脸\n感受自由无边",
+            "language": "chinese",
+            "use_audio_prompt": true,
+            "audio_prompt_path": "input/references/rock_sample.mp3",
+            "prompt_start_time": 30.0,
+            "prompt_end_time": 60.0,
+            "output_file": "output/songs/chinese_rock.mp3"
+          }
+        }
+      },
+      {
+        "task_description": "Generate a song with separate vocal and instrumental references",
+        "Act": {
+          "tool": "YuEMusicGenerationTool",
+          "arguments": {
+            "genre": "emotional female ballad piano strings intimate vulnerable",
+            "lyrics": "[verse]\nTears falling like rain\nMemories bring back the pain\n\n[chorus]\nBut I'll rise again\nStronger than I've ever been",
+            "use_dual_tracks_prompt": true,
+            "vocal_track_prompt_path": "input/references/female_vocal.wav",
+            "instrumental_track_prompt_path": "input/references/piano_backing.wav",
+            "reasoning_method": "icl"
+          }
+        }
+      }
+    ]
+  },
+  "YuEETool": {
+    "description": "Generate complete songs from lyrics with vocals using the YuE-E accelerated music generation model.",
+    "detailed_description": "YuEETool is a faster, optimized version of YuEMusicGenerationTool that leverages YuE-E, an enhanced version of the YuE (乐) open-source music generation foundation model. It transforms lyrics into complete songs with vocals and offers the same functionality as YuEMusicGenerationTool but with significantly faster inference times, making it the preferred choice for music generation tasks.\n\nThe tool offers three primary modes of operation:\n1) CoT (Chain-of-Thought) mode: Generates music based solely on lyrics and genre tags without audio reference\n2) Dual-track ICL mode: Uses separate vocal and instrumental reference tracks to guide music generation\n3) Single-track ICL mode: Uses a single mixed/vocal/instrumental reference track for style guidance\n\nYuE-E supports multiple languages including English and Mandarin Chinese, with specialized models for each language. The lyrics must be properly structured with session labels (e.g., [verse], [chorus]) and appropriate spacing.\n\nGenre tagging is crucial for guiding the musical style, and should include elements like genre, instruments, mood, gender, and vocal timbre. For optimal results, each lyric segment should be limited in length.\n\nThe tool returns three audio files: the complete mixed version, the instrumental track only (itrack), and the vocal track only (vtrack). These are available in the return value as 'mixed_output_path', 'itrack_output_path', and 'vtrack_output_path' respectively.",
+    "parameters": {
+      "genre": {
+        "type": "string",
+        "description": "Space-separated tags describing the musical style, instruments, mood, gender, and timbre. Should include all five components for stable results.",
+        "required": true,
+        "example": "inspiring female uplifting pop airy vocal electronic bright vocal vocal"
+      },
+      "lyrics": {
+        "type": "string",
+        "description": "Complete lyrics divided into structured segments with labels (e.g., [verse], [chorus], [bridge]) prepended. Each session should be separated by two newline characters.",
+        "required": true,
+        "example": "[verse]\nStaring at the sunset, colors paint the sky\nThoughts of you keep swirling, can't deny\n\n[chorus]\nEvery road you take, I'll be one step behind\nEvery dream you chase, I'm reaching for the light"
+      },
+      "language": {
+        "type": "string",
+        "description": "Primary language of the lyrics. Different models are optimized for different languages.",
+        "required": "optional",
+        "default": "english",
+        "enum": [
+          "english",
+          "chinese"
+        ]
+      },
+      "reasoning_method": {
+        "type": "string",
+        "description": "Generation mode: 'cot' for Chain-of-Thought (no audio reference), or 'icl' for in-context learning with audio references.",
+        "required": "optional",
+        "default": "cot",
+        "enum": [
+          "cot",
+          "icl"
+        ]
+      },
+      "max_new_tokens": {
+        "type": "integer",
+        "description": "Maximum tokens to generate. Each segment is approximately 30 seconds with the default value.",
+        "required": "optional",
+        "default": 3000
+      },
+      "repetition_penalty": {
+        "type": "float",
+        "description": "Penalty for repetitive content in generation. Higher values (1.0-2.0) reduce repetition.",
+        "required": "optional",
+        "default": 1.1
+      },
+      "run_n_segments": {
+        "type": "integer",
+        "description": "Number of lyric segments to generate music for. Increase based on your available GPU memory if you want a full song.",
+        "required": "optional",
+        "default": 2
+      },
+      "output_file": {
+        "type": "string",
+        "description": "Custom path to save the generated audio file. If not provided, a default timestamped path will be used.",
+        "required": "optional"
+      },
+      "stage1_use_exl2": {
+        "type": "boolean",
+        "description": "Use exllamav2 to load and run stage 1 model for faster inference.",
+        "required": "optional",
+        "default": true
+      },
+      "stage2_use_exl2": {
+        "type": "boolean",
+        "description": "Use exllamav2 to load and run stage 2 model for faster inference.",
+        "required": "optional",
+        "default": true
+      },
+      "stage2_batch_size": {
+        "type": "integer",
+        "description": "Non-exl2 batch size used in Stage 2 inference. Higher values increase memory usage but may accelerate generation.",
+        "required": "optional",
+        "default": 4
+      },
+      "stage1_cache_size": {
+        "type": "integer",
+        "description": "Cache size used in Stage 1 inference. Larger sizes improve speed at the cost of memory.",
+        "required": "optional",
+        "default": 16384
+      },
+      "stage2_cache_size": {
+        "type": "integer",
+        "description": "Exl2 cache size used in Stage 2 inference. Larger sizes improve speed at the cost of memory.",
+        "required": "optional",
+        "default": 32768
+      },
+      "stage1_cache_mode": {
+        "type": "string",
+        "description": "Cache mode for Stage 1 (FP16, Q8, Q6, Q4). Lower precision modes use less memory but may affect quality.",
+        "required": "optional",
+        "default": "FP16"
+      },
+      "stage2_cache_mode": {
+        "type": "string",
+        "description": "Cache mode for Stage 2 (FP16, Q8, Q6, Q4). Lower precision modes use less memory but may affect quality.",
+        "required": "optional",
+        "default": "FP16"
+      },
+      "stage1_no_guidance": {
+        "type": "boolean",
+        "description": "Disable classifier-free guidance for stage 1. May increase generation speed at the cost of quality.",
+        "required": "optional",
+        "default": false
+      },
+      "use_audio_prompt": {
+        "type": "boolean",
+        "description": "Whether to use an audio file as a reference for the music style (Single-track ICL mode).",
+        "required": "optional",
+        "default": false
+      },
+      "audio_prompt_path": {
+        "type": "string",
+        "description": "Path to reference audio file for Single-track ICL mode. Used when use_audio_prompt=true.",
+        "required": "conditional"
+      },
+      "prompt_start_time": {
+        "type": "float",
+        "description": "Start time in seconds to extract from the reference audio. Recommended to use the chorus section for better musicality.",
+        "required": "optional",
+        "default": 0.0
+      },
+      "prompt_end_time": {
+        "type": "float",
+        "description": "End time in seconds to extract from the reference audio. Around 30 seconds is recommended for ICL modes.",
+        "required": "optional",
+        "default": 30.0
+      },
+      "use_dual_tracks_prompt": {
+        "type": "boolean",
+        "description": "Whether to use separate vocal and instrumental tracks as references (Dual-track ICL mode).",
+        "required": "optional",
+        "default": false
+      },
+      "vocal_track_prompt_path": {
+        "type": "string",
+        "description": "Path to vocal reference track for dual-track ICL mode. Used when use_dual_tracks_prompt=true.",
+        "required": "conditional"
+      },
+      "instrumental_track_prompt_path": {
+        "type": "string",
+        "description": "Path to instrumental reference track for dual-track ICL mode. Used when use_dual_tracks_prompt=true.",
+        "required": "conditional"
+      },
+      "keep_intermediate": {
+        "type": "boolean",
+        "description": "Whether to keep intermediate files generated during the process.",
+        "required": "optional",
+        "default": false
+      },
+      "disable_offload_model": {
+        "type": "boolean",
+        "description": "Whether to disable model offloading to CPU. Enabling this uses more GPU memory but may be faster.",
+        "required": "optional",
+        "default": false
+      },
+      "cuda_idx": {
+        "type": "integer",
+        "description": "CUDA device index to use for generation.",
+        "required": "optional",
+        "default": 0
+      },
+      "seed": {
+        "type": "integer",
+        "description": "Random seed for reproducible generation. If not provided, a random seed will be used.",
+        "required": "optional"
+      },
+      "rescale": {
+        "type": "boolean",
+        "description": "Whether to rescale output audio to avoid clipping.",
+        "required": "optional",
+        "default": true
+      }
+    },
+    "examples": [
+      {
+        "task_description": "Generate a pop song with English lyrics using the faster YuE-E model",
+        "Act": {
+          "tool": "YuEETool",
+          "arguments": {
+            "genre": "inspirational female pop electronic piano bright melody",
+            "lyrics": "[verse]\nMorning light breaks through my window\nA brand new day begins to show\n\n[chorus]\nI'm ready for whatever comes my way\nGonna face the world and seize the day",
+            "language": "english",
+            "reasoning_method": "cot",
+            "run_n_segments": 2
+          }
+        }
+      },
+      {
+        "task_description": "Generate a Chinese song with audio reference using the accelerated model",
+        "Act": {
+          "tool": "YuEETool",
+          "arguments": {
+            "genre": "energetic male rock ballad electric-guitar drums powerful emotional",
+            "lyrics": "[verse]\n站在高山之巅\n俯瞰这世界\n\n[chorus]\n让风吹过我的脸\n感受自由无边",
+            "language": "chinese",
+            "use_audio_prompt": true,
+            "audio_prompt_path": "input/references/rock_sample.mp3",
+            "prompt_start_time": 30.0,
+            "prompt_end_time": 60.0,
+            "output_file": "output/songs/chinese_rock.mp3"
+          }
+        }
+      },
+      {
+        "task_description": "Generate a song with separate vocal and instrumental references using optimized settings",
+        "Act": {
+          "tool": "YuEETool",
+          "arguments": {
+            "genre": "emotional female ballad piano strings intimate vulnerable",
+            "lyrics": "[verse]\nTears falling like rain\nMemories bring back the pain\n\n[chorus]\nBut I'll rise again\nStronger than I've ever been",
+            "use_dual_tracks_prompt": true,
+            "vocal_track_prompt_path": "input/references/female_vocal.wav",
+            "instrumental_track_prompt_path": "input/references/piano_backing.wav",
+            "reasoning_method": "icl",
+            "stage1_cache_mode": "Q8",
+            "stage2_cache_mode": "Q8"
+          }
+        }
+      }
+    ]
+  },
+  "VoiceCraftTool": {
+    "description": "Edit speech audio by substituting, inserting, or deleting words while preserving the original voice.If the original text corresponding to the speech to be edited is not provided, you need to first obtain this original text using a speech recognition tool.",
+    "detailed_description": "VoiceCraftTool enables zero-shot speech editing in English, allowing you to naturally modify the content of speech recordings while maintaining the speaker's voice and style. The tool supports three types of edits: substitution (replacing words), insertion (adding new words), and deletion (removing words). It provides fine-grained control over the editing process through various parameters.",
+    "parameters": {
+      "audio_path": {
+        "type": "string",
+        "description": "Path to the input audio file to edit (WAV format recommended)",
+        "required": true
+      },
+      "edit_type": {
+        "type": "string",
+        "description": "Type of edit to perform: 'substitution' (replace words), 'insertion' (add words), or 'deletion' (remove words)",
+        "required": true,
+        "enum": ["substitution", "insertion", "deletion"]
+      },
+      "original_transcript": {
+        "type": "string",
+        "description": "Transcript of the original audio",
+        "required": true
+      },
+      "target_transcript": {
+        "type": "string",
+        "description": "Desired transcript after editing. Must match the original except for the parts being edited",
+        "required": true
+      },
+      "left_margin": {
+        "type": "float",
+        "description": "Additional time margin (in seconds) before the edited segment,Margin to the right of the editing segment,Default: 0.08",
+        "required": false,
+        "default": 0.08
+      },
+      "right_margin": {
+        "type": "float",
+        "description": "Additional time margin (in seconds) after the edited segment,Margin to the right of the editing segment,Default: 0.08",
+        "required": false,
+        "default": 0.08
+      },
+      "temperature": {
+        "type": "float",
+        "description": "Controls randomness in generation (higher = more random)",
+        "required": false,
+        "default": 1.0
+      },
+      "top_k": {
+        "type": "integer",
+        "description": "Number of highest probability vocabulary tokens to keep for sampling. -1 means no top-k filtering",
+        "required": false,
+        "default": -1
+      },
+      "top_p": {
+        "type": "float",
+        "description": "Nucleus sampling parameter (higher = more diversity)",
+        "required": false,
+        "default": 0.8
+      },
+      "stop_repetition": {
+        "type": "integer",
+        "description": "Controls repetition. When the number of consecutive repetition of a token is bigger than this, stop it. -1 for speech editing. -1 means do not adjust prob of silence tokens. ",
+        "required": false,
+        "default": -1
+      },
+      "kvcache": {
+        "type": "boolean",
+        "description": "Whether to use key-value caching for faster inference",
+        "required": false,
+        "default": true
+      },
+      "silence_tokens": {
+        "type": "string",
+        "description": "List of token IDs that represent silence, in string format",
+        "required": false,
+        "default": "[1388,1898,131]"
+      },
+      "output_path": {
+        "type": "string",
+        "description": "Custom path to save the edited audio file (WAV format)",
+        "required": false
+      },
+      "device": {
+        "type": "integer",
+        "description": "CUDA device ID to use for inference,CUDA device ID (just need ID number eg. 0, 1, 2, etc.) to use for inference.",
+        "required": false,
+        "default": 0
+      },
+      "seed": {
+        "type": "integer",
+        "description": "Random seed for reproducibility",
+        "required": false,
+        "default": 42
+      }
+    },
+    "examples": [
+      {
+        "task_description": "Replace words in a speech recording",
+        "Act": {
+          "tool": "VoiceCraftTool",
+          "arguments": {
+            "audio_path": "input/audio/speech_sample.wav",
+            "edit_type": "substitution",
+            "original_transcript": "I need to go to the store today.",
+            "target_transcript": "I need to go to the mall today."
+          }
+        }
+      },
+      {
+        "task_description": "Insert new words into a speech recording",
+        "Act": {
+          "tool": "VoiceCraftTool",
+          "arguments": {
+            "audio_path": "input/audio/business_presentation.wav",
+            "edit_type": "insertion",
+            "original_transcript": "The company revenue increased last quarter.",
+            "target_transcript": "The company revenue significantly increased last quarter."
+          }
+        }
+      },
+      {
+        "task_description": "Remove words from a speech recording",
+        "Act": {
+          "tool": "VoiceCraftTool",
+          "arguments": {
+            "audio_path": "input/audio/podcast_intro.wav",
+            "edit_type": "deletion",
+            "original_transcript": "Welcome to our brand new podcast.",
+            "target_transcript": "Welcome to our podcast.",
+            "temperature": 0.8,
+            "top_p": 0.9
+          }
+        }
+      }
+    ]
+  },
+  "SparkTTSTool": {
+    "description": "Generate highly natural speech with zero-shot voice cloning and controllable synthesis features using Spark-TTS.",
+    "detailed_description": "SparkTTSTool leverages the Spark-TTS model, a state-of-the-art text-to-speech system built on large language model (LLM) architecture. It offers exceptional voice quality with zero-shot voice cloning (no training required for new voices) and voice parameter control options that can create voices with specific characteristics.\n\nThe tool operates in two primary modes:\n1) Voice cloning mode: Copies voice characteristics from a reference audio sample\n2) Controllable TTS mode: Creates voices with specified gender, pitch, and speed settings\n\nVoice control is achieved through three main parameters:\n- Gender: male or female\n- Pitch: very_low, low, moderate, high, or very_high\n- Speed: very_low, low, moderate, high, or very_high\n\nSpark-TTS excels at both Chinese and English synthesis with seamless code-switching capabilities, making it ideal for bilingual applications.",
+    "parameters": {
+      "text": {
+        "type": "string",
+        "description": "The text to convert to speech. Supports both Chinese and English, including mixed-language text.",
+        "required": true,
+        "example": "这是一个演示，demonstrating bilingual text-to-speech capabilities."
+      },
+      "prompt_text": {
+        "type": "string",
+        "description": "Transcript of the reference audio for voice cloning. Required when using prompt_speech_path.",
+        "required": "conditional",
+        "example": "Hello, this is a sample voice."
+      },
+      "prompt_speech_path": {
+        "type": "string",
+        "description": "Path to the reference audio file for voice cloning. The model will clone this voice for the synthesized speech.",
+        "required": "conditional",
+        "example": "input/prompts/reference_voice.wav"
+      },
+      "gender": {
+        "type": "string",
+        "description": "Gender of the synthesized voice. Used for controllable TTS mode.",
+        "required": "optional",
+        "enum": [
+          "male",
+          "female"
+        ],
+        "example": "female"
+      },
+      "pitch": {
+        "type": "string",
+        "description": "Pitch level of the synthesized voice. Used for controllable TTS mode.",
+        "required": "optional",
+        "enum": [
+          "very_low",
+          "low",
+          "moderate",
+          "high",
+          "very_high"
+        ],
+        "example": "high"
+      },
+      "speed": {
+        "type": "string",
+        "description": "Speaking rate of the synthesized voice. Used for controllable TTS mode.",
+        "required": "optional",
+        "enum": [
+          "very_low",
+          "low",
+          "moderate",
+          "high",
+          "very_high"
+        ],
+        "example": "moderate"
+      },
+      "output_path": {
+        "type": "string",
+        "description": "Custom path to save the generated audio (WAV format)",
+        "required": "optional",
+        "default": "/home/chengz/LAMs/mcp_chatbot-audio/output/audio"
+      },
+      "device": {
+        "type": "integer",
+        "description": "CUDA device ID to use for inference (0, 1, etc.).",
+        "required": "optional",
+        "default": 0
+      },
+      "verbose": {
+        "type": "boolean",
+        "description": "Whether to print detailed information during processing.",
+        "required": "optional",
+        "default": false
+      }
+    },
+    "examples": [
+      {
+        "task_description": "Clone a voice from a reference audio sample",
+        "Act": {
+          "tool": "SparkTTSTool",
+          "arguments": {
+            "text": "I'm speaking with a cloned voice that matches the reference audio.",
+            "prompt_text": "Hello, this is my voice sample for cloning.",
+            "prompt_speech_path": "input/prompts/user_voice_sample.wav"
+          }
+        }
+      },
+      {
+        "task_description": "Generate bilingual speech with voice cloning",
+        "Act": {
+          "tool": "SparkTTSTool",
+          "arguments": {
+            "text": "这是中英文混合的例子，demonstrating seamless code-switching capabilities.",
+            "prompt_text": "This is a reference voice for demonstration.",
+            "prompt_speech_path": "input/prompts/speaker_sample.wav",
+            "output_path": "output/bilingual_speech.wav"
+          }
+        }
+      },
+      {
+        "task_description": "Create a speech with specific voice characteristics",
+        "Act": {
+          "tool": "SparkTTSTool",
+          "arguments": {
+            "text": "This speech has controlled voice characteristics without requiring a reference voice.",
+            "gender": "female",
+            "pitch": "high",
+            "speed": "moderate"
+          }
+        }
+      },
+      {
+        "task_description": "Generate male voice with low pitch and slow speed",
+        "Act": {
+          "tool": "SparkTTSTool",
+          "arguments": {
+            "text": "This is an example of speech with specific voice characteristics.",
+            "gender": "male",
+            "pitch": "low",
+            "speed": "very_low"
+          }
+        }
+      },
+      {
+        "task_description": "Voice cloning with custom output path",
+        "Act": {
+          "tool": "SparkTTSTool",
+          "arguments": {
+            "text": "This sample uses voice cloning with a custom output path.",
+            "prompt_text": "Reference voice for cloning.",
+            "prompt_speech_path": "input/prompts/reference.wav",
+            "output_path": "output/custom_output.wav"
+          }
+        }
+      }
+    ]
+  },
+  "AudioSepTool": {
+    "description": "Separate specific sounds from audio files using textual descriptions with the AudioSep model.",
+    "detailed_description": "AudioSepTool is an implementation of the 'Separate Anything You Describe' framework (AudioSep), a foundation model for open-domain sound separation based on natural language queries. It can extract specific sounds from mixed audio by using text descriptions of the target sound. The model demonstrates strong performance in separating audio events, musical instruments, speech, and other sound sources. AudioSep processes audio at 32 kHz sampling rate and supports chunk-based processing for memory efficiency with longer audio files.",
+    "parameters": {
+      "audio_file": {
+        "type": "string",
+        "description": "Path to the input audio file to process. The file will be resampled to 32 kHz internally.",
+        "required": true,
+        "example": "input/audio/mixed_sounds.wav"
+      },
+      "text": {
+        "type": "string",
+        "description": "Textual description of the sound you want to separate from the audio. Be specific about the sound characteristics.",
+        "required": true,
+        "example": "dog barking"
+      },
+      "output_file": {
+        "type": "string",
+        "description": "Custom path to save the separated audio file (WAV format). If not provided, a default path will be used.",
+        "required": "optional",
+        "example": "output/audio/separated_dog_barking.wav"
+      },
+      "use_chunk": {
+        "type": "boolean",
+        "description": "Whether to use chunked processing for memory efficiency. Recommended for longer audio files.",
+        "required": "optional",
+        "default": false
+      },
+      "device": {
+        "type": "string",
+        "description": "Computing device to use for inference ('cuda' or 'cpu').",
+        "required": "optional",
+        "default": "cuda"
+      }
+    },
+    "examples": [
+      {
+        "task_description": "Separate a dog barking from an audio file",
+        "Act": {
+          "tool": "AudioSepTool",
+          "arguments": {
+            "audio_file": "input/audio/backyard_sounds.wav",
+            "text": "dog barking",
+            "output_file": "output/audio/separated_dog_barking.wav"
+          }
+        }
+      },
+      {
+        "task_description": "Extract piano sounds from a music recording",
+        "Act": {
+          "tool": "AudioSepTool",
+          "arguments": {
+            "audio_file": "input/audio/band_playing.wav",
+            "text": "piano melody",
+            "output_file": "output/audio/separated_piano.wav"
+          }
+        }
+      },
+      {
+        "task_description": "Separate speech from a noisy environment",
+        "Act": {
+          "tool": "AudioSepTool",
+          "arguments": {
+            "audio_file": "input/audio/noisy_interview.wav",
+            "text": "human speaking, speech, voice",
+            "use_chunk": true,
+            "output_file": "output/audio/separated_speech.wav"
+          }
+        }
+      }
+    ]
+  },
+  "AudioSeparatorTool": {
+    "description": "Separate audio into multiple stems such as vocals, instrumental, drums, bass, guitar, piano, and other.",
+    "detailed_description": "AudioSeparatorTool separates audio tracks into their component stems using pre-trained neural networks. It supports two primary models: UVR-MDX-NET-Inst_HQ_3.onnx for basic vocals/instrumental separation, and htdemucs_6s.yaml for detailed multi-stem separation including vocals, drums, bass, guitar, piano, and other elements. The tool automatically names output files based on the model used, incorporating timestamps for easy identification. For UVR models, it produces 'vocals_[timestamp]_output' and 'instrumental_[timestamp]_output' files, while for htdemucs models, it produces timestamped stem files for all six stems. The tool tracks processing time and reports it in the output.",
+    "parameters": {
+      "audio_path": {
+        "type": "string",
+        "description": "Path to the input audio file to process (WAV, MP3, FLAC, etc.)",
+        "required": true
+      },
+      "model_name": {
+        "type": "string",
+        "description": "Model to use for separation: UVR-MDX-NET-Inst_HQ_3.onnx (vocals/instrumental) or htdemucs_6s.yaml (multi-stem)",
+        "required": "optional",
+        "default": "UVR-MDX-NET-Inst_HQ_3.onnx"
+      },
+      "output_dir": {
+        "type": "string",
+        "description": "Directory to save separated stems. If not provided, a default directory will be used",
+        "required": "optional"
+      },
+      "output_format": {
+        "type": "string",
+        "description": "Format of output audio files (WAV, MP3, FLAC, etc.)",
+        "required": "optional",
+        "default": "WAV"
+      }
+    },
+    "examples": [
+      {
+        "task_description": "Basic separation into vocals and instrumental with timestamped filenames",
+        "Act": {
+          "tool": "AudioSeparatorTool",
+          "arguments": {
+            "audio_path": "input/audio/my_song.mp3"
+          }
+        }
+      },
+      {
+        "task_description": "Multi-stem separation with 6 stems and timestamped filenames",
+        "Act": {
+          "tool": "AudioSeparatorTool",
+          "arguments": {
+            "audio_path": "input/audio/band_recording.wav",
+            "model_name": "htdemucs_6s.yaml"
+          }
+        }
+      },
+      {
+        "task_description": "Separate with custom output format",
+        "Act": {
+          "tool": "AudioSeparatorTool",
+          "arguments": {
+            "audio_path": "input/audio/song.flac",
+            "output_format": "MP3"
+          }
+        }
+      }
+    ]
+  },
+  "Qwen2AudioTool": {
+    "description": "Process audio with Qwen2-Audio model for comprehensive audio understanding, analysis, and speech tasks.",
+    "detailed_description": "A powerful audio processing tool based on the Qwen2-Audio large speech language model. It supports a wide range of audio understanding tasks covering speech, music, and general audio analysis according to the AIR-Bench benchmark. The model excels at detailed audio analysis through natural language instructions, enabling applications from speech transcription and translation to emotion recognition, speaker analysis, music classification, and more.",
+    "parameters": {
+      "task": {
+        "type": "string",
+        "description": "Task to perform, including basic tasks (transcribe, chat, evaluate) and specialized AIR-Bench tasks for speech and audio analysis",
+        "required": true,
+        "choices": [
+          "transcribe", "chat", "evaluate", 
+          "speech_grounding", "language_identification", "speaker_gender", 
+          "emotion_recognition", "speaker_age", "speech_entity", 
+          "intent_classification", "speaker_verification", "synthesized_voice_detection",
+          "audio_grounding", "vocal_classification", "acoustic_scene", 
+          "sound_qa", "music_instruments", "music_genre", 
+          "music_note_pitch", "music_note_velocity", "music_qa", "music_emotion"
+        ]
+      },
+      "audio_path": {
+        "type": "string",
+        "description": "Path to input audio file",
+        "required": true
+      },
+      "text": {
+        "type": "string",
+        "description": "Additional text input or context for the task",
+        "required": false
+      },
+      "reference_audio_path": {
+        "type": "string",
+        "description": "Path to reference audio for comparison tasks (e.g., speaker verification)",
+        "required": false
+      },
+      "prompt": {
+        "type": "string",
+        "description": "Text prompt to guide the model's response or specify task details",
+        "required": false
+      },
+      "evaluation_criteria": {
+        "type": "string",
+        "description": "Custom criteria for audio evaluation",
+        "required": false
+      },
+      "evaluation_prompt_name": {
+        "type": "string",
+        "description": "Name of predefined evaluation prompt to use",
+        "required": false
+      },
+      "target_language": {
+        "type": "string",
+        "description": "Target language for translation tasks",
+        "required": false
+      },
+      "temperature": {
+        "type": "number",
+        "description": "Controls randomness in generation (higher = more random)",
+        "required": false,
+        "default": 0.7
+      },
+      "top_p": {
+        "type": "number",
+        "description": "Nucleus sampling parameter",
+        "required": false,
+        "default": 0.9
+      },
+      "max_new_tokens": {
+        "type": "integer",
+        "description": "Maximum number of tokens to generate in the response",
+        "required": false,
+        "default": 2048
+      },
+      "do_sample": {
+        "type": "boolean",
+        "description": "Whether to use sampling in generation",
+        "required": false,
+        "default": true
+      },
+      "output_path": {
+        "type": "string",
+        "description": "Custom path to save output",
+        "required": false
+      },
+      "output_format": {
+        "type": "string",
+        "description": "Format for saving output (json or txt)",
+        "required": false,
+        "default": "json",
+        "choices": ["json", "txt"]
+      },
+      "device": {
+        "type": "string",
+        "description": "Computing device for inference (cuda or cpu)",
+        "required": false,
+        "default": "cuda"
+      }
+    },
+    "examples": [
+      {
+        "task_description": "Transcribe speech to text",
+        "Act": {
+          "tool": "Qwen2AudioTool",
+          "arguments": {
+            "task": "transcribe",
+            "audio_path": "input/speech.wav"
+          }
+        }
+      },
+      {
+        "task_description": "Analyze the emotions in speech",
+        "Act": {
+          "tool": "Qwen2AudioTool",
+          "arguments": {
+            "task": "emotion_recognition",
+            "audio_path": "input/speech.wav"
+          }
+        }
+      },
+      {
+        "task_description": "Identify the speaker's gender",
+        "Act": {
+          "tool": "Qwen2AudioTool",
+          "arguments": {
+            "task": "speaker_gender",
+            "audio_path": "input/speech.wav"
+          }
+        }
+      },
+      {
+        "task_description": "Analyze the acoustic scene",
+        "Act": {
+          "tool": "Qwen2AudioTool",
+          "arguments": {
+            "task": "acoustic_scene",
+            "audio_path": "input/ambience.wav"
+          }
+        }
+      },
+      {
+        "task_description": "Classify musical instruments",
+        "Act": {
+          "tool": "Qwen2AudioTool",
+          "arguments": {
+            "task": "music_instruments",
+            "audio_path": "input/music.wav"
+          }
+        }
+      },
+      {
+        "task_description": "Verify if two speech samples are from the same speaker",
+        "Act": {
+          "tool": "Qwen2AudioTool",
+          "arguments": {
+            "task": "speaker_verification",
+            "audio_path": "input/speech1.wav",
+            "reference_audio_path": "input/speech2.wav"
+          }
+        }
+      },
+      {
+        "task_description": "Open-ended chat about audio content",
+        "Act": {
+          "tool": "Qwen2AudioTool",
+          "arguments": {
+            "task": "chat",
+            "audio_path": "input/audio/group_discussion.wav",
+            "prompt": "Identify all speakers in this recording, analyze the conversation dynamics including who speaks most frequently, who tends to interrupt others, and the overall tone of the discussion. Summarize the key points made by each participant."
+          }
+        }
+      }
+    ]
+  },
+  "TIGERSpeechSeparationTool": {
+    "description": "Separate speech from audio mixtures.",
+    "detailed_description": "TIGERSpeechSeparationTool separates mixed speech signals into individual speaker tracks. The tool processes input audio, resampling it to the required 16kHz sample rate if necessary, and outputs individual WAV files for each detected speaker.",
+    "parameters": {
+      "audio_path": {
+        "type": "string",
+        "description": "Path to the input audio file containing mixed speech to separate.",
+        "required": true,
+        "example": "input/audio/mixed_speech.wav"
+      },
+      "output_dir": {
+        "type": "string",
+        "description": "Directory to save the separated speech files. Each speaker will be saved as a separate WAV file.",
+        "required": "optional",
+        "example": "output/separated_speakers"
+      }
+    },
+    "examples": [
+      {
+        "task_description": "Separate speech from a recording with multiple speakers",
+        "Act": {
+          "tool": "TIGERSpeechSeparationTool",
+          "arguments": {
+            "audio_path": "input/audio/conversation.wav"
+          }
+        }
+      }
+    ]
+  },
+  "Hallo2Tool": {
+    "description": "Generate audio-driven portrait animations from a single image and audio input.",
+    "detailed_description": "Hallo2Tool transforms a single portrait image into a realistic talking video synchronized with any audio input. It uses state-of-the-art technology to create natural head movements, facial expressions, and accurate lip synchronization. The system can process long-duration audio (up to one hour) and maintain high quality throughout. The generated animations preserve the identity and style of the source portrait while creating realistic movements. It's ideal for creating virtual presenters, dubbing videos into different languages, or bringing still portraits to life for education, storytelling, or entertainment purposes.",
+    "parameters": {
+      "source_image": {
+        "type": "string",
+        "description": "Path to the source portrait image. The portrait should face forward and have the face as the main focus.",
+        "required": true
+      },
+      "driving_audio": {
+        "type": "string",
+        "description": "Path to the audio file that will drive the animation. Supported formats: WAV.",
+        "required": true
+      },
+      "pose_weight": {
+        "type": "number",
+        "description": "Weight for head pose motion. Higher values increase head movement (0-1).",
+        "required": "optional",
+        "default": 0.3
+      },
+      "face_weight": {
+        "type": "number",
+        "description": "Weight for facial expressions. Higher values enhance facial expressions (0-1).",
+        "required": "optional",
+        "default": 0.7
+      },
+      "lip_weight": {
+        "type": "number",
+        "description": "Weight for lip sync accuracy. Higher values improve lip synchronization (0-1).",
+        "required": "optional",
+        "default": 1.0
+      },
+      "face_expand_ratio": {
+        "type": "number",
+        "description": "Expand ratio for the detected face region. Higher values include more context around the face.",
+        "required": "optional",
+        "default": 1.5
+      },
+      "output_path": {
+        "type": "string",
+        "description": "Custom path to save the generated video file (MP4 format).",
+        "required": "optional"
+      },
+      "config_path": {
+        "type": "string",
+        "description": "Path to a custom configuration file. If not provided, default config will be used.",
+        "required": "false",
+        "default": "/home/chengz/LAMs/mcp_chatbot-audio/models/hallo2/configs/inference/long.yaml"
+
+      },
+      "device": {
+        "type": "string",
+        "description": "Computing device to use for inference ('cuda' or 'cpu').",
+        "required": "optional",
+        "enum": [
+          "cuda",
+          "cpu"
+        ]
+      }
+    },
+    "examples": [
+      {
+        "task_description": "Generate a basic portrait animation with default settings",
+        "Act": {
+          "tool": "Hallo2Tool",
+          "arguments": {
+            "source_image": "input/portraits/person.jpg",
+            "driving_audio": "input/audio/speech.wav"
+          }
+        }
+      },
+      {
+        "task_description": "Create an animation with custom motion settings",
+        "Act": {
+          "tool": "Hallo2Tool",
+          "arguments": {
+            "source_image": "input/portraits/presenter.png",
+            "driving_audio": "input/audio/presentation.wav",
+            "pose_weight": 0.4,
+            "face_weight": 0.8,
+            "lip_weight": 1.0,
+            "output_path": "output/videos/presentation.mp4"
+          }
+        }
+      },
+      {
+        "task_description": "Generate a portrait animation with minimal head movement but strong lip sync",
+        "Act": {
+          "tool": "Hallo2Tool",
+          "arguments": {
+            "source_image": "input/portraits/speaker.jpg",
+            "driving_audio": "input/audio/lecture.wav",
+            "pose_weight": 0.1,
+            "face_weight": 0.5,
+            "lip_weight": 1.0,
+            "face_expand_ratio": 1.8
+          }
+        }
+      }
+    ]
+  },
+  "Hallo2VideoEnhancementTool": {
+    "description": "Enhance portrait videos with high-resolution processing and face restoration.",
+    "detailed_description": "Hallo2VideoEnhancementTool improves the quality of videos using advanced AI-based upscaling and face restoration techniques. It's especially designed to enhance portrait videos by applying specialized processing to facial regions while also upscaling the entire frame. The tool can increase resolution (up to 4K), enhance facial details, and improve overall video quality. It uses a modified version of CodeFormer to provide high-quality results with adjustable fidelity control to balance between quality enhancement and preserving the original appearance.",
+    "parameters": {
+      "input_video": {
+        "type": "string",
+        "description": "Path to the input video file to enhance.",
+        "required": true,
+        "example": "input/videos/original_video.mp4"
+      },
+      "fidelity_weight": {
+        "type": "number",
+        "description": "Balance between quality and fidelity (0-1). Lower values prioritize quality, higher values preserve fidelity to the original.",
+        "required": "optional",
+        "default": 0.5,
+        "example": 0.7
+      },
+      "upscale": {
+        "type": "integer",
+        "description": "Upscaling factor for the image (2, 3, or 4).",
+        "required": "optional",
+        "default": 2,
+        "enum": [
+          2,
+          3,
+          4
+        ]
+      },
+      "output_path": {
+        "type": "string",
+        "description": "Custom path to save the enhanced video. If not provided, a default path will be used.",
+        "required": "optional",
+        "example": "output/videos/enhanced_video"
+      },
+      "bg_upsampler": {
+        "type": "string",
+        "description": "Background upsampler to use. Set to 'None' to disable background upsampling.",
+        "required": "optional",
+        "default": "realesrgan",
+        "enum": [
+          "realesrgan",
+          "None"
+        ]
+      },
+      "face_upsample": {
+        "type": "boolean",
+        "description": "Whether to apply additional upsampling to the face regions.",
+        "required": "optional",
+        "default": true
+      },
+      "detection_model": {
+        "type": "string",
+        "description": "Face detection model to use. Larger models are more accurate but slower.",
+        "required": "optional",
+        "default": "retinaface_resnet50",
+        "enum": [
+          "retinaface_resnet50",
+          "retinaface_mobile0.25",
+          "YOLOv5l",
+          "YOLOv5n"
+        ]
+      },
+      "bg_tile": {
+        "type": "integer",
+        "description": "Tile size for background upsampling. Smaller values use less memory but may reduce quality.",
+        "required": "optional",
+        "default": 400,
+        "example": 200
+      },
+      "only_center_face": {
+        "type": "boolean",
+        "description": "Whether to only enhance the center face in the video.",
+        "required": "optional",
+        "default": false
+      }
+    },
+    "examples": [
+      {
+        "task_description": "Enhance a video with default settings",
+        "Act": {
+          "tool": "Hallo2VideoEnhancementTool",
+          "arguments": {
+            "input_video": "output/videos/animation.mp4"
+          }
+        }
+      },
+      {
+        "task_description": "Create a high-resolution (4x) version with balanced fidelity",
+        "Act": {
+          "tool": "Hallo2VideoEnhancementTool",
+          "arguments": {
+            "input_video": "output/videos/portrait_animation.mp4",
+            "upscale": 4,
+            "fidelity_weight": 0.7,
+            "output_path": "output/videos/enhanced_4k"
+          }
+        }
+      },
+      {
+        "task_description": "Enhance only facial details with lower memory usage",
+        "Act": {
+          "tool": "Hallo2VideoEnhancementTool",
+          "arguments": {
+            "input_video": "output/videos/talking_head.mp4",
+            "bg_upsampler": "None",
+            "face_upsample": true,
+            "bg_tile": 200,
+            "detection_model": "retinaface_mobile0.25"
+          }
+        }
+      }
+    ]
+  },
+  "read_file": {
+    "description": "读取指定类型的所有文件内容，支持md, txt, json文件。",
+    "detailed_description": "该工具可以读取指定目录下所有指定类型的文件内容。对于json文件会返回解析后的字典对象，对于md和txt文件会返回合并后的文本内容。每个文件的内容会以文件名作为分隔符。",
+    "parameters": {
+      "directory_path": {
+        "type": "string",
+        "description": "要读取的文件所在目录路径",
+        "required": true
+      },
+      "file_type": {
+        "type": "string",
+        "description": "要读取的文件类型，支持md、txt、json",
+        "required": "optional",
+        "default": "md",
+        "enum": [
+          "md",
+          "txt",
+          "json"
+        ]
+      }
+    },
+    "examples": [
+      {
+        "task_description": "读取目录下所有markdown文件",
+        "Act": {
+          "tool": "read_file",
+          "arguments": {
+            "directory_path": "docs",
+            "file_type": "md"
+          }
+        }
+      },
+      {
+        "task_description": "读取目录下所有json文件",
+        "Act": {
+          "tool": "read_file",
+          "arguments": {
+            "directory_path": "config",
+            "file_type": "json"
+          }
+        }
+      }
+    ]
+  },
+  "write_file": {
+    "description": "写入（或新建）指定类型文件，支持md、txt、json。",
+    "detailed_description": "该工具可以创建新文件或覆盖已存在的文件。支持写入markdown、txt和json格式的文件。对于json文件，会自动将内容解析为json对象后写入。如果文件已存在且未设置覆盖，则会返回错误信息。",
+    "parameters": {
+      "directory_path": {
+        "type": "string",
+        "description": "要写入文件的目录路径",
+        "required": true
+      },
+      "filename": {
+        "type": "string",
+        "description": "文件名（可以带后缀，如果不带后缀会自动添加.md后缀）",
+        "required": true
+      },
+      "content": {
+        "type": "string",
+        "description": "要写入的文件内容（对于json文件必须是可解析的json格式字符串）",
+        "required": true
+      },
+      "overwrite": {
+        "type": "boolean",
+        "description": "是否覆盖已存在的文件",
+        "required": "optional",
+        "default": false
+      }
+    },
+    "examples": [
+      {
+        "task_description": "创建新的markdown文件",
+        "Act": {
+          "tool": "write_file",
+          "arguments": {
+            "directory_path": "docs",
+            "filename": "readme",
+            "content": "# 项目说明\n\n这是一个示例文档。"
+          }
+        }
+      },
+      {
+        "task_description": "创建json配置文件并覆盖已存在的文件",
+        "Act": {
+          "tool": "write_file",
+          "arguments": {
+            "directory_path": "config",
+            "filename": "settings.json",
+            "content": "{\"name\": \"updated\", \"value\": 456}",
+            "overwrite": true
+          }
+        }
+      }
+    ]
+  },
+  "modify_file": {
+    "description": "修改（覆盖）单个已存在的.md/.txt/.json文件。",
+    "detailed_description": "该工具用于修改已存在的文件内容。支持修改markdown、txt和json格式的文件。对于json文件，会自动将新内容解析为json对象后写入。文件必须已经存在，否则会返回错误信息。",
+    "parameters": {
+      "file_path": {
+        "type": "string",
+        "description": "要修改的文件的完整路径",
+        "required": true
+      },
+      "new_content": {
+        "type": "string",
+        "description": "新的文件内容（对于json文件必须是可解析的json格式字符串）",
+        "required": true
+      }
+    },
+    "examples": [
+      {
+        "task_description": "修改markdown文件内容",
+        "Act": {
+          "tool": "modify_file",
+          "arguments": {
+            "file_path": "docs/readme.md",
+            "new_content": "# 更新后的文档\n\n这是更新后的内容。"
+          }
+        }
+      },
+      {
+        "task_description": "修改json配置文件",
+        "Act": {
+          "tool": "modify_file",
+          "arguments": {
+            "file_path": "config/settings.json",
+            "new_content": "{\"name\": \"updated\", \"value\": 456}"
+          }
+        }
+      }
+    ]
+  },
+  "CosyVoice2Tool": {
+    "description": "Advanced text-to-speech synthesis using the CosyVoice2 model with extensive capabilities for voice cloning, cross-lingual synthesis, and style control.",
+    "detailed_description": "CosyVoice2Tool is a powerful speech synthesis tool based on Alibaba's CosyVoice2 model. It provides advanced text-to-speech capabilities with exceptional natural voice quality and versatile control options. The tool supports multiple core functionalities:\n\n1) Zero-shot In-context Generation: Clone any voice from a reference audio sample without prior training\n2) Cross-lingual In-context Generation: Synthesize text in a different language while preserving the voice characteristics from a reference audio\n3) Mixed-lingual In-context Generation: Support for multiple languages within the same sentence with seamless transitions\n4) Instructed Voice Generation: Control voice characteristics through natural language instructions (requires prompt_audio_path)\n5) Dialect Control: Support for various Chinese dialects including Cantonese, Shanghai dialect, Shandong dialect, etc.\n6) Fine-grained Control: Advanced control over pronunciation and stylistic elements\n7) Speaking Style Control: Modulate emotional expression and speaking rate\n8) Voice Conversion: Transform source audio to match the voice characteristics of a target speaker\n\nThe system supports over 90 languages including English, Mandarin Chinese, Japanese, Korean, Cantonese, German, Spanish, Russian, French, Portuguese, Italian, Arabic, Hindi, Vietnamese, Thai, and many more. Language tags such as \"<|zh|>\", \"<|en|>\", \"<|jp|>\", \"<|yue|>\", \"<|ko|>\" can be used to indicate the language for cross-lingual synthesis.",
+    "parameters": {
+      "text": {
+        "type": "string",
+        "description": "Text content to synthesize. Required for all modes except Voice Conversion. For multilingual text, language tags like \"<|zh|>\" (Chinese), \"<|en|>\" (English), \"<|jp|>\" (Japanese), \"<|yue|>\" (Cantonese), \"<|ko|>\" (Korean), etc. can be included to specify language sections. The model supports over 90 languages in total.",
+        "required": "optional"
+      },
+      "source_audio_path": {
+        "type": "string",
+        "description": "Path to the source audio file for Voice Conversion mode. This audio will be transformed to match the voice characteristics specified by prompt_audio_path while preserving the content.",
+        "required": "optional"
+      },
+      "prompt_audio_path": {
+        "type": "string",
+        "description": "Path to a reference audio file providing voice characteristics for cloning, cross-lingual synthesis, or as the target voice for conversion. This parameter is required for instructed voice generation mode (when use_instruct_mode=true).",
+        "required": "optional"
+      },
+      "prompt_text": {
+        "type": "string",
+        "description": "Transcript of the prompt_audio_path. Recommended for Zero-shot mode to improve the accuracy of voice cloning. The text should match the speech content in the prompt audio.",
+        "required": "optional"
+      },
+      "speaker_id": {
+        "type": "string",
+        "description": "ID of a pre-defined speaker (if supported by the model). Used for consistent voice output across multiple synthesis sessions.",
+        "required": "optional"
+      },
+      "zero_shot_speaker_id": {
+        "type": "string",
+        "description": "ID for a previously cached zero-shot speaker embedding. This allows reusing voice characteristics extracted from a previous session without providing the audio again.",
+        "required": "optional"
+      },
+      "cross_lingual_synthesis": {
+        "type": "boolean",
+        "description": "When set to true, performs cross-lingual synthesis using the voice from prompt_audio_path while generating text in a different language. Requires both 'text' and 'prompt_audio_path' parameters.",
+        "required": "optional",
+        "default": false
+      },
+      "use_instruct_mode": {
+        "type": "boolean",
+        "description": "When set to true, enables Instructed Voice Generation mode for emotional, styled speech using the inference_instruct2 method. This mode requires prompt_audio_path to be provided as it needs a reference voice to apply the instructions to.",
+        "required": "optional",
+        "default": false
+      },
+      "instruct_text": {
+        "type": "string",
+        "description": "Instructions for voice style when use_instruct_mode is true. Examples:\n- Emotion instructions: \"用开心的语气说\" (speak happily), \"用伤心的语气说\" (speak sadly), \"用恐惧的情感表达\" (express fear)\n- Dialect instructions: \"用粤语说这句话\" (speak in Cantonese), \"用上海话说\" (speak in Shanghai dialect), \"使用山东话说\" (use Shandong dialect)\n- Character instructions: \"一个忧郁的诗人，言语中总是透露出一丝哀愁和浪漫\" (a melancholic poet, always revealing a hint of sorrow and romance in speech)\n- Speaking style: \"Speaking very fast\", \"Speaking with patience\"",
+        "required": "optional"
+      },
+      "speed": {
+        "type": "number",
+        "description": "Controls the speech rate of the generated audio. Default is 1.0 (normal speed), values greater than 1.0 produce faster speech, and values less than 1.0 produce slower speech. Range is typically 0.5-2.0.",
+        "required": "optional",
+        "default": 1.0
+      },
+      "stream_output": {
+        "type": "boolean",
+        "description": "When set to true, processes audio in streaming mode, generating and yielding segments incrementally rather than waiting for the entire generation to complete. This can be useful for low-latency applications.",
+        "required": "optional",
+        "default": false
+      },
+      "use_text_frontend": {
+        "type": "boolean",
+        "description": "Whether to use text normalization preprocessing. When true, converts numerals, dates, and other special text forms into spoken form. Set to false for direct processing of raw text input when special handling is not desired.",
+        "required": "optional",
+        "default": true
+      },
+      "language_tag": {
+        "type": "string",
+        "description": "Language tag to prepend to the text if not already present. Examples: \"<|zh|>\" (Chinese), \"<|en|>\" (English), \"<|jp|>\" (Japanese), \"<|yue|>\" (Cantonese), \"<|ko|>\" (Korean). The model supports over 90 languages in total including German, Spanish, Russian, French, Portuguese, Italian, Arabic, Hindi, Vietnamese, Thai, and many more.",
+        "required": "optional"
+      },
+      "output_path": {
+        "type": "string",
+        "description": "Custom path to save the generated audio file (WAV format). If not provided, a default path with timestamp will be generated automatically in the output/audio directory.",
+        "required": "optional"
+      },
+      "device_hint": {
+        "type": "string",
+        "description": "Computing device to use for inference. Options are \"cuda\" for GPU acceleration or \"cpu\" for CPU processing. CUDA is recommended for faster performance when available.",
+        "required": "optional",
+        "default": "cuda"
+      },
+      "model_fp16": {
+        "type": "boolean",
+        "description": "When set to true, uses FP16 (half-precision) for model computation, which reduces memory usage and potentially increases speed at a slight cost to precision. Requires CUDA-capable GPU.",
+        "required": "optional",
+        "default": false
+      },
+      "model_jit": {
+        "type": "boolean",
+        "description": "When set to true, uses JIT (Just-In-Time) compilation to optimize model execution, which can improve inference speed. Requires CUDA-capable GPU.",
+        "required": "optional",
+        "default": false
+      },
+      "model_trt": {
+        "type": "boolean",
+        "description": "When set to true, uses TensorRT acceleration for the model, which can significantly improve inference speed on compatible hardware. Requires CUDA-capable GPU with TensorRT support.",
+        "required": "optional",
+        "default": false
+      },
+      "use_flow_cache": {
+        "type": "boolean",
+        "description": "When set to true, uses flow cache for faster inference, which can reduce computation time by caching intermediate results. This option is particularly useful for generating multiple audio segments with the same voice characteristics.",
+        "required": "optional",
+        "default": false
+      }
+    },
+    "examples": [
+      {
+        "task_description": "Zero-shot voice cloning",
+        "Act": {
+          "tool": "CosyVoice2Tool",
+          "arguments": {
+            "text": "Hello world, this is a synthesized voice.",
+            "prompt_audio_path": "reference_voice.wav",
+            "prompt_text": "This is my reference voice sample."
+          }
+        }
+      },
+      {
+        "task_description": "Cross-lingual synthesis",
+        "Act": {
+          "tool": "CosyVoice2Tool",
+          "arguments": {
+            "text": "<|en|>This is spoken in English with a Chinese voice.",
+            "prompt_audio_path": "chinese_voice.wav",
+            "cross_lingual_synthesis": true
+          }
+        }
+      },
+      {
+        "task_description": "Instructed voice generation (emotional)",
+        "Act": {
+          "tool": "CosyVoice2Tool",
+          "arguments": {
+            "text": "Life is full of wonderful surprises.",
+            "prompt_audio_path": "reference_voice.wav",
+            "use_instruct_mode": true,
+            "instruct_text": "用开心的语气说"
+          }
+        }
+      },
+      {
+        "task_description": "Dialect control",
+        "Act": {
+          "tool": "CosyVoice2Tool",
+          "arguments": {
+            "text": "我们今天去哪里吃饭？",
+            "prompt_audio_path": "reference_voice.wav",
+            "use_instruct_mode": true,
+            "instruct_text": "用粤语说这句话"
+          }
+        }
+      },
+      {
+        "task_description": "Voice conversion",
+        "Act": {
+          "tool": "CosyVoice2Tool",
+          "arguments": {
+            "source_audio_path": "source_voice.wav",
+            "prompt_audio_path": "target_voice.wav"
+          }
+        }
+      }
+    ]
+  },
+  "ClearVoiceTool": {
+    "description": "Unified speech enhancement, separation, super-resolution, and target speaker extraction using the ClearerVoice Studio models. note:Achieving SOTA performance on these tasks.It is recommended to first obtain the sampling rate of the input audio, as this can help in selecting the appropriate model.",
+    "detailed_description": "ClearVoiceTool provides a unified interface for advanced audio processing tasks, including speech enhancement, speech separation, speech super-resolution, and audio-visual target speaker extraction.\n\nSupported tasks and model selection guidelines:\n\n1. Speech Enhancement (Remove noise and improve speech quality):\n   - Use 'MossFormer2_SE_48K' for high-fidelity 48kHz audio enhancement. Recommended for music, studio recordings, or any scenario where preserving audio quality is critical.\n   - Use 'MossFormerGAN_SE_16K' for general 16kHz speech enhancement, especially in noisy environments or for telephony/meeting recordings.\n   - Use 'FRCRN_SE_16K' for lightweight, fast 16kHz enhancement when computational resources are limited or for real-time applications.\n\n2. Speech Separation (Separate multiple speakers from a single audio track):\n   - Use 'MossFormer2_SS_16K' for separating two or more speakers in 16kHz mixed speech recordings, such as meeting or interview audio.\n\n3. Speech Super-Resolution (Increase audio resolution and restore high-frequency details):\n   - Use 'MossFormer2_SR_48K' to convert low-resolution speech (e.g., 16kHz) to high-resolution 48kHz, restoring clarity and detail. Ideal for upscaling legacy or telephony audio.\n\n4. Audio-Visual Target Speaker Extraction (Extract the voice of a specific speaker from audio or video):\n   - Use 'AV_MossFormer2_TSE_16K' to extract the target speaker's voice from a video or audio file containing multiple speakers, especially when visual cues are available.\n\nChoose the model according to your input audio type, sample rate, and the specific enhancement or separation goal. For best results, match the model's expected sample rate (16kHz or 48kHz) to your input file. The tool supports both single-file and batch directory processing. Processed results are saved to the specified output directory.",
+    "parameters": {
+      "task": {
+        "type": "string",
+        "description": "The audio processing task to perform. One of: 'speech_enhancement', 'speech_separation', 'speech_super_resolution', 'target_speaker_extraction'",
+        "required": true
+      },
+      "model_name": {
+        "type": "string",
+        "description": "The model to use for the selected task.\n- For speech_enhancement: MossFormer2_SE_48K, MossFormerGAN_SE_16K, FRCRN_SE_16K\n- For speech_separation: MossFormer2_SS_16K\n- For speech_super_resolution: MossFormer2_SR_48K\n- For target_speaker_extraction: AV_MossFormer2_TSE_16K",
+        "required": true
+      },
+      "input_path": {
+        "type": "string",
+        "description": "Path to the input audio or video file. Required unless batch_process is true.",
+        "required": false
+      },
+      "output_path": {
+        "type": "string",
+        "description": "Directory to save the processed output. If not provided, a default directory will be used.",
+        "required": false
+      },
+      "online_write": {
+        "type": "boolean",
+        "description": "Whether to automatically save the processed audio. Default: true.",
+        "required": false,
+        "default": true
+      },
+      "batch_process": {
+        "type": "boolean",
+        "description": "If true, process all supported files in a directory. Requires input_directory.",
+        "required": false,
+        "default": false
+      },
+      "input_directory": {
+        "type": "string",
+        "description": "Directory containing files to process in batch mode. Required if batch_process is true.",
+        "required": false
+      },
+      "device": {
+        "type": "string",
+        "description": "Computing device to use ('cuda' or 'cpu'). Default: 'cuda'",
+        "required": false,
+        "default": "cuda"
+      }
+    },
+    "examples": [
+      {
+        "task_description": "Speech enhancement with MossFormer2_SE_48K",
+        "Act": {
+          "tool": "ClearVoiceTool",
+          "arguments": {
+            "task": "speech_enhancement",
+            "model_name": "MossFormer2_SE_48K",
+            "input_path": "noisy.wav",
+            "output_path": "enhanced_output"
+          }
+        }
+      },
+      {
+        "task_description": "Speech separation with MossFormer2_SS_16K",
+        "Act": {
+          "tool": "ClearVoiceTool",
+          "arguments": {
+            "task": "speech_separation",
+            "model_name": "MossFormer2_SS_16K",
+            "input_path": "mixed.wav",
+            "output_path": "separated_output"
+          }
+        }
+      },
+      {
+        "task_description": "Batch process a directory for speech enhancement",
+        "Act": {
+          "tool": "ClearVoiceTool",
+          "arguments": {
+            "task": "speech_enhancement",
+            "model_name": "MossFormerGAN_SE_16K",
+            "batch_process": true,
+            "input_directory": "noisy_dir",
+            "output_path": "enhanced_dir"
+          }
+        }
+      },
+      {
+        "task_description": "Target speaker extraction from video",
+        "Act": {
+          "tool": "ClearVoiceTool",
+          "arguments": {
+            "task": "target_speaker_extraction",
+            "model_name": "AV_MossFormer2_TSE_16K",
+            "input_path": "video.mp4",
+            "output_path": "extracted_speaker"
+          }
+        }
+      }
+    ]
+  },
+  "WhisperASRTool": {
+    "description": "High-quality automatic speech recognition and translation using OpenAI Whisper large-v3 model with multi-language support.",
+    "detailed_description": "WhisperASRTool is a powerful speech recognition and translation tool based on OpenAI's Whisper large-v3 model. It provides state-of-the-art automatic speech recognition (ASR) capabilities with support for 99 languages, along with speech translation to English. The tool uses the sequential long-form algorithm to handle audio files longer than 30 seconds efficiently. Key features include multi-language auto-detection, high-quality transcription with timestamp generation (sentence or word level), batch processing for multiple files, and comprehensive parameter control for optimal results. The tool supports both transcription (converting speech to text in the same language) and translation (converting speech to English text) tasks. It leverages local model files for fast processing and can work with various audio formats including WAV, MP3, M4A, FLAC, and OGG.",
+    "parameters": {
+      "audio_path": {
+        "type": "string",
+        "description": "Path to the input audio file to process. Supports various formats: WAV, MP3, M4A, FLAC, OGG.",
+        "required": true,
+        "example": "input/audio/speech_sample.wav"
+      },
+      "task": {
+        "type": "string", 
+        "description": "Task to perform: 'transcribe' converts speech to text in the same language, 'translate' converts speech to English text.",
+        "required": "optional",
+        "default": "transcribe",
+        "enum": ["transcribe", "translate"]
+      },
+      "language": {
+        "type": "string",
+        "description": "Source language of the audio (optional, auto-detected if not specified). Examples: 'english', 'chinese', 'spanish', 'french', 'japanese', 'korean', etc. Use null or 'auto' for automatic language detection.",
+        "required": "optional",
+        "default": null,
+        "example": "chinese"
+      },
+      "max_new_tokens": {
+        "type": "integer",
+        "description": "Maximum number of tokens to generate. Default: 440. Must be less than 448 to stay within model limits.",
+        "required": "optional",
+        "default": 440
+      },
+      "num_beams": {
+        "type": "integer",
+        "description": "Number of beams for beam search (1 for greedy decoding, higher values for better quality but slower speed).",
+        "required": "optional",
+        "default": 1
+      },
+      "temperature": {
+        "type": "array",
+        "description": "Temperature for sampling, supports fallback strategy. Can be a single float or tuple like [0.0, 0.2, 0.4, 0.6, 0.8, 1.0] for progressive fallback if the model fails at lower temperatures.",
+        "required": "optional",
+        "default": [0.0, 0.2, 0.4, 0.6, 0.8, 1.0]
+      },
+      "compression_ratio_threshold": {
+        "type": "number",
+        "description": "Threshold for zlib compression ratio in token space. Higher values are more restrictive.",
+        "required": "optional",
+        "default": 1.35
+      },
+      "logprob_threshold": {
+        "type": "number",
+        "description": "Log probability threshold for token acceptance. Lower values are more restrictive.",
+        "required": "optional",
+        "default": -1.0
+      },
+      "no_speech_threshold": {
+        "type": "number",
+        "description": "Threshold for no-speech detection. Higher values are more likely to detect silence.",
+        "required": "optional",
+        "default": 0.6
+      },
+      "condition_on_prev_tokens": {
+        "type": "boolean",
+        "description": "Whether to condition generation on previous tokens. Useful for maintaining consistency.",
+        "required": "optional",
+        "default": false
+      },
+      "return_timestamps": {
+        "type": "string",
+        "description": "Timestamp generation mode: false for no timestamps, true for sentence-level timestamps, 'word' for word-level timestamps.",
+        "required": "optional",
+        "default": false,
+        "enum": [false, true, "word"]
+      },
+      "batch_size": {
+        "type": "integer",
+        "description": "Batch size for processing multiple files simultaneously.",
+        "required": "optional",
+        "default": 1
+      },
+      "model_path": {
+        "type": "string",
+        "description": "Path to the local Whisper model directory.",
+        "required": "optional",
+        "default": "/home/chengz/LAMs/pre_train_models/models--openai--whisper-large-v3"
+      },
+      "torch_dtype": {
+        "type": "string",
+        "description": "PyTorch data type ('float16' for GPU with reduced memory usage, 'float32' for CPU or full precision).",
+        "required": "optional",
+        "default": "float16",
+        "enum": ["float16", "float32"]
+      },
+      "low_cpu_mem_usage": {
+        "type": "boolean",
+        "description": "Whether to use low CPU memory usage during model loading.",
+        "required": "optional",
+        "default": true
+      },
+      "use_safetensors": {
+        "type": "boolean",
+        "description": "Whether to use safetensors format for faster and safer model loading.",
+        "required": "optional",
+        "default": true
+      },
+      "output_path": {
+        "type": "string",
+        "description": "Custom path to save the transcription output. If not provided, saves to 'whisper_output/whisper_result_{timestamp}.{format}'",
+        "required": "optional"
+      },
+      "output_format": {
+        "type": "string",
+        "description": "Output format: 'json' for structured data with metadata, 'txt' for plain text transcription only.",
+        "required": "optional",
+        "default": "json",
+        "enum": ["json", "txt"]
+      },
+      "device": {
+        "type": "string",
+        "description": "Computing device: 'auto' for automatic selection, 'cuda' for GPU, 'cpu' for CPU, or specific device like 'cuda:1'.",
+        "required": "optional",
+        "default": "auto"
+      }
+    },
+    "examples": [
+      {
+        "task_description": "Basic transcription with auto language detection",
+        "Act": {
+          "tool": "WhisperASRTool",
+          "arguments": {
+            "audio_path": "input/audio/speech.wav"
+          }
+        }
+      },
+      {
+        "task_description": "Chinese speech transcription with timestamps",
+        "Act": {
+          "tool": "WhisperASRTool",
+          "arguments": {
+            "audio_path": "input/audio/chinese_speech.wav",
+            "language": "chinese",
+            "return_timestamps": true,
+            "output_format": "json"
+          }
+        }
+      },
+      {
+        "task_description": "Translate foreign speech to English",
+        "Act": {
+          "tool": "WhisperASRTool",
+          "arguments": {
+            "audio_path": "input/audio/foreign_speech.wav",
+            "task": "translate",
+            "return_timestamps": "word"
+          }
+        }
+      },
+      {
+        "task_description": "High-quality transcription with optimized parameters",
+        "Act": {
+          "tool": "WhisperASRTool",
+          "arguments": {
+            "audio_path": "input/audio/meeting.wav",
+            "language": "english",
+            "return_timestamps": "word",
+            "temperature": 0.0,
+            "num_beams": 3,
+            "output_format": "json"
+          }
+        }
+      },
+      {
+        "task_description": "Batch processing multiple audio files",
+        "Act": {
+          "tool": "WhisperASRTool",
+          "arguments": {
+            "audio_path": ["file1.wav", "file2.wav", "file3.wav"],
+            "batch_size": 2,
+            "task": "transcribe",
+            "output_format": "json"
+          }
+        }
+      }
+    ]
+  },
+  "AudioSRTool": {
+    "description": "Enhance audio quality through versatile super-resolution, upscaling any audio to 48kHz high-quality output.",
+    "detailed_description": "AudioSRTool provides state-of-the-art audio super-resolution capabilities using the AudioSR model from the versatile_audio_super_resolution project. This tool can enhance the quality of any type of audio (music, speech, environmental sounds, etc.) by upscaling it to 48kHz high-quality output, regardless of the input sample rate. The tool supports two specialized models: 'basic' for general audio enhancement and 'speech' for speech-specific optimization. AudioSR works by using advanced deep learning techniques to reconstruct high-frequency components that may have been lost due to compression, low sampling rates, or other degradation factors. The enhanced audio maintains natural sound characteristics while significantly improving clarity and fidelity. The computing device (GPU/CPU) is automatically selected based on system availability, with CUDA GPU preferred for faster processing when available. This tool is particularly useful for restoring old recordings, improving compressed audio, or preparing audio for high-quality applications.",
+    "parameters": {
+      "audio_file": {
+        "type": "string",
+        "description": "Path to the input audio file to enhance. Supports various audio formats including WAV, MP3, FLAC, M4A, etc.",
+        "required": true,
+        "example": "input/audio/low_quality_recording.wav"
+      },
+      "output_file": {
+        "type": "string",
+        "description": "Path to save the enhanced audio file. If not provided, a timestamped filename will be generated automatically in the format 'audiosr_{model}_{input_name}_{timestamp}.wav'",
+        "required": "optional",
+        "example": "output/enhanced_audio.wav"
+      },
+      "model_name": {
+        "type": "string",
+        "description": "Model to use for audio enhancement. 'basic' is optimized for general audio types (music, environmental sounds), while 'speech' is specifically optimized for speech audio.",
+        "required": "optional",
+        "default": "basic",
+        "enum": ["basic", "speech"],
+        "example": "speech"
+      }
+    },
+    "examples": [
+      {
+        "task_description": "Enhance general audio quality using basic model",
+        "Act": {
+          "tool": "AudioSRTool",
+          "arguments": {
+            "audio_file": "input/music_recording.wav",
+            "output_file": "output/enhanced_music.wav",
+            "model_name": "basic"
+          }
+        }
+      },
+      {
+        "task_description": "Enhance speech audio with automatic output naming",
+        "Act": {
+          "tool": "AudioSRTool",
+          "arguments": {
+            "audio_file": "input/phone_call.wav",
+            "model_name": "speech"
+          }
+        }
+      },
+      {
+        "task_description": "Upscale compressed audio to high quality",
+        "Act": {
+          "tool": "AudioSRTool",
+          "arguments": {
+            "audio_file": "input/compressed_audio.mp3",
+            "output_file": "output/restored_hq_audio.wav",
+            "model_name": "basic"
+          }
+        }
+      }
+    ]
+  },
+  "DiffRhythmTool": {
+    "description": "Generate high-quality full-length music and songs with vocals using the DiffRhythm diffusion-based music generation system.",
+    "detailed_description": "DiffRhythmTool is the first open-source diffusion-based music generation model capable of creating complete full-length songs with both vocals and instrumental accompaniment. Developed by ASLP Lab, DiffRhythm leverages advanced diffusion architecture to produce high-quality music that seamlessly integrates lyrics with musical composition.\n\n**🎯 What This Tool Can Do:**\n\n**1. Complete Song Generation**\n• Generate full songs with vocals, lyrics, and instrumental accompaniment\n• Create instrumental-only music without lyrics\n• Support various musical genres (pop, rock, jazz, classical, electronic, etc.)\n• Produce professional-quality audio with natural-sounding vocals\n\n**2. Style Control & Transfer**\n• Use text prompts to describe desired musical style, mood, and instruments\n• Transfer style from reference audio files to new compositions\n• Combine lyrical content with specific musical characteristics\n• Create music in the style of existing songs while generating new melodies\n\n**3. Advanced Music Production Features**\n• Edit specific time segments of existing songs while preserving other parts\n• Generate multiple variations and automatically select the best quality output\n• Precise lyrics-to-music synchronization using LRC timestamp format\n• Support for complex song structures (verses, choruses, bridges)\n\n**4. Content Creation Applications**\n• Music for videos, podcasts, and multimedia projects\n• Demo creation for songwriters and musicians\n• Background music for games, apps, and presentations\n• AI-assisted music composition and production\n• Educational content for music theory and composition\n\n**🎼 Model Selection Guide:**\n\n**When to Use DiffRhythm-v1.2** (Recommended for most cases):\n✅ **Duration**: Up to 1 minute 35 seconds (95 seconds)\n✅ **Quality**: Latest model with best audio quality and most stable results\n✅ **Speed**: Faster inference (~40 seconds generation time)\n✅ **Memory**: Lower VRAM requirements (8GB+ recommended)\n✅ **Best For**:\n   • Short songs and music demos\n   • Social media content (TikTok, Instagram, YouTube Shorts)\n   • Commercial jingles and advertising music\n   • Podcast intros/outros\n   • Quick music prototyping and experimentation\n   • When you need multiple iterations quickly\n   • Most professional music production tasks\n\n**When to Use DiffRhythm-full** (For extended compositions):\n✅ **Duration**: Up to 4 minutes 45 seconds (285 seconds)\n✅ **Quality**: Good quality with extended generation capability\n✅ **Speed**: Slower inference (~50+ seconds generation time)\n✅ **Memory**: Higher VRAM requirements (12GB+ recommended)\n✅ **Best For**:\n   • Complete song compositions\n   • Full-length musical pieces\n   • Album tracks and extended musical content\n   • Background music for longer videos\n   • Ambient and atmospheric music\n   • When song structure requires multiple sections (verse-chorus-bridge-outro)\n   • Final production versions of compositions\n\n**🛠️ Technical Features & Optimizations:**\n\n**Memory Management**:\n• **Chunked Decoding**: Reduces VRAM usage by processing audio in segments\n• **Batch Generation**: Create multiple variations to improve output quality\n• **Model Offloading**: Automatic memory management during generation\n\n**Input Flexibility**:\n• **LRC Format Support**: Precise timestamp-based lyrics synchronization\n• **Multi-Modal Input**: Text prompts, reference audio, or existing song editing\n• **Style Transfer**: Extract and apply musical characteristics from reference tracks\n\n**Output Quality**:\n• **44.1kHz Sample Rate**: Professional audio quality\n• **Stereo Output**: Full stereo soundscape with proper mixing\n• **Format Support**: WAV output for maximum quality preservation\n\n**🎵 Practical Use Cases:**\n\n**Content Creators**:\n• Generate original background music for YouTube videos\n• Create unique music for podcasts and streaming content\n• Produce custom songs for social media campaigns\n\n**Musicians & Producers**:\n• Rapid prototyping of song ideas with lyrics\n• Style exploration and genre experimentation\n• Creating demos for client presentations\n• Generating inspiration for musical arrangements\n\n**Businesses & Brands**:\n• Custom jingles and advertising music\n• Background music for corporate videos\n• Unique audio branding elements\n• Event and presentation soundtracks\n\n**Developers & Game Designers**:\n• Dynamic background music for applications\n• Game soundtrack generation\n• Interactive audio content creation\n\n**Educational & Research**:\n• Music composition teaching aids\n• AI music research and experimentation\n• Demonstrating music theory concepts\n\n**💡 Pro Tips for Best Results:**\n\n**Model Selection Strategy**:\n• Start with v1.2 for testing and iteration due to faster generation\n• Use 'full' model only when you specifically need longer duration\n• Consider your hardware capabilities when choosing models\n\n**Prompt Engineering**:\n• Be specific about genre, instruments, and mood in text prompts\n• Include tempo descriptors (slow, moderate, fast, energetic)\n• Mention specific instruments for desired arrangements\n• Describe emotional characteristics (happy, melancholic, epic, peaceful)\n\n**Memory Optimization**:\n• Always enable 'chunked=true' for systems with 8GB or less VRAM\n• Use batch_infer_num=2-3 for better quality when hardware allows\n• Monitor system resources during generation\n\n**Quality Enhancement**:\n• Use reference audio from high-quality sources for style transfer\n• Ensure LRC timestamps are accurate for proper lyrics synchronization\n• Generate multiple versions and select the best output\n\nThe tool automatically handles model loading, audio processing, and output generation, making professional-quality music creation accessible through simple API calls.",
+    "parameters": {
+      "model_version": {
+        "type": "string",
+        "description": "Model version to use: 'v1.2' for latest quality with 1m35s max length, or 'full' for extended 4m45s generation capability.",
+        "required": "optional",
+        "default": "v1.2",
+        "enum": ["v1.2", "full"],
+        "example": "v1.2"
+      },
+      "lrc_path": {
+        "type": "string",
+        "description": "Path to lyrics file in LRC format with timestamps. LRC format example: '[00:00.00]First line\\n[00:05.00]Second line'",
+        "required": "optional",
+        "example": "lyrics/my_song.lrc"
+      },
+      "lrc_text": {
+        "type": "string",
+        "description": "Direct lyrics input in LRC format with timestamps. Used when lrc_path is not provided. Format: '[mm:ss.ff]Lyric line'",
+        "required": "optional",
+        "example": "[00:00.00]Hello world\\n[00:05.00]This is a test song\\n[00:10.00]AI music creation"
+      },
+      "ref_prompt": {
+        "type": "string",
+        "description": "Text prompt describing the desired musical style, genre, instruments, and mood. Cannot be used with ref_audio_path.",
+        "required": "conditional",
+        "example": "energetic pop song with electronic elements and upbeat rhythm"
+      },
+      "ref_audio_path": {
+        "type": "string",
+        "description": "Path to reference audio file for style transfer. The model will extract and apply the musical style from this audio. Cannot be used with ref_prompt.",
+        "required": "conditional",
+        "example": "reference/jazz_style.wav"
+      },
+      "chunked": {
+        "type": "boolean",
+        "description": "Enable chunked decoding to reduce VRAM usage. Recommended for systems with 8GB or less VRAM, especially for longer generations.",
+        "required": "optional",
+        "default": false
+      },
+      "batch_infer_num": {
+        "type": "integer",
+        "description": "Number of song variations to generate in parallel. The system randomly selects one as the final output. Higher values increase quality but require more computation.",
+        "required": "optional",
+        "default": 1,
+        "example": 2
+      },
+      "edit": {
+        "type": "boolean",
+        "description": "Enable edit mode to modify specific sections of an existing song. Requires ref_song and edit_segments parameters.",
+        "required": "optional",
+        "default": false
+      },
+      "ref_song": {
+        "type": "string",
+        "description": "Path to existing song file to edit. Required when edit=true. The song will be used as a base for selective modification.",
+        "required": "conditional",
+        "example": "songs/original_composition.wav"
+      },
+      "edit_segments": {
+        "type": "string",
+        "description": "JSON string defining time segments to edit in format '[[start1,end1],[start2,end2]]'. Use -1 for audio start/end. Required when edit=true.",
+        "required": "conditional",
+        "example": "[[0,30],[60,-1]]"
+      },
+      "output_path": {
+        "type": "string",
+        "description": "Custom output path for the generated audio file. If not provided, saves to default music output directory with timestamp.",
+        "required": "optional",
+        "example": "output/music/my_generated_song.wav"
+      },
+      "verbose": {
+        "type": "boolean",
+        "description": "Enable detailed logging and progress information during generation process.",
+        "required": "optional",
+        "default": false
+      }
+    },
+    "examples": [
+      {
+        "task_description": "Generate a short high-quality song with lyrics and text style prompt",
+        "Act": {
+          "tool": "DiffRhythmTool",
+          "arguments": {
+            "model_version": "v1.2",
+            "lrc_text": "[00:00.00]Staring at the stars tonight\\n[00:05.00]Dreams are taking flight\\n[00:10.00]Music fills the air\\n[00:15.00]Magic everywhere",
+            "ref_prompt": "dreamy pop ballad with soft piano and gentle strings",
+            "chunked": true
+          }
+        }
+      },
+      {
+        "task_description": "Generate full-length song using reference audio style",
+        "Act": {
+          "tool": "DiffRhythmTool",
+          "arguments": {
+            "model_version": "full",
+            "lrc_path": "lyrics/complete_song.lrc",
+            "ref_audio_path": "reference/jazz_standard.wav",
+            "chunked": true,
+            "output_path": "output/music/jazz_composition.wav"
+          }
+        }
+      },
+      {
+        "task_description": "Create instrumental music without lyrics",
+        "Act": {
+          "tool": "DiffRhythmTool",
+          "arguments": {
+            "model_version": "v1.2",
+            "ref_prompt": "epic orchestral instrumental with powerful drums and soaring strings",
+            "batch_infer_num": 3,
+            "chunked": true
+          }
+        }
+      },
+      {
+        "task_description": "Edit specific sections of existing song",
+        "Act": {
+          "tool": "DiffRhythmTool",
+          "arguments": {
+            "model_version": "v1.2",
+            "edit": true,
+            "ref_song": "songs/original_track.wav",
+            "edit_segments": "[[30,60],[90,-1]]",
+            "ref_prompt": "add electric guitar solo with rock energy",
+            "chunked": true
+          }
+        }
+      },
+      {
+        "task_description": "Generate upbeat pop song with electronic elements",
+        "Act": {
+          "tool": "DiffRhythmTool",
+          "arguments": {
+            "model_version": "v1.2",
+            "lrc_text": "[00:00.00]Turn up the volume loud\\n[00:04.00]Dance until the morning light\\n[00:08.00]Electronic beats surround\\n[00:12.00]Everything will be alright",
+            "ref_prompt": "upbeat electronic pop with synthesizers, strong bass, and energetic drums",
+            "batch_infer_num": 2,
+            "chunked": true,
+            "verbose": true
+          }
+        }
+      },
+      {
+        "task_description": "Create atmospheric ambient music",
+        "Act": {
+          "tool": "DiffRhythmTool",
+          "arguments": {
+            "model_version": "full",
+            "ref_prompt": "ambient atmospheric soundscape with soft pads, gentle reverb, and ethereal textures",
+            "chunked": true,
+            "output_path": "output/ambient/atmospheric_piece.wav"
+          }
+        }
+      },
+      {
+        "task_description": "Generate YouTube Shorts background music",
+        "Act": {
+          "tool": "DiffRhythmTool",
+          "arguments": {
+            "model_version": "v1.2",
+            "ref_prompt": "trendy upbeat background music for social media, catchy and energetic",
+            "chunked": true,
+            "batch_infer_num": 2,
+            "output_path": "output/social_media/shorts_bg.wav"
+          }
+        }
+      },
+      {
+        "task_description": "Create podcast intro music with specific branding",
+        "Act": {
+          "tool": "DiffRhythmTool",
+          "arguments": {
+            "model_version": "v1.2",
+            "lrc_text": "[00:00.00]Welcome to the show\\n[00:03.00]Tech Talk Today\\n[00:06.00]Innovation and insights",
+            "ref_prompt": "professional tech podcast intro, modern electronic with corporate feel",
+            "chunked": true,
+            "output_path": "output/podcasts/tech_talk_intro.wav"
+          }
+        }
+      },
+      {
+        "task_description": "Generate children's song with educational lyrics",
+        "Act": {
+          "tool": "DiffRhythmTool",
+          "arguments": {
+            "model_version": "v1.2",
+            "lrc_text": "[00:00.00]A is for apple, red and sweet\\n[00:04.00]B is for ball, so fun to beat\\n[00:08.00]C is for cat, with whiskers neat\\n[00:12.00]Learning the alphabet is such a treat",
+            "ref_prompt": "cheerful children's educational song with acoustic guitar and xylophone",
+            "chunked": true,
+            "batch_infer_num": 2
+          }
+        }
+      },
+      {
+        "task_description": "Create game background music with loop structure",
+        "Act": {
+          "tool": "DiffRhythmTool",
+          "arguments": {
+            "model_version": "full",
+            "ref_prompt": "fantasy adventure game background music, orchestral with mystical elements, seamless loop",
+            "chunked": true,
+            "output_path": "output/games/fantasy_background.wav"
+          }
+        }
+      },
+      {
+        "task_description": "Generate commercial jingle with brand message",
+        "Act": {
+          "tool": "DiffRhythmTool",
+          "arguments": {
+            "model_version": "v1.2",
+            "lrc_text": "[00:00.00]Fresh coffee every morning\\n[00:03.00]Café Dreams, your perfect start\\n[00:06.00]Quality you can taste",
+            "ref_prompt": "catchy commercial jingle, upbeat and memorable, acoustic with light percussion",
+            "chunked": true,
+            "batch_infer_num": 3
+          }
+        }
+      },
+      {
+        "task_description": "Create meditation and relaxation music",
+        "Act": {
+          "tool": "DiffRhythmTool",
+          "arguments": {
+            "model_version": "full",
+            "ref_prompt": "peaceful meditation music with soft piano, nature sounds, and gentle ambient tones",
+            "chunked": true,
+            "output_path": "output/wellness/meditation_track.wav"
+          }
+        }
+      }
+    ]
+  },
+  "image2music_api": {
+    "description": "Generate music from an image using AI models.",
+    "detailed_description": "This tool uses the image-to-music-v2 model hosted on Hugging Face to convert images into music. It accepts a local image file path and generates a corresponding music track based on the visual content. You can choose from different music generation models to create various styles of music from the same image.",
+    "parameters": {
+      "image_path": {
+        "type": "string",
+        "description": "Path to the local image file. Can be absolute path or relative path.",
+        "required": true,
+        "example": "C:/Users/admin/Pictures/demo/sunset.jpg"
+      },
+      "output_dir": {
+        "type": "string",
+        "description": "Path to the output directory where the generated music will be saved.",
+        "required": "optional",
+        "default": "outputs/music",
+        "example": "outputs/custom_music_folder"
+      },
+      "model": {
+        "type": "string",
+        "description": "AI model to use for music generation. Different models create different musical styles.",
+        "required": "optional",
+        "default": "ACE Step",
+        "enum": ["ACE Step", "AudioLDM-2", "Riffusion", "Mustango", "Stable Audio Open"]
+      }
+    },
+    "examples": [
+      {
+        "task_description": "Generate music from a landscape image",
+        "Act": {
+          "tool": "image2music_api",
+          "arguments": {
+            "image_path": "images/mountain_landscape.jpg",
+            "model": "ACE Step"
+          }
+        }
+      },
+      {
+        "task_description": "Generate electronic music from an abstract art image",
+        "Act": {
+          "tool": "image2music_api",
+          "arguments": {
+            "image_path": "C:/Users/admin/Pictures/abstract_art.png",
+            "model": "AudioLDM-2",
+            "output_dir": "outputs/electronic_music"
+          }
+        }
+      },
+      {
+        "task_description": "Create ambient music from a night sky photo",
+        "Act": {
+          "tool": "image2music_api",
+          "arguments": {
+            "image_path": "images/night_sky.jpg",
+            "model": "Stable Audio Open",
+            "output_dir": "outputs/ambient_tracks"
+          }
+        }
+      }
+    ]
+  }
+}

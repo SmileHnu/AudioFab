@@ -1,0 +1,71 @@
+# Network config
+audionet:
+  audionet_name: TIGER
+  audionet_config:
+    out_channels: 128
+    in_channels: 256
+    num_blocks: 8
+    upsampling_depth: 5
+    win: 640
+    stride: 160
+    num_sources: 2
+
+# Loss config
+loss:
+  train:
+    loss_func: PITLossWrapper
+    sdr_type: pairwise_neg_snr
+    config:
+      pit_from: pw_mtx
+      threshold_byloss: false
+  val:
+    loss_func: PITLossWrapper
+    sdr_type: pairwise_neg_sisdr
+    config:
+      pit_from: pw_mtx
+      threshold_byloss: false
+
+# Training config
+training:
+  system: AudioLightningModule
+  gpus: [2,3,4,5,6,7,8,9]
+  parallel: ddp
+  epochs: 500
+  early_stop:
+    monitor: val_loss/dataloader_idx_0
+    mode: min
+    patience: 20
+    verbose: true
+  SpeedAug: False
+  
+# Optim config
+optimizer:
+  optim_name: adam
+  lr: 0.001
+  weight_decay: 0
+
+# Sche config
+scheduler: 
+  sche_name: ReduceLROnPlateau
+  sche_config:
+    patience: 10
+    factor: 0.5
+
+# Data config
+datamodule:
+  data_name: EchoSetDataModule
+  data_config:
+    train_dir: DataPreProcess/EchoSet/train
+    valid_dir: DataPreProcess/EchoSet/val
+    test_dir: DataPreProcess/EchoSet/test
+    n_src: 2
+    sample_rate: 16000
+    segment: 3.0
+    normalize_audio: false
+    batch_size: 1
+    num_workers: 8
+    pin_memory: true
+    persistent_workers: false
+
+exp:
+  exp_name: TIGER-EchoSet

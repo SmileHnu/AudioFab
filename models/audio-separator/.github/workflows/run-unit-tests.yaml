@@ -1,0 +1,84 @@
+name: run-unit-tests
+
+on:
+  pull_request:
+
+jobs:
+  test-ubuntu:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        python-version: ['3.10', '3.11', '3.12', '3.13']
+
+    steps:
+      - name: Checkout project
+        uses: actions/checkout@v4
+
+      - name: Install poetry
+        run: pipx install poetry
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: poetry # caching dependencies from poetry.lock
+
+      - name: Install Poetry dependencies (CPU)
+        run: poetry install -E cpu
+
+      - name: Run unit tests with coverage
+        run: poetry run pytest tests/unit
+
+  test-macos:
+    runs-on: macos-latest
+
+    strategy:
+      matrix:
+        python-version: ['3.10', '3.11', '3.12', '3.13']
+
+    steps:
+      - name: Checkout project
+        uses: actions/checkout@v4
+
+      - name: Install poetry
+        run: pipx install poetry
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: poetry # caching dependencies from poetry.lock
+
+      - name: Install Poetry dependencies (CPU)
+        run: poetry install -E cpu
+
+      - name: Run unit tests with coverage
+        run: |
+          poetry run pytest tests/unit
+
+  test-windows:
+    runs-on: windows-latest
+
+    strategy:
+      matrix:
+        python-version: ['3.10', '3.11', '3.12', '3.13']
+
+    steps:
+      - name: Checkout project
+        uses: actions/checkout@v4
+
+      - name: Install poetry
+        run: pipx install poetry
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: poetry # caching dependencies from poetry.lock
+
+      - name: Install Poetry dependencies (CPU)
+        run: poetry install -E cpu
+
+      - name: Run unit tests with coverage
+        run: poetry run pytest tests/unit
