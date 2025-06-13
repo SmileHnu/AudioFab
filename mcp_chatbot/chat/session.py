@@ -114,9 +114,12 @@ class ChatSession:
                 tools = await client.list_tools()
                 all_tools.extend(tools)
 
-            # Format tool descriptions and create system message
-            tools_description = "\n".join([tool.format_for_llm() for tool in all_tools])
-            # tools_name = "\n".join([tool.name for tool in all_tools])
+            # tools_description = "\n".join([tool.format_for_llm() for tool in all_tools])
+            # 仅向 LLM 提供查询相关的 3 个工具说明
+            allowed_tools = {"query_tool", "search_tools_by_task", "list_available_tools"}
+            tools_description = "\n".join(
+                [tool.format_for_llm() for tool in all_tools if tool.name in allowed_tools]
+            )
 
             # system_message = SYSTEM_MESSAGE.format(tools_description=tools_description)
             system_message = SYSTEM_MESSAGE.format(tools_description= tools_description)
