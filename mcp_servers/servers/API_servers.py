@@ -10,48 +10,50 @@ mcp = FastMCP("APITool")
 
 
 '''
-这个是一个API工具的封装函数模板，如果你想要自己更新API工具，请参考这个示例，并更新你的API工具，下面多个工具的实现你可以参考
+This is a wrapper function template for an API tool. If you want to update the API tool yourself, please refer to this example and update your API tool. You can refer to the implementations of the multiple tools below.
 
 @mcp.tool()
 def MyAPI_tool_api(
-    # 1. 参数区：与API端点参数一一对应，支持默认值和类型注解
+    # 1. Parameter area: corresponds one-to-one with API endpoint parameters, supports default values and type annotations
     param1: str,
     param2: int = 0,
     input_file_path: str = "",
     output_path: str = "output.txt"
 ):
     """
-    MyAPI工具功能简述（如：文本转语音/音频增强/多模态对话等）
+    Brief description of MyAPI tool functions (such as text-to-speech/audio enhancement/multimodal dialogue, etc.)
 
-    详细说明：
-    - 支持的API端点/任务
-    - 支持的输入类型、范围、必填项
-    - 返回值说明
-    - 示例用法
+
+    Detailed Description:
+    - Supported API endpoints/tasks
+    - Supported input types, ranges, and required fields
+    - Return value description
+    - Example usage
 
     Args:
-        param1 (str): 说明参数1的作用、取值范围、是否必填
-        param2 (int): 说明参数2的作用、默认值、范围
-        input_file_path (str): 输入文件路径，说明格式、采样率等要求
-        output_path (str): 结果保存路径，默认"output.txt"
+	param1 (str): Describe the function of parameter 1, its value range, and whether it is required.
+	param2 (int): Describe the function of parameter 2, its default value, and range.
+	input_file_path (str): Input file path. Describe the format, sampling rate, and other requirements.
+	output_path (str): Path to save the result. Default is "output.txt".
 
     Returns:
-        str: 结果文件路径或文本内容
+        str: Result file path or text content
     """
 
-    # 2. 参数校验（推荐）
+    # 2. Parameter Verification (Recommended)
+
     if not param1:
-        raise ValueError("param1 为必填参数")
+        raise ValueError("param1 is Required parameter")
     if input_file_path and not os.path.exists(input_file_path):
         raise FileNotFoundError(input_file_path)
 
-    # 3. 实例化API client
-    client = Client("https://your-api-endpoint-url/") #这是modelscope api 的使用路径方式
-    #or client("Zeyue7/AudioX")  这是huggface space api 的使用路径方式
+    # 3. Instantiate the API client
+    client = Client("https://your-api-endpoint-url/") #This is the usage path method of the modelscope API.
+    # or client("Zeyue7/AudioX")  This is the usage path method of the modelscope API.
     # 4. 文件参数处理（如有）
     file_input = file(input_file_path) if input_file_path else None
 
-    # 5. 调用API
+    # 5. CALL API
     result = client.predict(
         param1=param1,
         param2=param2,
@@ -59,10 +61,10 @@ def MyAPI_tool_api(
         api_name="/your_api_endpoint"
     )
 
-    # 6. 结果保存（如有）
+    # 6. Save the results (if any)
     if output_path:
         os.makedirs(os.path.dirname(os.path.abspath(output_path)), exist_ok=True)
-        # 假设 result 是文本
+        # Suppose "result" refers to a text.
         with open(output_path, "w", encoding="utf-8") as f:
             f.write(result)
         return output_path
