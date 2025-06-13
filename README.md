@@ -38,7 +38,7 @@ With AudioFab, users can give instructions in natural language to accomplish com
 
 AudioFab introduces an independent tool management architecture based on Model-Context-Protocols (MCPs). This architecture enables each tool to run in its own dedicated dependency environment, fundamentally eliminating dependency conflicts. After a new tool is configured, it can be integrated into the framework through a simple registration process.
 
-**🧠 Intelligent Selection Workflow to Mitigate Tool Hallucination**
+**🧠 Intelligent Selection Workflow **
 
 AudioFab addresses tool hallucination through a two-stage strategy: first, it streamlines the tool list via intelligent filtering to shorten the context; second, it injects few-shot exemplars for precise guidance before invocation. This design effectively suppresses erroneous model calls, ensuring the stability and reliability of the agent's execution.
 
