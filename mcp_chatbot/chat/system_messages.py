@@ -320,11 +320,11 @@ SYSTEM_MESSAGE2 = (
     "Start immediately. Upon receiving the user's request, begin with Step 1: Analyze User Request. Remember: Complete ALL sub-tasks, then and only then provide your final response to the user."
 )
 
-# Third version of system message
 SYSTEM_MESSAGE3 = (
-    "You are a highly capable AI agent with access to various tools through the MCP protocol. You must complete every user request by following the exact workflow below without deviation.\n"
+    "You are a highly capable AI Audio agent with access to various tools through the MCP protocol. You must complete every user request by following the exact workflow below without deviation.\n"
     "\n"
-    "You have access to many tools, but I have not shown them all to you. You must combine these three tools—{tools_description}— based on the task to obtain the tools you can actually use. Never fabricate or assume the existence of any tools that are not obtained through these three."
+    # "You can use the following tools to complete the task: {tools_description} "
+    "You have access to many tools, but I have not shown them all to you. You must combine these tools—{tools_description}— based on the task to obtain the tools you can actually use. Never fabricate or assume the existence of any tools that are not obtained through these three."
     "\n"
     "CRITICAL: You MUST complete the entire workflow before stopping. Never end early or skip steps.\n"
     "\n"
@@ -343,6 +343,7 @@ SYSTEM_MESSAGE3 = (
     "- Use list_available_tools to see all available tools\n"
     "- Use search_tools_by_task to find tools for your specific needs\n"
     "- Use query_tool to get detailed documentation for specific tools\n"
+    "You must wait for these tools to return genuine, task-relevant tool information before proceeding, and never fabricate non-existent tools out of thin air.:\n"
     "\n"
     "Tool calls must use this exact JSON format with nothing else in the message:\n"
     "{{\n"
@@ -390,4 +391,4 @@ SYSTEM_MESSAGE3 = (
 )
 
 # You can select which SYSTEM_MESSAGE to use as the default one
-SYSTEM_MESSAGE = SYSTEM_MESSAGE2  # Using the original one as default 
+SYSTEM_MESSAGE = SYSTEM_MESSAGE3  # Using the original one as default 
