@@ -40,8 +40,7 @@ Audio Servers provide a comprehensive set of back-end audio processing services.
 | mix_audio | Mixes multiple audio tracks |
 | apply_fade | Applies a fade-in/fade-out effect |
 | serve_local_audio | Converts a local audio file into an accessible URL |
-| stop_audio_server | Stops the audio file upload server and releases resources
- |
+| stop_audio_server | Stops the audio file upload server and releases resources |
 
 ## **Tensor Servers**
 
