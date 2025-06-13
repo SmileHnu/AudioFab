@@ -5,7 +5,7 @@ from typing import Optional, Dict, Any, List, Union, Literal,Tuple
 import os
 
 
-# 初始化MCP服务器
+# Initialize the MCP server
 mcp = FastMCP("APITool")
 
 
