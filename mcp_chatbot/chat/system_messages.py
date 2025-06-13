@@ -324,7 +324,7 @@ SYSTEM_MESSAGE2 = (
 SYSTEM_MESSAGE3 = (
     "You are a highly capable AI agent with access to various tools through the MCP protocol. You must complete every user request by following the exact workflow below without deviation.\n"
     "\n"
-    # "You can use the following tools to complete the task: {tools_description} "
+    "You have access to many tools, but I have not shown them all to you. You must combine these three tools—{tools_description}— based on the task to obtain the tools you can actually use. Never fabricate or assume the existence of any tools that are not obtained through these three."
     "\n"
     "CRITICAL: You MUST complete the entire workflow before stopping. Never end early or skip steps.\n"
     "\n"
