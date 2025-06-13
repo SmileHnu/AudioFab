@@ -17,44 +17,44 @@ mcp = FastMCP("音樂和視頻生成服務：集成多種AI音樂/視頝模型")
 TOOL_ENV_CONFIG = {
     "AudioXTool": {
         "python_path": "/home/chengz/anaconda3/envs/AudioX/bin/python",
-        "script_path": str(Path(__file__).parent / "processor" / "AudioX_processor.py")
+        "script_path": str(Path(__file__).parent.parent / "processor" / "AudioX_processor.py")
     },
     "ACEStepTool": {
         "python_path": "/home/chengz/anaconda3/envs/ace_step/bin/python",
-        "script_path": str(Path(__file__).parent / "processor" / "ACE_step_processor.py")
+        "script_path": str(Path(__file__).parent.parent / "processor" / "ACE_step_processor.py")
     },
     "MusicGenTool": {
         "python_path": "/home/chengz/anaconda3/envs/audiocraft/bin/python",
-        "script_path": str(Path(__file__).parent / "processor" / "Audiocraft_tool_processor.py")
+        "script_path": str(Path(__file__).parent.parent / "processor" / "Audiocraft_tool_processor.py")
     },
     "AudioGenTool": {
         "python_path": "/home/chengz/anaconda3/envs/audiocraft/bin/python",
-        "script_path": str(Path(__file__).parent / "processor" / "Audiocraft_tool_processor.py")
+        "script_path": str(Path(__file__).parent.parent / "processor" / "Audiocraft_tool_processor.py")
     },
     "Hallo2Tool": {
         "python_path": "/home/chengz/anaconda3/envs/hallo/bin/python",
-        "script_path": str(Path(__file__).parent / "processor" / "hello2_processor.py")
+        "script_path": str(Path(__file__).parent.parent / "processor" / "hello2_processor.py")
     },
     "Hallo2VideoEnhancementTool": {
         "python_path": "/home/chengz/anaconda3/envs/hallo/bin/python",
-        "script_path": str(Path(__file__).parent/ "processor"  / "hello2_processor.py")
+        "script_path": str(Path(__file__).parent.parent / "processor"  / "hello2_processor.py")
     },
     # "YuEMusicGenerationTool": {
     #     "python_path": "/home/chengz/anaconda3/envs/yue/bin/python",
-    #     "script_path": str(Path(__file__).parent / "yue_processor.py")
+    #     "script_path": str(Path(__file__).parent.parent / "yue_processor.py")
     # },
     "YuEETool": {
         "python_path": "/home/chengz/anaconda3/envs/yue_e/bin/python",
-        "script_path": str(Path(__file__).parent/ "processor"  / "yue_e_tool.py")
+        "script_path": str(Path(__file__).parent.parent / "processor"  / "yue_e_tool.py")
     },
     "DiffRhythmTool": {
         "python_path": "/home/qianshuaix/miniconda3/envs/diffrhythm/bin/python",
-        "script_path": str(Path(__file__).parent / "processor" / "DiffRhythm_processor.py")
+        "script_path": sstr(Path(__file__).parent.parent / "processor" / "DiffRhythm_processor.py")
     }
 }
 
 # 启动器脚本路径
-LAUNCHER_SCRIPT = str(Path(__file__).parent / "mcp_tool_launcher.py")
+LAUNCHER_SCRIPT = str(Path(__file__).parent.parent / "mcp_tool_launcher.py")
 
 # 创建临时目录（如果不存在）
 TEMP_DIR = Path(tempfile.gettempdir()) / "mcp_temp"
