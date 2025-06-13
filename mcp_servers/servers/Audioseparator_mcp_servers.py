@@ -17,19 +17,19 @@ mcp = FastMCP("音频分离服务：集成AudioSep、Audio-Separator、TIGER和A
 TOOL_ENV_CONFIG = {
     "AudioSepTool": {
         "python_path": "/home/chengz/anaconda3/envs/AudioSep/bin/python",
-        "script_path": str(Path(__file__).parent / "processor" / "Audiosep_processor.py")
+        "script_path": str(Path(__file__).parent.parent / "processor" / "Audiosep_processor.py")
     },
     "AudioSeparatorTool": {
         "python_path": "/home/chengz/anaconda3/envs/voicecraft2/bin/python",
-        "script_path": str(Path(__file__).parent / "processor" / "audio_separator_processor.py")
+        "script_path": str(Path(__file__).parent.parent / "processor" / "audio_separator_processor.py")
     },
     "TIGERSpeechSeparationTool": {
         "python_path": "/home/chengz/anaconda3/envs/Tiger/bin/python",
-        "script_path": str(Path(__file__).parent / "processor" / "TIGER_speech_separation_processor.py")
+        "script_path": str(Path(__file__).parent.parent / "processor" / "TIGER_speech_separation_processor.py")
     },
     "AudioSRTool": {
         "python_path": "/home/qianshuaix/miniconda3/envs/audiosr/bin/python",
-        "script_path": str(Path(__file__).parent/ "processor"  / "audiosr_tool.py")
+        "script_path": str(Path(__file__).parent.parent / "processor"  / "audiosr_tool.py")
     }
 }
 
