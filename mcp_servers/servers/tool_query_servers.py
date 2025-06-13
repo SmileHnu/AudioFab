@@ -10,8 +10,13 @@ from mcp.server.fastmcp import FastMCP
 # 创建MCP服务器
 mcp = FastMCP("Tool Query Processor")
 
-# 工具描述文件路径
-TOOL_DESCRIPTIONS_PATH = Path(__file__).parent / "tool_descriptions.json"
+
+# Tool description file path （all:Local+API）
+# TOOL_DESCRIPTIONS_PATH = Path(__file__).parent / "tool_descriptions.json"
+
+# Tool description file path （API:ONLY API）
+TOOL_DESCRIPTIONS_PATH = Path(__file__).parent /"tool_decs"/ "tool_descriptions_api.json"
+
 
 # 全局变量，用于存储句向量模型和工具描述的嵌入向量
 _model = None
