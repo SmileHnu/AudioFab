@@ -960,39 +960,39 @@ AudioFab 在 [FunTTS MCP Servers](#funtts-mcp-servers)、[Music MCP Servers](#mu
 
 #### 使用 API
 
-如果您**已经完成本地部署**，可以跳过这部分内容。
+- 如果您**已经完成本地部署**，可以跳过这部分内容。
 
-如果您**未完成本地部署**，打开 `servers_config.json`，删除以下内容即可。
+- 如果您**未完成本地部署**，打开 `servers_config.json`，删除以下内容以注销您未部署的三个服务即可。
 
-```json
-"FunTTS_mcp_servers": {
-    "command": "/home/chengz/anaconda3/bin/python",
-    "args": [
-        "mcp_servers/servers/FunTTS_mcp_servers.py"
-    ],
-    "env": {
-        "PYTHONPATH": "."
-    }
-},
-"music_mcp_servers": {
-    "command": "/home/chengz/anaconda3/bin/python",
-    "args": [
-        "mcp_servers/servers/music_mcp_servers.py"
-    ],
-    "env": {
-        "PYTHONPATH": "."
-    }
-},
-"Audioseparator_mcp_servers": {
-    "command": "/home/chengz/anaconda3/bin/python",
-    "args": [
-        "mcp_servers/servers/Audioseparator_mcp_servers.py"
-    ],
-    "env": {
-        "PYTHONPATH": "."
-    }
-},
-```
+  ```json
+  "FunTTS_mcp_servers": {
+      "command": "/home/chengz/anaconda3/bin/python",
+      "args": [
+          "mcp_servers/servers/FunTTS_mcp_servers.py"
+      ],
+      "env": {
+          "PYTHONPATH": "."
+      }
+  },
+  "music_mcp_servers": {
+      "command": "/home/chengz/anaconda3/bin/python",
+      "args": [
+          "mcp_servers/servers/music_mcp_servers.py"
+      ],
+      "env": {
+          "PYTHONPATH": "."
+      }
+  },
+  "Audioseparator_mcp_servers": {
+      "command": "/home/chengz/anaconda3/bin/python",
+      "args": [
+          "mcp_servers/servers/Audioseparator_mcp_servers.py"
+      ],
+      "env": {
+          "PYTHONPATH": "."
+      }
+  },
+  ```
 
 ## ⚡ 快速开始
 
