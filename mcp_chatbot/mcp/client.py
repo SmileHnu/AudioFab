@@ -13,13 +13,11 @@ from .mcp_tool import MCPTool
 
 '''
 作用概述
-MCPClient 是一个用于管理与 MCP（Model Context Protocol）服务器通信的异步客户端类。它负责：
+MCPClient 是一个用于管理与 MCP（Model Context Protocol）服务器和LLM通信的异步客户端类。它负责：
 启动/连接 MCP 服务器进程
-查询服务器支持的工具
-执行工具调用
+发出执行工具调用请求
 管理资源清理
 它是你与 MCP 工具服务器交互的主要入口。
-
 '''
 
 
