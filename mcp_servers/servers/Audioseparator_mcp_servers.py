@@ -34,7 +34,7 @@ TOOL_ENV_CONFIG = {
 }
 
 # 启动器脚本路径
-LAUNCHER_SCRIPT = str(Path(__file__).parent / "mcp_tool_launcher.py")
+LAUNCHER_SCRIPT = str(Path(__file__).parent.parent / "mcp_tool_launcher.py")
 
 # 创建临时目录（如果不存在）
 TEMP_DIR = Path(tempfile.gettempdir()) / "mcp_temp"
