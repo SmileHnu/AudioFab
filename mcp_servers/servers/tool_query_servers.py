@@ -10,12 +10,12 @@ from mcp.server.fastmcp import FastMCP
 # 创建MCP服务器
 mcp = FastMCP("Tool Query Processor")
 
-
+PROJECT_ROOT = Path(__file__).resolve().parent.parent 
 # Tool description file path （all:Local+API）
-# TOOL_DESCRIPTIONS_PATH = Path(__file__).parent / "tool_descriptions.json"
+# TOOL_DESCRIPTIONS_PATH: Path = PROJECT_ROOT  / "tool_descriptions.json"
 
 # Tool description file path （API:ONLY API）
-TOOL_DESCRIPTIONS_PATH = Path(__file__).parent /"tool_decs"/ "tool_descriptions_api.json"
+TOOL_DESCRIPTIONS_PATH: Path = PROJECT_ROOT / "tool_decs" / "tool_descriptions_api.json"
 
 
 # 全局变量，用于存储句向量模型和工具描述的嵌入向量
@@ -79,7 +79,7 @@ def cosine_similarity(a, b):
 
 @mcp.tool()
 def query_tool(tool_name: str) -> Dict[str, Any]:
-    """查询工具的详细信息。
+    """查询工具的详细信息。在使用任何注册工具前均需要使用此工具进行工具使用说明查询。
     
     Args:
         tool_name: 要查询的工具名称
@@ -126,7 +126,7 @@ def query_tool(tool_name: str) -> Dict[str, Any]:
 
 @mcp.tool()
 def list_available_tools() -> Dict[str, Any]:
-    """列出所有可用的工具。
+    列出系统中所有注册工具名称和基本描述，列出后需要配合query_tool工具查询具体工具的使用说明。
     
     Returns:
         包含所有可用工具的基本信息
@@ -149,9 +149,10 @@ def list_available_tools() -> Dict[str, Any]:
 def search_tools_by_task(task_description: str) -> Dict[str, Any]:
     """根据任务描述智能搜索相关工具。
     
-    使用先进的嵌入向量搜索（80%权重）与关键词匹配（20%权重）相结合的混合方法，
+    使用先进的嵌入向量搜索相结合的混合方法，
     基于语义理解和关键词出现来找到最相关的工具。嵌入向量搜索使用多语言句向量模型，
     能够理解任务的语义含义，即使没有直接的关键词匹配也能找到相关工具。
+    （建议：优先使用，返回推荐工具，配合query_tool查询具体使用说明）
     
     Args:
         task_description: 任务描述文本，可以用自然语言描述需要完成的任务
