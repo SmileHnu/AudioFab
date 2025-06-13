@@ -110,7 +110,7 @@ The MCP Server integrates 9 services, categorized into the following three types
 
 ### Tool Kits
 
-Tool Kits provides specific available tools for each service in MCP Server. For detailed introductions to these tools, please refer to [ToolKits_ZH.md](./ToolKits_ZH.md).
+Tool Kits provides specific available tools for each service in MCP Server. For detailed introductions to these tools, please refer to [ToolKits.md](./ToolKits.md).
 
 ## 🚀 Installation Guide
 
@@ -191,7 +191,7 @@ Due to the significant number of models requiring local deployment, the process 
 
 #### Local Deployment
 
-For detailed documentation on locally deploying each tool, please refer to [ToolKitsGuide_ZH.md](./ToolKitsGuide_ZH.md).
+For detailed documentation on locally deploying each tool, please refer to [ToolKitsGuide.md](./ToolKitsGuide.md).
 
 #### **Use API**
 
