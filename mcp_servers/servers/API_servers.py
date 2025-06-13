@@ -7,7 +7,8 @@ import os
 
 # Initialize the MCP server
 mcp = FastMCP("APITool")
-
+#setting up your hf_token=
+HF_TOKEN=None
 
 '''
 This is a wrapper function template for an API tool. If you want to update the API tool yourself, please refer to this example and update your API tool. You can refer to the implementations of the multiple tools below.
@@ -116,7 +117,7 @@ def cosyvoice2tool_api(
 		prompt_wav = file('https://github.com/gradio-app/gradio/raw/main/test/test_files/audio_sample.wav')
 	
 	# 调用API生成音频
-	client = Client("https://iic-cosyvoice2-0-5b.ms.show/")
+	client = Client("https://iic-cosyvoice2-0-5b.ms.show/",hf_token=HF_TOKEN)
 	
 	result = client.predict(
 		tts_text=tts_text,
@@ -199,7 +200,7 @@ def AudioX_api(
 	import shutil
 	from gradio_client import Client, file
 
-	client = Client("Zeyue7/AudioX")
+	client = Client("Zeyue7/AudioX", hf_token=HF_TOKEN)
 	
 	# 处理文件输入
 	video_file_input = file(video_file_path) if video_file_path else None
@@ -276,7 +277,7 @@ def Qwen2audio_api(
 	import os
 	from gradio_client import Client, file
 
-	client = Client("https://qwen-qwen2-audio-instruct-demo.ms.show/")
+	client = Client("https://qwen-qwen2-audio-instruct-demo.ms.show/", hf_token=HF_TOKEN)
 	
 	# 初始化聊天历史
 	if chatbot_history is None:
@@ -386,7 +387,7 @@ def clearervoice_api(
 	import shutil
 	from gradio_client import Client, handle_file
 
-	client = Client("https://iic-clearervoice-studio.ms.show/")
+	client = Client("https://iic-clearervoice-studio.ms.show/", hf_token=HF_TOKEN)
 
 	if task == "enhancement":
 		if not input_path:
@@ -526,7 +527,7 @@ def diffrhythm_api(
 	import shutil
 	from gradio_client import Client, handle_file
 
-	client = Client("ASLP-lab/DiffRhythm")
+	client = Client("ASLP-lab/DiffRhythm", hf_token=HF_TOKEN)
 
 	# --- prompt_type ---
 	if task == "prompt_type":
@@ -728,7 +729,7 @@ def ACE_Step_api(
 	import json
 	from gradio_client import Client, handle_file
 
-	client = Client("https://ace-step-ace-step.ms.show/")
+	client = Client("https://ace-step-ace-step.ms.show/", hf_token=HF_TOKEN)
 
 	# 辅助函数: 保存文件/JSON
 	def _save_audio(src_path: str, dst_path: str):
@@ -963,7 +964,7 @@ def SenseVoice_api(
 	if not os.path.exists(input_wav_path):
 		raise FileNotFoundError(input_wav_path)
 
-	client = Client("https://iic-sensevoice.ms.show/")
+	client = Client("https://iic-sensevoice.ms.show/", hf_token=HF_TOKEN)
 	result = client.predict(
 		input_wav=file(input_wav_path),
 		language=language,
@@ -1019,7 +1020,7 @@ def whisper_large_v3_turbo_api(
 
     # 2. 实例化API client
     try:
-        client = Client("hf-audio/whisper-large-v3-turbo")
+        client = Client("hf-audio/whisper-large-v3-turbo", hf_token=HF_TOKEN)
     except Exception as e:
         raise ConnectionError(f"无法连接到 Hugging Face Space 'hf-audio/whisper-large-v3-turbo'。请检查网络连接或服务状态。错误: {e}")
 
@@ -1115,7 +1116,7 @@ def tiger_api(
 
     # 2. 实例化API client
     # 这是一个 Hugging Face Space API
-    client = Client("fffiloni/TIGER-audio-extraction")
+    client = Client("fffiloni/TIGER-audio-extraction", hf_token=HF_TOKEN)
 
     # 3. 根据任务准备参数和调用API
     is_video_task = "video" in task
@@ -1209,7 +1210,7 @@ def audio_super_resolution_api(
 
     # 实例化API客户端
     # 此处使用 Hugging Face Space API 的路径约定。
-    client = Client("Nick088/Audio-SR")
+    client = Client("Nick088/Audio-SR", hf_token=HF_TOKEN)
 
     # 调用API
     # handle_file 函数会处理本地文件，为上传做准备。
@@ -1275,7 +1276,7 @@ def index_tts_1_5_api(
 
     # 2. 实例化API client
     # 根据API文档，这是一个Gradio应用，使用其URL进行实例化
-    client = Client("https://indexteam-indextts-demo.ms.show/")
+    client = Client("https://indexteam-indextts-demo.ms.show/", hf_token=HF_TOKEN)
 
     # 3. 调用API
     # 使用 handle_file 处理文件参数，API会返回一个临时的文件路径
@@ -1383,7 +1384,7 @@ def audiocraft_jasco_api(
 
     # 3. 实例化API client
     try:
-        client = Client("Tonic/audiocraft")
+        client = Client("Tonic/audiocraft", hf_token=HF_TOKEN)
     except Exception as e:
         raise ConnectionError(f"无法连接到 Hugging Face Space 'Tonic/audiocraft': {e}")
 
@@ -1486,7 +1487,7 @@ def step_audio_tts_3b_api(
         raise FileNotFoundError(f"指定的提示音频文件不存在: {prompt_audio}")
 
     # 2. 实例化API client
-    client = Client(src="https://swarmeta-ai-step-audio-tts-3b.ms.show/")
+    client = Client(src="https://swarmeta-ai-step-audio-tts-3b.ms.show/", hf_token=HF_TOKEN)
 
     # 3. 调用API
     # client.predict 会返回一个保存在本地临时目录的文件路径
@@ -1560,7 +1561,7 @@ def sparkTTS_tool_api(
         raise ValueError("参数 'output_path' 为必填项")
 
     # 3. 实例化API client
-    client = Client("thunnai/SparkTTS")
+    client = Client("thunnai/SparkTTS", hf_token=HF_TOKEN)
     
     result_temp_path = None
 
@@ -1645,7 +1646,7 @@ def yue_api(
     # 2. 实例化API client
     # 这是huggingface space api 的使用路径方式
     try:
-        client = Client("innova-ai/YuE-music-generator-demo")
+        client = Client("innova-ai/YuE-music-generator-demo", hf_token=HF_TOKEN)
     except Exception as e:
         raise ConnectionError(f"无法连接到Hugging Face Space 'innova-ai/YuE-music-generator-demo'。请检查网络或API状态。错误: {e}")
 
@@ -1777,7 +1778,7 @@ def voicecraft_tts_and_edit_api(
 
     # 3. 实例化API client
     try:
-        client = Client("Approximetal/VoiceCraft_gradio")
+        client = Client("Approximetal/VoiceCraft_gradio", hf_token=HF_TOKEN)
     except Exception as e:
         raise ConnectionError(f"无法连接到Gradio Space 'Approximetal/VoiceCraft_gradio': {e}")
 
