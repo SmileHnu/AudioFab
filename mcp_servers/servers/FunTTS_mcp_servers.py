@@ -17,40 +17,40 @@ mcp = FastMCP("语音识别与合成服务：集成FunASR、CosyVoice2,Qwen2audi
 TOOL_ENV_CONFIG = {
     "FunASRTool": {
         "python_path": "/home/chengz/anaconda3/envs/cosyvoice/bin/python",
-        "script_path": str(Path(__file__).parent / "processor" / "Funasr_processor.py")
+        "script_path": str(Path(__file__).parent.parent / "processor" / "Funasr_processor.py")
     },
     "EmotionRecognitionTool": {
         "python_path": "/home/chengz/anaconda3/envs/cosyvoice/bin/python",
-        "script_path": str(Path(__file__).parent / "processor" / "Funasr_processor.py")
+        "script_path": str(Path(__file__).parent.parent / "processor" / "Funasr_processor.py")
     },
     "CosyVoice2Tool": {
         "python_path": "/home/chengz/anaconda3/envs/cosyvoice/bin/python",
-        "script_path": str(Path(__file__).parent / "processor" / "Cosyvoice2_tool.py")
+        "script_path": str(Path(__file__).parent.parent / "processor" / "Cosyvoice2_tool.py")
     },
     "SparkTTSTool": {
         "python_path": "/home/chengz/anaconda3/bin/python",
-        "script_path": str(Path(__file__).parent / "processor" / "sparktts_processor.py")
+        "script_path": str(Path(__file__).parent.parent / "processor" / "sparktts_processor.py")
     },
     "VoiceCraftTool": {
         "python_path": "/home/chengz/anaconda3/envs/voicecraft/bin/python",
-        "script_path": str(Path(__file__).parent / "processor" / "voicecraft_processor.py")
+        "script_path": str(Path(__file__).parent.parent / "processor" / "voicecraft_processor.py")
     },
     "Qwen2AudioTool": {
         "python_path": "/home/chengz/anaconda3/envs/Qwenaudio/bin/python",
-        "script_path": str(Path(__file__).parent / "processor" / "Qwen2Audio_processor.py")
+        "script_path": str(Path(__file__).parent.parent / "processor" / "Qwen2Audio_processor.py")
     },
     "ClearVoiceTool": {
         "python_path": "/home/chengz/anaconda3/bin/python",
-        "script_path": str(Path(__file__).parent / "processor" / "ClearerVoice_tool.py")
+        "script_path": str(Path(__file__).parent.parent / "processor" / "ClearerVoice_tool.py")
     },
     "WhisperASRTool": {
         "python_path": "/home/chengz/anaconda3/bin/python",
-        "script_path": str(Path(__file__).parent / "processor" / "whisper_tool.py")
+        "script_path": str(Path(__file__).parent.parent / "processor" / "whisper_tool.py")
     }
 }
 
 # 启动器脚本路径
-LAUNCHER_SCRIPT = str(Path(__file__).parent / "mcp_tool_launcher.py")
+LAUNCHER_SCRIPT = str(Path(__file__).parent.parent / "mcp_tool_launcher.py")
 
 # 创建临时目录（如果不存在）
 TEMP_DIR = Path(tempfile.gettempdir()) / "mcp_temp"
