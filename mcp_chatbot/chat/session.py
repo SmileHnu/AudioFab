@@ -9,7 +9,7 @@ import colorama
 from ..llm.oai import OpenAIClient as LLMClient
 from ..mcp import MCPClient
 from ..utils import WorkflowEventType, WorkflowTracer
-from .system_messages import SYSTEM_MESSAGE1, SYSTEM_MESSAGE2, SYSTEM_MESSAGE3
+from .system_messages import SYSTEM_MESSAGE3
 
 # Configure logging
 logging.basicConfig(
