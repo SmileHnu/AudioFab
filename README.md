@@ -104,9 +104,9 @@ The MCP Server integrates 9 services, categorized into the following three types
 
     | Service Name | Capability Description |
     | :--- | :--- |
-    | FunTTS MCP | Speech Editing: <br> *Speech Editing, Speech Enhancement, Voice Activity Detection, Speech Super Resolution* <br> Speech Understanding: <br> *Speech Translation, Speech Emotion Recognition, Speaker Diarization, Speaking Style Recognition, ASR, AAC* <br> Speech Generation: <br> *Text2Speech, Voice Conversion* <br> Sound Understanding: <br> *Sound Event Detection, Audio Quality Analysis, Acoustic Scene Classification* <br> Music Understanding: <br> *Music Emotion Recognition, Music Style Description, Lyrics Recognition* |
-    | Music MCP | Speech Generation: <br> *Speech2Song, Spoken Dialogue, Target Speaker Extraction, Speech2Talking-head* <br> Sound Generation: <br> *Sound Style Transfer, Text2Audio, Video2Audio, Audio2Video, Audio2Image* <br> Music Generation: <br> *Music2Song, Text2Music, Lyrics2Song* |
-    | Audio Separator MCP | Sound Editing: <br> *Digital Signal Processing, Audio Reconstruction, Audio Separation* <br> Music Editing: <br> *Music Separation, Music Mix Track, Music Format Conversion* |
+    | FunTTS MCP Servers | Speech Editing: <br> *Speech Editing, Speech Enhancement, Voice Activity Detection, Speech Super Resolution* <br> Speech Understanding: <br> *Speech Translation, Speech Emotion Recognition, Speaker Diarization, Speaking Style Recognition, ASR, AAC* <br> Speech Generation: <br> *Text2Speech, Voice Conversion* <br> Sound Understanding: <br> *Sound Event Detection, Audio Quality Analysis, Acoustic Scene Classification* <br> Music Understanding: <br> *Music Emotion Recognition, Music Style Description, Lyrics Recognition* |
+    | Music MCP Servers | Speech Generation: <br> *Speech2Song, Spoken Dialogue, Target Speaker Extraction, Speech2Talking-head* <br> Sound Generation: <br> *Sound Style Transfer, Text2Audio, Video2Audio, Audio2Video, Audio2Image* <br> Music Generation: <br> *Music2Song, Text2Music, Lyrics2Song* |
+    | Audio Separator MCP Servers | Sound Editing: <br> *Digital Signal Processing, Audio Reconstruction, Audio Separation* <br> Music Editing: <br> *Music Separation, Music Mix Track, Music Format Conversion* |
 
 ### Tool Kits
 
