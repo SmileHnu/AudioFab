@@ -175,7 +175,7 @@ Tool Kits provides specific available tools for each service in MCP Server. For 
 
     You can check if your configuration is correct by running `scripts/check.sh`.
 
-### 2. 外部依赖部署与配置
+### 2. External Dependency Deployment and Configuration
 
 Subsequent deployment work will be completed in the `mcp_servers` folder.
 
