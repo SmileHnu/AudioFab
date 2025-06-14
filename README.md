@@ -211,6 +211,21 @@ Run AudioFab with a single command:
 conda activate AudioFab
 python scripts/start_all.py
 ```
+## 💡 Use Case
+
+I want to understand the musical style of a song, extract its accompaniment, and create a new piece of music in the same style.
+
+Here's how I'd use it:
+
+- Run AudioFab, and follow the command-line prompts to open the AudioFab user interface in my browser.
+- I'd describe my requirements to AudioFab using natural language and upload the required audio files.
+  <div align="center">
+  <img src="./assets/task_description.png" width="100%">
+  </div>
+- I'd observe AudioFab's analysis and processing. If necessary, I'd interact with AudioFab using natural language, then wait for AudioFab to provide the final results.
+  <div align="center">
+  <img src="./assets/task_result.png" width="100%">
+  </div>
 
 ## 🤝 Contributing
 
