@@ -119,7 +119,7 @@ API Servers 中集成了部分工具的 API，能实现 FunTTS MCP Servers、Mus
 | 工具名 | 描述 |
 | :--- | :--- |
 | [cosyvoice2tool_api](https://www.modelscope.cn/studios/iic/CosyVoice2-0.5B) | 将文本转换为逼真语音，支持声音克隆和自然语言控制 |
-| [index_tts_1.5_api](https://modelscope.cn/studios/IndexTeam/IndexTTS-Demo) | 通过克隆参考音频中的声音来生成目标文本的语音 |
+| [index_tts_1.5_api](https://huggingface.co/spaces/IndexTeam/IndexTTS) | 通过克隆参考音频中的声音来生成目标文本的语音 |
 | [step_audio_tts_3b_api](https://modelscope.cn/studios/Swarmeta_AI/Step-Audio-TTS-3B) | 克隆参考音频的音色以生成新的语音 |
 | [sparkTTS_tool_api](https://huggingface.co/spaces/thunnai/SparkTTS) | 支持声音克隆和自定义（性别、音高、速度）的文本转语音工具 |
 | [voicecraft_tts_and_edit_api](https://huggingface.co/spaces/Approximetal/VoiceCraft_gradio) | 主要用于文本转语音，也支持对生成的音频进行编辑 |
@@ -128,7 +128,7 @@ API Servers 中集成了部分工具的 API，能实现 FunTTS MCP Servers、Mus
 
 | 工具名 | 描述 |
 | :--- | :--- |
-| [diffrhythm_api](https://huggingface.co/spaces/ASLP-lab/DiffRhythm) | 从主题、歌词到最终编曲的全流程音乐生成工具 |
+| [diffrhythm_api](https://huggingface.co/spaces/dskill/DiffRhythm) | 从主题、歌词到最终编曲的全流程音乐生成工具 |
 | [ACE_Step_api](https://huggingface.co/spaces/ACE-Step/ACE-Step) | 集成化的端到端音乐生成、编辑和扩展工具 |
 | [audiocraft_jasco_api](https://huggingface.co/spaces/Tonic/audiocraft) | 基于文本、和弦、旋律和鼓点生成音乐 |
 | [yue_api](https://huggingface.co/spaces/innova-ai/YuE-music-generator-demo) | 根据音乐流派、歌词或音频提示生成包含人声和伴奏的音乐 |
@@ -147,5 +147,5 @@ API Servers 中集成了部分工具的 API，能实现 FunTTS MCP Servers、Mus
 | 工具名 | 描述 |
 | :--- | :--- |
 | [whisper_large_v3_turbo_api](https://huggingface.co/spaces/hf-audio/whisper-large-v3-turbo) | 对本地、URL或YouTube音频进行转录或翻译 |
-| [SenseVoice_api](https://www.modelscope.cn/studios/iic/SenseVoice) | 基于语音的多任务理解工具，支持识别、情感和事件检测 |
+| [SenseVoice_api](https://huggingface.co/spaces/megatrump/SenseVoice) | 基于语音的多任务理解工具，支持识别、情感和事件检测 |
 | [Qwen2audio_api](https://modelscope.cn/studios/Qwen/Qwen2-Audio-Instruct-Demo/summary/) | 支持文本和音频输入的多模态对话工具，侧重于理解音频内容 |
