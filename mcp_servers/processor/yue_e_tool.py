@@ -25,8 +25,12 @@ YUE_S2_GENERAL = "/home/chengz/LAMs/pre_train_models/models--m-a-p--YuE-s2-1B-ge
 YUE_UPSAMPLER = "/home/chengz/LAMs/pre_train_models/models--m-a-p--YuE-upsampler"
 
 # YuE script path
-YUE_INFERENCE_DIR = Path("/home/chengz/LAMs/mcp_chatbot-audio/models/YuE-exllamav2/src/yue")
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+YUE_INFERENCE_DIR = Path(os.getenv("YUE_INFERENCE_DIR", PROJECT_ROOT / "models" / "YuE-exllamav2" / "src" / "yue"))
 YUE_INFER_SCRIPT = str(YUE_INFERENCE_DIR / "infer.py")
+
+# YUE_INFERENCE_DIR = Path("/home/chengz/LAMs/mcp_chatbot-audio/models/YuE-exllamav2/src/yue")
+# YUE_INFER_SCRIPT = str(YUE_INFERENCE_DIR / "infer.py")
 
 # Python environment path
 PYTHON_ENV_PATH = "/home/chengz/anaconda3/envs/yue_e/bin/python"
