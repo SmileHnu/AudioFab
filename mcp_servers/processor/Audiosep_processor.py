@@ -16,7 +16,9 @@ AUDIO_DIR = OUTPUT_DIR / "audio"
 AUDIO_DIR.mkdir(parents=True, exist_ok=True)
 
 # Scripts directory
-SCRIPTS_DIR = Path("/home/chengz/LAMs/mcp_chatbot-audio/models/AudioSep")
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+# 如果设置了环境变量 AUDIOSEP_SCRIPTS_DIR，则优先使用；否则默认 <project_root>/models/AudioSep
+SCRIPTS_DIR = Path(os.getenv("AUDIOSEP_SCRIPTS_DIR", PROJECT_ROOT / "models" / "AudioSep"))
 SCRIPTS_DIR.mkdir(parents=True, exist_ok=True)
 AUDIOSEP_SCRIPT_PATH = SCRIPTS_DIR / "run_audiosep.py"
 
