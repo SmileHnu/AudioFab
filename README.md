@@ -126,9 +126,8 @@ Tool Kits provides specific available tools for each service in MCP Server. For 
 2. Set up the virtual environment and Install dependencies
 
     ```bash
-    conda create -n AudioFab python=3.10
+    conda env create -f environment.yml
     conda activate AudioFab
-    pip install -r requirements.txt
     ```
 
 3. Configure the environment
