@@ -1,0 +1,30 @@
+name: AudioFab
+channels:
+  - defaults
+dependencies:
+  - python=3.10
+  - portaudio
+  - pip
+  - pip:
+    - clearvoice==0.1.1
+    - datasets==2.18.0
+    - funasr==1.2.6
+    - librosa==0.10.2.post1
+    - matplotlib==3.8.4
+    - omegaconf==2.3.0
+    - openai_whisper==20240930
+    - pydub==0.25.1
+    - sentence_transformers==4.1.0
+    - sounddevice==0.5.2
+    - soundfile==0.12.1
+    - streamlit==1.45.0
+    - torch==2.2.0
+    - torchaudio==2.2.0
+    - tqdm==4.66.4
+    - transformers==4.46.2
+    - colorama==0.4.6
+    - dotenv==0.9.9
+    - openai==1.86.0
+    - mcp==1.9.4
+    - gradio_client==1.10.3
+    - streamlit-webrtc==0.62.4
