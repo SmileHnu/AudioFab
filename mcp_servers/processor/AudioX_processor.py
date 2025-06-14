@@ -32,7 +32,8 @@ except ImportError as e:
 
 # Constants
 AudioX_model_path = "/home/chengz/LAMs/pre_train_models/models--HKUSTAudio--AudioX"
-OUTPUT_BASE_DIR = Path("/home/chengz/LAMs/mcp_chatbot-audio/output")
+PROJECT_ROOT_DIR = Path(__file__).resolve().parents[2]
+OUTPUT_BASE_DIR = PROJECT_ROOT_DIR / "output"
 AUDIO_DIR = OUTPUT_BASE_DIR / "audio"
 VIDEO_DIR = OUTPUT_BASE_DIR / "video"
 
