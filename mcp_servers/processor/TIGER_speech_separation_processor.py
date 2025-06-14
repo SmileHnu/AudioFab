@@ -9,7 +9,7 @@ sys.path.append('/home/chengz/LAMs/mcp_chatbot-audio/models/TIGER')
 from inference_speech import separate_speech
 
 # Create output directories
-OUTPUT_DIR = Path("/home/chengz/LAMs/mcp_chatbot-audio/output")
+OUTPUT_DIR = Path("output")
 AUDIO_DIR = OUTPUT_DIR / "audio"
 AUDIO_DIR.mkdir(parents=True, exist_ok=True)
 
