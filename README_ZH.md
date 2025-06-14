@@ -126,9 +126,8 @@ Tool Kits 为 MCP Server 中的每一个服务提供了一些具体可用的工�
 2. 安装虚拟环境与依赖
 
     ```bash
-    conda create -n AudioFab python=3.10
+    conda env create -f environment.yml
     conda activate AudioFab
-    pip install -r requirements.txt
     ```
 
 3. 配置运行环境
