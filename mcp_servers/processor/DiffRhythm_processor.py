@@ -9,6 +9,7 @@ from datetime import datetime
 import tempfile
 
 # Create output directories
+
 OUTPUT_DIR = Path("/home/chengz/LAMs/mcp_chatbot-audio/output/music")
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
@@ -21,7 +22,7 @@ mcp = FastMCP("DiffRhythm: Diffusion-Based High-Quality Full-Length Music Genera
 
 # Global constants
 PYTHON_PATH = "/home/qianshuaix/miniconda3/envs/diffrhythm/bin/python"
-INFER_SCRIPT = "infer/infer.py"
+INFER_SCRIPT = "models/DiffRhythm/infer/infer.py"
 
 def get_timestamp():
     """Generate a timestamp string for unique filenames."""
