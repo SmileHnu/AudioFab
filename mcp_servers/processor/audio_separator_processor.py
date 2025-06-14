@@ -13,10 +13,9 @@ AUDIO_DIR.mkdir(parents=True, exist_ok=True)
 SEPARATED_DIR.mkdir(parents=True, exist_ok=True)
 
 # Add audio-separator path to system path
-sys.path.append(os.path.abspath("models/audio-separator"))
 
-import sys
-sys.path.append('/home/chengz/LAMs/mcp_chatbot-audio/models/audio-separator')
+# sys.path.append('/home/chengz/LAMs/mcp_chatbot-audio/models/audio-separator')
+sys.path.append(os.path.abspath("models/audio-separator"))
 from audio_separator.separator import Separator
 
 # Global constants
