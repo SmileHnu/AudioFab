@@ -49,7 +49,7 @@ TOOL_ENV_CONFIG = {
     },
     "DiffRhythmTool": {
         "python_path": "/home/qianshuaix/miniconda3/envs/diffrhythm/bin/python",
-        "script_path": sstr(Path(__file__).parent.parent / "processor" / "DiffRhythm_processor.py")
+        "script_path": str(Path(__file__).parent.parent / "processor" / "DiffRhythm_processor.py")
     }
 }
 
