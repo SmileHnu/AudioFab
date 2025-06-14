@@ -10,8 +10,11 @@ import shutil
 
 # Add the models directory to the path
 HALLO2_PATH = Path("/home/chengz/LAMs/pre_train_models/models--fudan-generative-ai--hallo2")
+PROJECT_ROOT_DIR = Path(__file__).resolve().parents[2]
+HALLO2_SRC_DIR = PROJECT_ROOT_DIR / "models" / "hallo2"
 sys.path.append(str(HALLO2_PATH))
-sys.path.append("/home/chengz/LAMs/mcp_chatbot-audio/models/hallo2")
+sys.path.append(str(HALLO2_SRC_DIR))
+# sys.path.append("/home/chengz/LAMs/mcp_chatbot-audio/models/hallo2")
 
 from mcp.server.fastmcp import FastMCP
 
@@ -30,7 +33,8 @@ model_config = {
     "model_path": str(HALLO2_PATH),
     "device": torch.device("cuda" if torch.cuda.is_available() else "cpu"),
     "weight_dtype": "fp16" if torch.cuda.is_available() else "fp32",
-    "config_path": str(Path("/home/chengz/LAMs/mcp_chatbot-audio/models/hallo2/configs/inference/long.yaml"))
+    # "config_path": str(Path("/home/chengz/LAMs/mcp_chatbot-audio/models/hallo2/configs/inference/long.yaml"))
+    "config_path": str(HALLO2_SRC_DIR / "configs" / "inference" / "long.yaml")
 }
 
 # Global variable for model instance
