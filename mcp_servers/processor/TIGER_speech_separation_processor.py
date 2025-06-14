@@ -5,14 +5,18 @@ from typing import Optional, Dict, Any
 from datetime import datetime
 
 # Add the models directory to the path
-sys.path.append('/home/chengz/LAMs/mcp_chatbot-audio/models/TIGER')
+PROJECT_ROOT_DIR = Path(__file__).resolve().parents[2]
+TIGER_MODEL_DIR = PROJECT_ROOT_DIR / "models" / "TIGER"
+sys.path.append(str(TIGER_MODEL_DIR))
+
+# Import after modifying sys.path
 from inference_speech import separate_speech
 
 # Create output directories
-OUTPUT_DIR = Path("output")
+# OUTPUT_DIR = Path("/home/chengz/LAMs/mcp_chatbot-audio/output")
+OUTPUT_DIR = PROJECT_ROOT_DIR / "output"
 AUDIO_DIR = OUTPUT_DIR / "audio"
 AUDIO_DIR.mkdir(parents=True, exist_ok=True)
-
 def get_timestamp():
     """Generate a timestamp string for unique filenames."""
     return datetime.now().strftime("%Y%m%d_%H%M%S")
