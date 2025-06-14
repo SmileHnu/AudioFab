@@ -14,7 +14,7 @@ from typing import Optional, Dict, Any, List, Union, Literal
 
 # 使用相对路径定位模型目录
 current_dir = Path(__file__).parent
-project_root = current_dir.parent
+project_root = current_dir.parent.parent
 VOICECRAFT_BASE_DIR = project_root / "models" / "VoiceCraft"
 
 # 可从环境变量获取预训练模型路径，默认值作为备选
