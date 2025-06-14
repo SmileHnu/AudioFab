@@ -20,7 +20,7 @@ AUDIO_DIR.mkdir(parents=True, exist_ok=True)
 PYTHON_ENV_PATH = "/home/qianshuaix/miniconda3/envs/envTest/bin/python"
 
 # MCP tool launcher script
-MCP_LAUNCHER_SCRIPT = str(Path(__file__).parent / "mcp_tool_launcher.py")
+MCP_LAUNCHER_SCRIPT = str(Path(__file__).parent.parent  / "mcp_tool_launcher.py")
 
 def get_timestamp():
     """Generate a timestamp string for unique filenames."""
