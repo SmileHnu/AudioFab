@@ -44,7 +44,8 @@ AUDIO_DIR = os.path.join(MEDIA_DIR, "audio")
 VIDEO_DIR = os.path.join(MEDIA_DIR, "video")
 
 # Add output directories
-OUTPUT_DIR = "/home/chengz/LAMs/mcp_chatbot-audio/output"
+# OUTPUT_DIR = "/home/chengz/LAMs/mcp_chatbot-audio/output"
+OUTPUT_DIR = os.path.join(PROJECT_ROOT, "output")
 OUTPUT_AUDIO_DIR = os.path.join(OUTPUT_DIR, "audio")
 OUTPUT_VIDEO_DIR = os.path.join(OUTPUT_DIR, "video")
 OUTPUT_PLOTS_DIR = os.path.join(OUTPUT_DIR, "plots")
