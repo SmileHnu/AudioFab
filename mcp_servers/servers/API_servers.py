@@ -5,11 +5,11 @@ from typing import Optional, Dict, Any, List, Union, Literal,Tuple
 import os
 
 
-# Initialize the MCP server
+# 初始化MCP服务器
 mcp = FastMCP("APITool")
-#setting up your hf_token=
-HF_TOKEN=None
-
+#set yours hf_token=
+MD_TOKEN=None
+HF_TOKEN = None
 '''
 This is a wrapper function template for an API tool. If you want to update the API tool yourself, please refer to this example and update your API tool. You can refer to the implementations of the multiple tools below.
 
@@ -49,9 +49,9 @@ def MyAPI_tool_api(
         raise FileNotFoundError(input_file_path)
 
     # 3. Instantiate the API client
-    client = Client("https://your-api-endpoint-url/") #This is the usage path method of the modelscope API.
-    # or client("Zeyue7/AudioX")  This is the usage path method of the modelscope API.
-    # 4. 文件参数处理（如有）
+    client = Client("https://your-api-endpoint-url/", hf_token=MD_TOKEN) #This is the usage path method of the modelscope API.
+    # or client("Zeyue7/AudioX", hf_token=HF_TOKEN)  This is the usage path method of the modelscope API.
+    # 4. File parameter processing (if any)
     file_input = file(input_file_path) if input_file_path else None
 
     # 5. CALL API
@@ -117,7 +117,7 @@ def cosyvoice2tool_api(
 		prompt_wav = file('https://github.com/gradio-app/gradio/raw/main/test/test_files/audio_sample.wav')
 	
 	# 调用API生成音频
-	client = Client("https://iic-cosyvoice2-0-5b.ms.show/",hf_token=HF_TOKEN)
+	client = Client("https://iic-cosyvoice2-0-5b.ms.show/",hf_token=MD_TOKEN)
 	
 	result = client.predict(
 		tts_text=tts_text,
@@ -277,7 +277,7 @@ def Qwen2audio_api(
 	import os
 	from gradio_client import Client, file
 
-	client = Client("https://qwen-qwen2-audio-instruct-demo.ms.show/", hf_token=HF_TOKEN)
+	client = Client("https://qwen-qwen2-audio-instruct-demo.ms.show/",hf_token=MD_TOKEN)
 	
 	# 初始化聊天历史
 	if chatbot_history is None:
@@ -387,7 +387,7 @@ def clearervoice_api(
 	import shutil
 	from gradio_client import Client, handle_file
 
-	client = Client("https://iic-clearervoice-studio.ms.show/", hf_token=HF_TOKEN)
+	client = Client("https://iic-clearervoice-studio.ms.show/",hf_token=MD_TOKEN)
 
 	if task == "enhancement":
 		if not input_path:
@@ -729,7 +729,7 @@ def ACE_Step_api(
 	import json
 	from gradio_client import Client, handle_file
 
-	client = Client("https://ace-step-ace-step.ms.show/", hf_token=HF_TOKEN)
+	client = Client("https://ace-step-ace-step.ms.show/",hf_token=MD_TOKEN)
 
 	# 辅助函数: 保存文件/JSON
 	def _save_audio(src_path: str, dst_path: str):
@@ -964,7 +964,7 @@ def SenseVoice_api(
 	if not os.path.exists(input_wav_path):
 		raise FileNotFoundError(input_wav_path)
 
-	client = Client("https://iic-sensevoice.ms.show/", hf_token=HF_TOKEN)
+	client = Client("https://iic-sensevoice.ms.show/",hf_token=MD_TOKEN)
 	result = client.predict(
 		input_wav=file(input_wav_path),
 		language=language,
@@ -1276,7 +1276,7 @@ def index_tts_1_5_api(
 
     # 2. 实例化API client
     # 根据API文档，这是一个Gradio应用，使用其URL进行实例化
-    client = Client("https://indexteam-indextts-demo.ms.show/", hf_token=HF_TOKEN)
+    client = Client("https://indexteam-indextts-demo.ms.show/",hf_token=MD_TOKEN)
 
     # 3. 调用API
     # 使用 handle_file 处理文件参数，API会返回一个临时的文件路径
@@ -1487,7 +1487,7 @@ def step_audio_tts_3b_api(
         raise FileNotFoundError(f"指定的提示音频文件不存在: {prompt_audio}")
 
     # 2. 实例化API client
-    client = Client(src="https://swarmeta-ai-step-audio-tts-3b.ms.show/", hf_token=HF_TOKEN)
+    client = Client(src="https://swarmeta-ai-step-audio-tts-3b.ms.show/",hf_token=MD_TOKEN)
 
     # 3. 调用API
     # client.predict 会返回一个保存在本地临时目录的文件路径
@@ -1832,6 +1832,96 @@ def voicecraft_tts_and_edit_api(
         raise RuntimeError("API调用成功，但未返回任何音频文件。请检查输入参数。")
     else:
         raise FileNotFoundError(f"API返回了一个临时的音频文件路径，但该文件不存在: {temp_audio_path}")
+
+
+
+@mcp.tool()
+def image2music_api(
+    image_path: str,
+    output_dir: str = "outputs/music",
+    model: Literal['ACE Step', 'AudioLDM-2', 'Riffusion', 'Mustango', 'Stable Audio Open'] = 'ACE Step'
+
+) -> str:
+    """Generate music from an image using the image-to-music-v2 model.
+    
+    Args:
+        image_path (str): Path to the local image file.
+        output_dir (str, optional): Path to the output directory. Defaults to "outputs/music".
+        model (Literal, optional): Model to use for music generation. 
+            Options: 'ACE Step', 'AudioLDM-2', 'Riffusion', 'Mustango', 'Stable Audio Open'. 
+            Defaults to 'ACE Step'.
+    
+    Returns:
+        str: Path to the generated audio file.
+    """
+    # Create a client connection to the Hugging Face space
+    client = Client("fffiloni/image-to-music-v2")
+    
+    # Ensure the image path exists
+    if not os.path.exists(image_path):
+        raise FileNotFoundError(f"Image file not found: {image_path}")
+    
+
+    
+    # Generate output filename
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    output_file = output_dir / f"music_{timestamp}.wav"
+    
+    try:
+        # Call the API with the image and parameters
+        result = client.predict(
+            image_in=handle_file(image_path),  # 正确处理图片文件
+            chosen_model=model,                # 选择模型
+            api_name="/infer"                  # 正确的API名称
+        )
+        
+        # 处理提示词
+        prompt_data = result[0]
+        if isinstance(prompt_data, dict) and 'value' in prompt_data:
+            prompt = prompt_data['value']
+            print(f"Generated inspirational prompt: {prompt}")
+        else:
+            print(f"Generated data: {prompt_data}")
+        
+        # 处理音频文件
+        audio_url = result[1]
+        
+        # 使用临时文件下载音频
+        temp_file = tempfile.NamedTemporaryFile(delete=False, suffix=".mp3")
+        temp_file.close()
+        
+        # 如果是URL，则下载
+        if isinstance(audio_url, str) and (audio_url.startswith('http://') or audio_url.startswith('https://')):
+            response = requests.get(audio_url)
+            if response.status_code == 200:
+                with open(temp_file.name, 'wb') as f:
+                    f.write(response.content)
+            else:
+                raise Exception(f"Failed to download audio file: {response.status_code}")
+        # 如果已经是本地文件路径
+        elif isinstance(audio_url, str) and os.path.exists(audio_url):
+            with open(audio_url, 'rb') as f_in:
+                with open(temp_file.name, 'wb') as f_out:
+                    f_out.write(f_in.read())
+        else:
+            raise Exception(f"Unexpected audio result format: {type(audio_url)}")
+        
+        # 复制到最终输出位置
+        with open(temp_file.name, "rb") as f_in:
+            with open(output_file, "wb") as f_out:
+                f_out.write(f_in.read())
+        
+        # 清理临时文件
+        try:
+            os.unlink(temp_file.name)
+        except:
+            pass
+            
+        return str(output_file)
+    except Exception as e:
+        import traceback
+        return f"Error generating music: {str(e)}\n{traceback.format_exc()}"
+
 
 
 if __name__ == "__main__":
