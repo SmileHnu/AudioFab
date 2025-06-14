@@ -210,6 +210,22 @@ conda activate AudioFab
 python scripts/start_all.py
 ```
 
+## 💡 使用案例
+
+现在我想要了解一首歌曲的音乐风格，获得歌曲的伴奏，并且创作一段和这首歌一样风格的音乐。
+
+以下是我的使用方法：
+
+- 一键运行 AudioFab，根据命令行提示，在浏览器中打开 AudioFab 用户界面
+- 用自然语言向 AudioFab 描述我的需求，并上传必要的文件
+  <div align="center">
+  <img src="./assets/task_description.png" width="100%">
+  </div>
+- 查看 AudioFab 的分析与处理过程，必要时通过自然语言与 AudioFab 交互，等待 AudioFab 给出最终结果
+  <div align="center">
+  <img src="./assets/task_result.png" width="100%">
+  </div>
+  
 ## 🤝 贡献
 
 我们欢迎任何形式的贡献，包括但不限于：
