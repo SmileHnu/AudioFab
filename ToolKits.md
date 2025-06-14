@@ -119,7 +119,7 @@ The APIs of several tools are integrated into API Servers, which can realize som
 | Tool Name | Description |
 | :--- | :--- |
 | [cosyvoice2tool_api](https://www.modelscope.cn/studios/iic/CosyVoice2-0.5B) | Converts text into realistic speech, supporting voice cloning and natural language control. |
-| [index_tts_1.5_api](https://modelscope.cn/studios/IndexTeam/IndexTTS-Demo) | Generates speech for a target text by cloning the voice from a reference audio. |
+| [index_tts_1.5_api](https://huggingface.co/spaces/IndexTeam/IndexTTS) | Generates speech for a target text by cloning the voice from a reference audio. |
 | [step_audio_tts_3b_api](https://modelscope.cn/studios/Swarmeta_AI/Step-Audio-TTS-3B) | Clones the timbre of a reference audio to generate new speech. |
 | [sparkTTS_tool_api](https://huggingface.co/spaces/thunnai/SparkTTS) | A text-to-speech tool that supports voice cloning and customization (gender, pitch, speed). |
 | [voicecraft_tts_and_edit_api](https://huggingface.co/spaces/Approximetal/VoiceCraft_gradio) | Primarily used for text-to-speech, but also supports editing the generated audio. |
@@ -128,7 +128,7 @@ The APIs of several tools are integrated into API Servers, which can realize som
 
 | Tool Name | Description |
 | :--- | :--- |
-| [diffrhythm_api](https://huggingface.co/spaces/ASLP-lab/DiffRhythm) | A full-process music generation tool, from theme and lyrics to final arrangement. |
+| [diffrhythm_api](https://huggingface.co/spaces/dskill/DiffRhythm) | A full-process music generation tool, from theme and lyrics to final arrangement. |
 | [ACE_Step_api](https://huggingface.co/spaces/ACE-Step/ACE-Step) | An integrated, end-to-end tool for music generation, editing, and extension. |
 | [audiocraft_jasco_api](https://huggingface.co/spaces/Tonic/audiocraft) | Generates music based on text, chords, melody, and drum beats. |
 | [yue_api](https://huggingface.co/spaces/innova-ai/YuE-music-generator-demo) | Generates music with vocals and accompaniment based on music genre, lyrics, or audio prompts. |
@@ -147,5 +147,5 @@ The APIs of several tools are integrated into API Servers, which can realize som
 | Tool Name | Description |
 | :--- | :--- |
 | [whisper_large_v3_turbo_api](https://huggingface.co/spaces/hf-audio/whisper-large-v3-turbo) | Transcribes or translates local, URL, or YouTube audio. |
-| [SenseVoice_api](https://www.modelscope.cn/studios/iic/SenseVoice) | A speech-based multi-task understanding tool that supports recognition, emotion, and event detection. |
+| [SenseVoice_api](https://huggingface.co/spaces/megatrump/SenseVoice) | A speech-based multi-task understanding tool that supports recognition, emotion, and event detection. |
 | [Qwen2audio_api](https://modelscope.cn/studios/Qwen/Qwen2-Audio-Instruct-Demo/summary/) | A multimodal dialogue tool that supports text and audio input, with a focus on understanding audio content. |
