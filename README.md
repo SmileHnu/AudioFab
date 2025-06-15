@@ -130,6 +130,7 @@ Tool Kits provides specific available tools for each service in MCP Server. For 
     conda activate AudioFab
     ```
     or
+    ```bash
     conda env create -f base_environment.yml
     conda activate AudioFab
     ```
