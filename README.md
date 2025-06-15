@@ -140,25 +140,19 @@ Tool Kits provides specific available tools for each service in MCP Server. For 
     Edit the `.env` file:
 
     ```
-    LLLM_API_KEY=your_llm_api_key_here
-    LLM_BASE_URL=your_llm_api_base_url_here
-    LLM_MODEL_NAME=your_llm_model_name_here
+    LLM_API_KEY=
+    LLM_BASE_URL=
+    LLM_MODEL_NAME=
 
     OLLAMA_MODEL_NAME="your_ollama_model_name_here"
     OLLAMA_BASE_URL="your_ollama_base_url_here"
 
-    #wsl
-    MARKDOWN_FOLDER_PATH=your_markdown_folder_path_here
-    RESULT_FOLDER_PATH=your_result_folder_path_here
-     ```
+    #The address of the file (such as .md, .json, .txt, etc.) you want to process.
+    MARKDOWN_FOLDER_PATH=
+    RESULT_FOLDER_PATH=
+    ```
 
-    Edit `mcp_servers/servers_config.json` to Match Your Local Setup.
-
-    For all registered services:
-
-    - Replace `command` with the path to your Python interpreter.
-
-    - Replace `PYTHONPATH` with the absolute path to the `mcp_servers` directory on your system.
+    Edit `mcp_servers/servers_config.json` to match your local setup: replace the `command` under each service with your Python interpreter path.
 
     ```json
     {
@@ -169,10 +163,10 @@ Tool Kits provides specific available tools for each service in MCP Server. For 
                     "mcp_servers/servers/markdown_servers.py"
                 ],
                 "env": {
-                    "PYTHONPATH": "your/absolute/path/to/mcp_servers"
+                    "PYTHONPATH": "."
                 }
             },
-           "......"    
+          "......"
         }
     }
     ```
@@ -193,19 +187,22 @@ AudioFab integrates multiple third-party models within its FunTTS MCP Servers, M
 
 Due to the significant number of models requiring local deployment, the process can be complex, and running these models locally consumes substantial computing resources. Therefore, **we recommend you initially use some models via API** for a quicker AudioFab experience.
 
-#### Local Deployment
+#### **Use API**
+
+Add `MD_TOKEN` and `HF_TOKEN` to `servers/API_servers.py`.
+
+```python
+MD_TOKEN = "your_MD_TOKEN_here"
+HF_TOKEN = "your_HF_TOKEN_here"
+```
+
+#### **Local Deployment**
 
 For detailed documentation on locally deploying each tool, please refer to [ToolKitsGuide.md](./ToolKitsGuide.md).
 
-#### **Use API**
+❗ If you haven't completed local deployment:
 
-- If you've already completed the local deployment
-
-    please remove the registration for the `API_servers` service in `servers_config.json`. The functionalities provided by the API are entirely covered by the locally deployed models.
-
-- If you haven't completed the local deployment
-
-    please remove the registrations for `FunTTS_mcp_servers`, `music_mcp_servers`, and `Audioseparator_mcp_servers` services in `servers_config.json`. In this case, AudioFab won't use models that require local deployment.
+Please remove the registrations for `FunTTS_mcp_servers`, `music_mcp_servers`, and `Audioseparator_mcp_servers` services in `servers_config.json`. In this case, AudioFab will not use models that require local deployment.
 
 ## ⚡ Quick Start
 
@@ -241,7 +238,9 @@ We welcome any form of contribution, including but not limited to:
 - Documentation Improvements
 
 ## 🙏 References and Acknowledgements
+
 AudioFab will continue to be maintained and updated. The contributors list will be updated dynamically and is still being organized. Please stay tuned!
+
 ## 📝 License
 
 [![CC BY-NC 4.0][cc-by-nc-shield]][cc-by-nc]
