@@ -123,7 +123,7 @@ Tool Kits provides specific available tools for each service in MCP Server. For 
     cd AudioFab
     ```
 
-2. Set up the virtual environment and Install dependencies，Alternatively, you can choose to follow a more comprehensive dependency relationship：base_environment.yml
+2. Set up the virtual environment and Install dependencies，Alternatively, you can choose to follow a more comprehensive dependency relationship：`environment-lock.yml`
 
     ```bash
     conda env create -f environment.yml
@@ -131,7 +131,7 @@ Tool Kits provides specific available tools for each service in MCP Server. For 
     ```
     or
     ```bash
-    conda env create -f base_environment.yml
+    conda env create -f environment-lock.yml
     conda activate AudioFab
     ```
 
