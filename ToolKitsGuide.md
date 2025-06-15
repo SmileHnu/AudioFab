@@ -12,6 +12,7 @@ Before you begin the on-premises deployment of the third-party tools integrated 
     ```bash
     conda create -n cosyvoice python=3.10
     conda activate cosyvoice
+    cd mcp_servers
     pip install -r requirements/FunASRTool_EmotionRecognitionTool_CosyVoice2Tool_requirements.txt
     ```
 
@@ -62,6 +63,7 @@ Before you begin the on-premises deployment of the third-party tools integrated 
     ```bash
     conda create -n scw python=3.12
     conda activate scw
+    cd mcp_servers
     pip install -r requirements/SparkTTSTool_ClearVoiceTool_WhisperASRTool_requirements.txt
     ```
 
@@ -117,6 +119,7 @@ Before you begin the on-premises deployment of the third-party tools integrated 
     ```bash
     conda create -n voicecraft python=3.9
     conda activate voicecraft
+    cd mcp_servers
     pip install -r requirements/VoiceCraftTool_requirements.txt
     ```
 
@@ -160,6 +163,7 @@ Before you begin the on-premises deployment of the third-party tools integrated 
     ```bash
     conda create -n Qwenaudio python=3.10
     conda activate Qwenaudio
+    cd mcp_servers
     pip install -r requirements/Qwen2AudioTool_requirements.txt
     ```
 
@@ -194,6 +198,7 @@ Before you begin the on-premises deployment of the third-party tools integrated 
     ```bash
     conda create -n AudioX python=3.10
     conda activate AudioX
+    cd mcp_servers
     pip install -r requirements/AudioXTool_requirements.txt
     ```
 
@@ -228,6 +233,7 @@ Before you begin the on-premises deployment of the third-party tools integrated 
     ```bash
     conda create -n ace_step python=3.10
     conda activate ace_step
+    cd mcp_servers
     pip install -r requirements/ACEStepTool_requirements.txt
     ```
 
@@ -264,6 +270,7 @@ Before you begin the on-premises deployment of the third-party tools integrated 
     ```bash
     conda create -n audiocraft python=3.10
     conda activate audiocraft
+    cd mcp_servers
     pip install -r requirements/MusicGenTool_AudioGenTool_requirements.txt
     ```
 
@@ -304,6 +311,7 @@ Before you begin the on-premises deployment of the third-party tools integrated 
     ```bash
     conda create -n hallo python=3.10
     conda activate hallo
+    cd mcp_servers
     pip install -r requirements/Hallo2Tool_requirements.txt
     ```
 
@@ -356,6 +364,7 @@ Before you begin the on-premises deployment of the third-party tools integrated 
     ```bash
     conda create -n yue_e python=3.12
     conda activate yue_e
+    cd mcp_servers
     pip install -r requirements/YuEETool_requirements.txt
     ```
 
@@ -409,6 +418,7 @@ Before you begin the on-premises deployment of the third-party tools integrated 
     ```bash
     conda create -n diffrhythm python=3.10
     conda activate diffrhythm
+    cd mcp_servers
     pip install -r requirements/DiffRhythmTool_requirements.txt
     ```
 
@@ -443,6 +453,7 @@ Before you begin the on-premises deployment of the third-party tools integrated 
     ```bash
     conda create -n AudioSep python=3.10
     conda activate AudioSep
+    cd mcp_servers
     pip install -r requirements/AudioSepTool_requirements.txt
     ```
 
@@ -487,6 +498,7 @@ Before you begin the on-premises deployment of the third-party tools integrated 
     ```bash
     conda create -n voicecraft2 python=3.10
     conda activate voicecraft2
+    cd mcp_servers
     pip install -r requirements/AudioSeparatorTool_requirements.txt
     ```
 
@@ -530,6 +542,7 @@ Before you begin the on-premises deployment of the third-party tools integrated 
     ```bash
     conda create -n Tiger python=3.10
     conda activate Tiger
+    cd mcp_servers
     pip install -r requirements/TIGERSpeechSeparationTool_requirements.txt
     ```
 
@@ -576,6 +589,7 @@ Before you begin the on-premises deployment of the third-party tools integrated 
     ```bash
     conda create -n audiosr python=3.9
     conda activate audiosr
+    cd mcp_servers
     pip install -r requirements/AudioSRTool_requirements.txt
     ```
 
