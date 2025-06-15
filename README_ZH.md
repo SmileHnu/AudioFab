@@ -123,10 +123,15 @@ Tool Kits 为 MCP Server 中的每一个服务提供了一些具体可用的工�
     cd AudioFab
     ```
 
-2. 安装虚拟环境与依赖
+2. 设置虚拟环境并安装依赖项。另外，您也可以选择使用一个更全面的依赖关系文件：`environment-lock.yml`
 
     ```bash
     conda env create -f environment.yml
+    conda activate AudioFab
+    ```
+    or
+    ```bash
+    conda env create -f environment-lock.yml
     conda activate AudioFab
     ```
 
