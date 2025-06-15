@@ -126,8 +126,8 @@ def query_tool(tool_name: str) -> Dict[str, Any]:
 
 @mcp.tool()
 def list_available_tools() -> Dict[str, Any]:
+    """
     列出系统中所有注册工具名称和基本描述，列出后需要配合query_tool工具查询具体工具的使用说明。
-    
     Returns:
         包含所有可用工具的基本信息
     """
