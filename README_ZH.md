@@ -123,13 +123,13 @@ Tool Kits 为 MCP Server 中的每一个服务提供了一些具体可用的工�
     cd AudioFab
     ```
 
-2. 设置虚拟环境并安装依赖项。另外，您也可以选择使用一个更全面的依赖关系文件：`environment-lock.yml`
+2. 设置虚拟环境并安装依赖项
 
     ```bash
     conda env create -f environment.yml
     conda activate AudioFab
     ```
-    or
+    或者您也可以选择使用一个更全面的依赖关系文件：`environment-lock.yml`
     ```bash
     conda env create -f environment-lock.yml
     conda activate AudioFab
@@ -140,23 +140,19 @@ Tool Kits 为 MCP Server 中的每一个服务提供了一些具体可用的工�
     编辑 `.env` 文件：
 
     ```
-    LLLM_API_KEY=your_llm_api_key_here
-    LLM_BASE_URL=your_llm_api_base_url_here
-    LLM_MODEL_NAME=your_llm_model_name_here
+    LLM_API_KEY=
+    LLM_BASE_URL=
+    LLM_MODEL_NAME=
 
     OLLAMA_MODEL_NAME="your_ollama_model_name_here"
     OLLAMA_BASE_URL="your_ollama_base_url_here"
 
-    #wsl
-    MARKDOWN_FOLDER_PATH=your_markdown_folder_path_here
-    RESULT_FOLDER_PATH=your_result_folder_path_here
-     ```
+    #The address of the file (such as .md, .json, .txt, etc.) you want to process.
+    MARKDOWN_FOLDER_PATH=
+    RESULT_FOLDER_PATH=
+    ```
 
-    编辑 `mcp_servers/servers_config.json` 以匹配您的本地设置，对所有注册的服务：
-
-    - 将 `command` 替换为您的 python 解释器路径。
-
-    - 将 `PYTHONPATH` 替换为 `mcp_servers` 在您目录中的绝对路径。
+    编辑 `mcp_servers/servers_config.json` 以匹配您的本地设置：将每个服务下的 `command` 替换为您的 python 解释器路径。
 
     ```json
     {
@@ -167,7 +163,7 @@ Tool Kits 为 MCP Server 中的每一个服务提供了一些具体可用的工�
                     "mcp_servers/servers/markdown_servers.py"
                 ],
                 "env": {
-                    "PYTHONPATH": "your/absolute/path/to/mcp_servers"
+                    "PYTHONPATH": "."
                 }
             },
           "......"
@@ -191,19 +187,22 @@ AudioFab 在 FunTTS MCP Servers、Music MCP Servers 和 Audio Separator MCP Serv
 
 由于需要本地部署的模型数量较多，导致本地部署工作繁杂，且本地运行这些模型时会占用大量的计算资源，因此**更建议您先通过 API 使用部分模型**以快速体验 AudioFab。
 
-#### 本地部署
+#### **使用 API**
+
+请在 `servers/API_servers.py` 中 添加 `MD_TOKEN` 和 `HF_TOKEN`
+
+```python
+MD_TOKEN = "your_MD_TOKEN_here"
+HF_TOKEN = "your_HF_TOKEN_here"
+```
+
+#### **本地部署**
 
 本地部署各工具的的详细说明文档见 [ToolKitsGuide_ZH.md](./ToolKitsGuide_ZH.md)
 
-#### 使用 API
+❗ 如果您未完成本地部署：
 
-- 如果您已经完成本地部署
-
-    请在 `servers_config.json` 中删除对 `API_servers` 服务的注册，由于 API 提供的功能可以被本地部署的模型全部覆盖。
-
-- 如果您未完成本地部署
-
-    请在 `servers_config.json`，中删除对 `FunTTS_mcp_servers`、`music_mcp_servers` 和 `Audioseparator_mcp_servers` 服务的注册。此时 AudioFab 不会使用需要本地部署的模型。
+请在 `servers_config.json`，中删除对 `FunTTS_mcp_servers`、`music_mcp_servers` 和 `Audioseparator_mcp_servers` 服务的注册。此时 AudioFab 不会使用需要本地部署的模型。
 
 ## ⚡ 快速开始
 
@@ -240,6 +239,8 @@ python scripts/start_all.py
 - 文档改进
 
 ## 🙏 参考与致谢
+
+AudioFab 将持续维护更新。贡献者列表会动态更新，目前仍在整理中，敬请期待！
 
 ## 📝 许可证
 
