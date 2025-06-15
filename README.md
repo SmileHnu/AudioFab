@@ -241,7 +241,7 @@ We welcome any form of contribution, including but not limited to:
 - Documentation Improvements
 
 ## 🙏 References and Acknowledgements
-
+AudioFab will continue to be maintained and updated. The contributors list will be updated dynamically and is still being organized. Please stay tuned!
 ## 📝 License
 
 [![CC BY-NC 4.0][cc-by-nc-shield]][cc-by-nc]
