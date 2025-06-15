@@ -1,11 +1,5 @@
 name: AudioFab
 channels:
-  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/pytorch/
-  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge
-  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/pro
-  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/r
-  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free
-  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main
   - defaults
 dependencies:
   - _libgcc_mutex=0.1=conda_forge
@@ -214,4 +208,3 @@ dependencies:
       - xxhash==3.5.0
       - yamlargparse==1.31.1
       - yarl==1.20.1
-prefix: /home/qianshuaix/miniconda3/envs/AudioFab
