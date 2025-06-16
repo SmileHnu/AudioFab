@@ -26,15 +26,15 @@ Before you begin the on-premises deployment of the third-party tools integrated 
     TOOL_ENV_CONFIG = {
     "FunASRTool": {
         "python_path": "/home/chengz/anaconda3/envs/cosyvoice/bin/python",  # <--- Change to the Python interpreter path of your cosyvoice environment
-        "script_path": str(Path(__file__).parent / "processor" / "Funasr_processor.py")
+        "script_path": str(Path(__file__).parent.parent / "processor" / "Funasr_processor.py")
     },
     "EmotionRecognitionTool": {
         "python_path": "/home/chengz/anaconda3/envs/cosyvoice/bin/python",  # <--- Change to the Python interpreter path of your cosyvoice environment
-        "script_path": str(Path(__file__).parent / "processor" / "Funasr_processor.py")
+        "script_path": str(Path(__file__).parent.parent / "processor" / "Funasr_processor.py")
     },
     "CosyVoice2Tool": {
         "python_path": "/home/chengz/anaconda3/envs/cosyvoice/bin/python",  # <--- Change to the Python interpreter path of your cosyvoice environment
-        "script_path": str(Path(__file__).parent / "processor" / "Cosyvoice2_tool.py")
+        "script_path": str(Path(__file__).parent.parent / "processor" / "Cosyvoice2_tool.py")
     }
     }
     ```
@@ -77,15 +77,15 @@ Before you begin the on-premises deployment of the third-party tools integrated 
     TOOL_ENV_CONFIG = {
     "SparkTTSTool": {
         "python_path": "your/python/interpreter/path", # <--- Change to the Python interpreter path of your scw environment
-        "script_path": str(Path(__file__).parent / "processor" / "sparktts_processor.py")
+        "script_path": str(Path(__file__).parent.parent / "processor" / "sparktts_processor.py")
     },
     "ClearVoiceTool": {
         "python_path": "your/python/interpreter/path", # <--- Change to the Python interpreter path of your scw environment
-        "script_path": str(Path(__file__).parent / "processor" / "ClearerVoice_tool.py")
+        "script_path": str(Path(__file__).parent.parent / "processor" / "ClearerVoice_tool.py")
     },
     "WhisperASRTool": {
         "python_path": "your/python/interpreter/path", # <--- Change to the Python interpreter path of your scw environment
-        "script_path": str(Path(__file__).parent / "processor" / "whisper_tool.py")
+        "script_path": str(Path(__file__).parent.parent / "processor" / "whisper_tool.py")
     }
     }
     ```
@@ -133,7 +133,7 @@ Before you begin the on-premises deployment of the third-party tools integrated 
     TOOL_ENV_CONFIG = {
     "VoiceCraftTool": {
         "python_path": "/home/chengz/anaconda3/envs/voicecraft/bin/python", # <--- Change this to the Python interpreter path of your voicecraft environment
-        "script_path": str(Path(__file__).parent / "processor" / "voicecraft_processor.py")
+        "script_path": str(Path(__file__).parent.parent / "processor" / "voicecraft_processor.py")
     }
     }
     ```
@@ -177,7 +177,7 @@ Before you begin the on-premises deployment of the third-party tools integrated 
     TOOL_ENV_CONFIG = {
     "Qwen2AudioTool": {
         "python_path": "/home/chengz/anaconda3/envs/Qwenaudio/bin/python",  # <--- Change this to the Python interpreter path of your Qwenaudio environment
-        "script_path": str(Path(__file__).parent / "processor" / "Qwen2Audio_processor.py")
+        "script_path": str(Path(__file__).parent.parent / "processor" / "Qwen2Audio_processor.py")
     }
     }
     ```
@@ -212,7 +212,7 @@ Before you begin the on-premises deployment of the third-party tools integrated 
     TOOL_ENV_CONFIG = {
     "AudioXTool": {
         "python_path": "/home/chengz/anaconda3/envs/AudioX/bin/python", # <--- Change to the Python interpreter path for the AudioXTool environment
-        "script_path": str(Path(__file__).parent / "processor" / "AudioX_processor.py")
+        "script_path": str(Path(__file__).parent.parent / "processor" / "AudioX_processor.py")
     }
     }
     ```
@@ -247,7 +247,7 @@ Before you begin the on-premises deployment of the third-party tools integrated 
     TOOL_ENV_CONFIG = {
     "AudioXTool": {
         "python_path": "/home/chengz/anaconda3/envs/ace_step/bin/python", # <--- Change to the Python interpreter path for the ace_step environment
-        "script_path": str(Path(__file__).parent / "processor" / "ACE_step_processor.py")
+        "script_path": str(Path(__file__).parent.parent / "processor" / "ACE_step_processor.py")
     }
     }
     ```
@@ -284,11 +284,11 @@ Before you begin the on-premises deployment of the third-party tools integrated 
     TOOL_ENV_CONFIG = {
     "MusicGenTool": {
         "python_path": "/home/chengz/anaconda3/envs/audiocraft/bin/python", # <--- Change this to the Python interpreter path of your audiocraft environment
-        "script_path": str(Path(__file__).parent / "processor" / "Audiocraft_tool_processor.py")
+        "script_path": str(Path(__file__).parent.parent / "processor" / "Audiocraft_tool_processor.py")
     },
         "AudioGenTool": {
         "python_path": "/home/chengz/anaconda3/envs/audiocraft/bin/python", # <--- Change this to the Python interpreter path of your audiocraft environment
-        "script_path": str(Path(__file__).parent / "processor" / "Audiocraft_tool_processor.py")
+        "script_path": str(Path(__file__).parent.parent / "processor" / "Audiocraft_tool_processor.py")
     }
     }
     ```
@@ -325,7 +325,7 @@ Before you begin the on-premises deployment of the third-party tools integrated 
     TOOL_ENV_CONFIG = {
     "Hallo2Tool": {
         "python_path": "/home/chengz/anaconda3/envs/hallo/bin/python",  # <--- Change this to the Python interpreter path of your hallo environment
-        "script_path": str(Path(__file__).parent / "processor" / "hello2_processor.py")
+        "script_path": str(Path(__file__).parent.parent / "processor" / "hello2_processor.py")
     }
     }
     ```
@@ -378,7 +378,7 @@ Before you begin the on-premises deployment of the third-party tools integrated 
     TOOL_ENV_CONFIG = {
     "YuEETool": {
         "python_path": "/home/chengz/anaconda3/envs/yue_e/bin/python",  # <--- Change this to the Python interpreter path of the yue_e environment
-        "script_path": str(Path(__file__).parent / "processor" / "yue_e_tool.py")
+        "script_path": str(Path(__file__).parent.parent / "processor" / "yue_e_tool.py")
     }
     }
     ```
@@ -432,7 +432,7 @@ Before you begin the on-premises deployment of the third-party tools integrated 
     TOOL_ENV_CONFIG = {
     "DiffRhythmTool": {
         "python_path": "/home/qianshuaix/miniconda3/envs/diffrhythm/bin/python",  # <--- Change this to the Python interpreter path of the diffrhythm environment
-        "script_path": str(Path(__file__).parent / "processor" / "DiffRhythm_processor.py")
+        "script_path": str(Path(__file__).parent.parent / "processor" / "DiffRhythm_processor.py")
     }
     }
     ```
@@ -467,7 +467,7 @@ Before you begin the on-premises deployment of the third-party tools integrated 
     TOOL_ENV_CONFIG = {
     "AudioSepTool": {
         "python_path": "/home/chengz/anaconda3/envs/AudioSep/bin/python",  # <--- Change to the Python interpreter path of your AudioSep environment
-        "script_path": str(Path(__file__).parent / "processor" / "Audiosep_processor.py")
+        "script_path": str(Path(__file__).parent.parent / "processor" / "Audiosep_processor.py")
     }
     }
     ```
@@ -512,7 +512,7 @@ Before you begin the on-premises deployment of the third-party tools integrated 
     TOOL_ENV_CONFIG = {
     "AudioSeparatorTool": {
         "python_path": "/home/chengz/anaconda3/envs/voicecraft2/bin/python",  # <--- Change to the Python interpreter path of your voicecraft2 environment
-        "script_path": str(Path(__file__).parent / "processor" / "audio_separator_processor.py")
+        "script_path": str(Path(__file__).parent.parent / "processor" / "audio_separator_processor.py")
     }
     }
     ```
@@ -556,7 +556,7 @@ Before you begin the on-premises deployment of the third-party tools integrated 
     TOOL_ENV_CONFIG = {
     "TIGERSpeechSeparationTool": {
         "python_path": "/home/chengz/anaconda3/envs/Tiger/bin/python",  # <--- Change this to the Python interpreter path of your Tiger environment
-        "script_path": str(Path(__file__).parent / "processor" / "TIGER_speech_separation_processor.py")
+        "script_path": str(Path(__file__).parent.parent / "processor" / "TIGER_speech_separation_processor.py")
     }
     }
     ```
@@ -603,7 +603,7 @@ Before you begin the on-premises deployment of the third-party tools integrated 
     TOOL_ENV_CONFIG = {
     "AudioSRTool": {
         "python_path": "/home/qianshuaix/miniconda3/envs/audiosr/bin/python",  # <--- Change this to the Python interpreter path of your audiosr environment
-        "script_path": str(Path(__file__).parent / "processor" / "audiosr_tool.py")
+        "script_path": str(Path(__file__).parent.parent / "processor" / "audiosr_tool.py")
     }
     }
     ```
