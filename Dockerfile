@@ -1,5 +1,5 @@
 # 使用官方NVIDIA CUDA镜像作为基础，确保GPU支持。
-FROM FROM nvidia/cuda:12.4.0-devel-ubuntu24.04
+FROM nvidia/cuda:12.4.0-devel-ubuntu24.04
 
 
 # 设置环境变量，防止apt-get等工具在构建过程中进行交互式提问
