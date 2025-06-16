@@ -25,15 +25,15 @@
     TOOL_ENV_CONFIG = {
     "FunASRTool": {
         "python_path": "/home/chengz/anaconda3/envs/cosyvoice/bin/python",  # <--- 修改为 cosyvoice 环境的 Python 解释器路径
-        "script_path": str(Path(__file__).parent / "processor" / "Funasr_processor.py")
+        "script_path": str(Path(__file__).parent.parent / "processor" / "Funasr_processor.py")
     },
     "EmotionRecognitionTool": {
         "python_path": "/home/chengz/anaconda3/envs/cosyvoice/bin/python",  # <--- 修改为 cosyvoice 环境的 Python 解释器路径
-        "script_path": str(Path(__file__).parent / "processor" / "Funasr_processor.py")
+        "script_path": str(Path(__file__).parent.parent / "processor" / "Funasr_processor.py")
     },
     "CosyVoice2Tool": {
         "python_path": "/home/chengz/anaconda3/envs/cosyvoice/bin/python",  # <--- 修改为 cosyvoice 环境的 Python 解释器路径
-        "script_path": str(Path(__file__).parent / "processor" / "Cosyvoice2_tool.py")
+        "script_path": str(Path(__file__).parent.parent / "processor" / "Cosyvoice2_tool.py")
     }
     }
     ```
@@ -76,15 +76,15 @@
     TOOL_ENV_CONFIG = {
     "SparkTTSTool": {
         "python_path": "your/python/interpreter/path", # <--- 修改为 scw 环境的 Python 解释器路径
-        "script_path": str(Path(__file__).parent / "processor" / "sparktts_processor.py")
+        "script_path": str(Path(__file__).parent.parent / "processor" / "sparktts_processor.py")
     },
     "ClearVoiceTool": {
         "python_path": "your/python/interpreter/path", # <--- 修改为 scw 环境的 Python 解释器路径
-        "script_path": str(Path(__file__).parent / "processor" / "ClearerVoice_tool.py")
+        "script_path": str(Path(__file__).parent.parent / "processor" / "ClearerVoice_tool.py")
     },
     "WhisperASRTool": {
         "python_path": "your/python/interpreter/path", # <--- 修改为 scw 环境的 Python 解释器路径
-        "script_path": str(Path(__file__).parent / "processor" / "whisper_tool.py")
+        "script_path": str(Path(__file__).parent.parent / "processor" / "whisper_tool.py")
     }
     }
     ```
@@ -131,7 +131,7 @@
     TOOL_ENV_CONFIG = {
     "VoiceCraftTool": {
         "python_path": "/home/chengz/anaconda3/envs/voicecraft/bin/python", # <--- 修改为 voicecraft 环境的 Python 解释器路径
-        "script_path": str(Path(__file__).parent / "processor" / "voicecraft_processor.py")
+        "script_path": str(Path(__file__).parent.parent / "processor" / "voicecraft_processor.py")
     }
     }
     ```
@@ -174,7 +174,7 @@
     TOOL_ENV_CONFIG = {
     "Qwen2AudioTool": {
         "python_path": "/home/chengz/anaconda3/envs/Qwenaudio/bin/python", # <--- 修改为 Qwenaudio 环境的 Python 解释器路径
-        "script_path": str(Path(__file__).parent / "processor" / "Qwen2Audio_processor.py")
+        "script_path": str(Path(__file__).parent.parent / "processor" / "Qwen2Audio_processor.py")
     }
     }
     ```
@@ -208,7 +208,7 @@
     TOOL_ENV_CONFIG = {
     "AudioXTool": {
         "python_path": "/home/chengz/anaconda3/envs/AudioX/bin/python", # <--- 修改为 AudioXTool 环境的 Python 解释器路径
-        "script_path": str(Path(__file__).parent / "processor" / "AudioX_processor.py")
+        "script_path": str(Path(__file__).parent.parent / "processor" / "AudioX_processor.py")
     }
     }
     ```
@@ -242,7 +242,7 @@
     TOOL_ENV_CONFIG = {
     "AudioXTool": {
         "python_path": "/home/chengz/anaconda3/envs/ace_step/bin/python", # <--- 修改为 ace_step 环境的 Python 解释器路径
-        "script_path": str(Path(__file__).parent / "processor" / "ACE_step_processor.py")
+        "script_path": str(Path(__file__).parent.parent / "processor" / "ACE_step_processor.py")
     }
     }
     ```
@@ -278,11 +278,11 @@
     TOOL_ENV_CONFIG = {
     "MusicGenTool": {
         "python_path": "/home/chengz/anaconda3/envs/audiocraft/bin/python", # <--- 修改为 audiocraft 环境的 Python 解释器路径
-        "script_path": str(Path(__file__).parent / "processor" / "Audiocraft_tool_processor.py")
+        "script_path": str(Path(__file__).parent.parent / "processor" / "Audiocraft_tool_processor.py")
     },
         "AudioGenTool": {
         "python_path": "/home/chengz/anaconda3/envs/audiocraft/bin/python", # <--- 修改为 audiocraft 环境的 Python 解释器路径
-        "script_path": str(Path(__file__).parent / "processor" / "Audiocraft_tool_processor.py")
+        "script_path": str(Path(__file__).parent.parent / "processor" / "Audiocraft_tool_processor.py")
     }
     }
     ```
@@ -318,7 +318,7 @@
     TOOL_ENV_CONFIG = {
     "Hallo2Tool": {
         "python_path": "/home/chengz/anaconda3/envs/hallo/bin/python",  # <--- 修改为 hallo 环境的 Python 解释器路径
-        "script_path": str(Path(__file__).parent / "processor" / "hello2_processor.py")
+        "script_path": str(Path(__file__).parent.parent / "processor" / "hello2_processor.py")
     }
     }
     ```
@@ -370,7 +370,7 @@
     TOOL_ENV_CONFIG = {
     "YuEETool": {
         "python_path": "/home/chengz/anaconda3/envs/yue_e/bin/python",  # <--- 修改为 yue_e 环境的 Python 解释器路径
-        "script_path": str(Path(__file__).parent / "processor" / "yue_e_tool.py")
+        "script_path": str(Path(__file__).parent.parent / "processor" / "yue_e_tool.py")
     }
     }
     ```
@@ -422,7 +422,7 @@
     TOOL_ENV_CONFIG = {
     "DiffRhythmTool": {
         "python_path": "/home/qianshuaix/miniconda3/envs/diffrhythm/bin/python",  # <--- 修改为 diffrhythm 环境的 Python 解释器路径
-        "script_path": str(Path(__file__).parent / "processor" / "DiffRhythm_processor.py")
+        "script_path": str(Path(__file__).parent.parent / "processor" / "DiffRhythm_processor.py")
     }
     }
     ```
@@ -457,7 +457,7 @@
     TOOL_ENV_CONFIG = {
     "AudioSepTool": {
         "python_path": "/home/chengz/anaconda3/envs/AudioSep/bin/python",  # <--- 修改为 AudioSep 环境的 Python 解释器路径
-        "script_path": str(Path(__file__).parent / "processor" / "Audiosep_processor.py")
+        "script_path": str(Path(__file__).parent.parent / "processor" / "Audiosep_processor.py")
     }
     }
     ```
@@ -500,7 +500,7 @@
     TOOL_ENV_CONFIG = {
     "AudioSeparatorTool": {
         "python_path": "/home/chengz/anaconda3/envs/voicecraft2/bin/python",  # <--- 修改为 voicecraft2 环境的 Python 解释器路径
-        "script_path": str(Path(__file__).parent / "processor" / "audio_separator_processor.py")
+        "script_path": str(Path(__file__).parent.parent / "processor" / "audio_separator_processor.py")
     }
     }
     ```
@@ -543,7 +543,7 @@
     TOOL_ENV_CONFIG = {
     "TIGERSpeechSeparationTool": {
         "python_path": "/home/chengz/anaconda3/envs/Tiger/bin/python",  # <--- 修改为 Tiger 环境的 Python 解释器路径
-        "script_path": str(Path(__file__).parent / "processor" / "TIGER_speech_separation_processor.py")
+        "script_path": str(Path(__file__).parent.parent / "processor" / "TIGER_speech_separation_processor.py")
     }
     }
     ```
@@ -589,7 +589,7 @@
     TOOL_ENV_CONFIG = {
     "AudioSRTool": {
         "python_path": "/home/qianshuaix/miniconda3/envs/audiosr/bin/python",  # <--- 修改为 audiosr 环境的 Python 解释器路径
-        "script_path": str(Path(__file__).parent / "processor" / "audiosr_tool.py")
+        "script_path": str(Path(__file__).parent.parent / "processor" / "audiosr_tool.py")
     }
     }
     ```
