@@ -3,7 +3,9 @@ from gradio_client import Client, file,handle_file
 from mcp.server.fastmcp import FastMCP
 from typing import Optional, Dict, Any, List, Union, Literal,Tuple
 import os
-
+import traceback
+from datetime import datetime
+from urllib.parse import urlparse
 
 # 初始化MCP服务器
 mcp = FastMCP("APITool")
@@ -1837,90 +1839,80 @@ def voicecraft_tts_and_edit_api(
 
 @mcp.tool()
 def image2music_api(
-    image_path: str,
+    image_source: str,
     output_dir: str = "outputs/music",
-    model: Literal['ACE Step', 'AudioLDM-2', 'Riffusion', 'Mustango', 'Stable Audio Open'] = 'ACE Step'
-
+    output_filename: Optional[str] = None,
+    model: Literal['ACE Step', 'AudioLDM-2', 'Riffusion', 'Mustango', 'Stable Audio Open'] = 'Riffusion',
 ) -> str:
-    """Generate music from an image using the image-to-music-v2 model.
-    
-    Args:
-        image_path (str): Path to the local image file.
-        output_dir (str, optional): Path to the output directory. Defaults to "outputs/music".
-        model (Literal, optional): Model to use for music generation. 
-            Options: 'ACE Step', 'AudioLDM-2', 'Riffusion', 'Mustango', 'Stable Audio Open'. 
-            Defaults to 'ACE Step'.
-    
-    Returns:
-        str: Path to the generated audio file.
     """
-    # Create a client connection to the Hugging Face space
-    client = Client("fffiloni/image-to-music-v2")
-    
-    # Ensure the image path exists
-    if not os.path.exists(image_path):
-        raise FileNotFoundError(f"Image file not found: {image_path}")
-    
+    使用 image-to-music-v2 模型从本地图片或网络图片URL生成音乐。
 
-    
-    # Generate output filename
-    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    output_file = output_dir / f"music_{timestamp}.wav"
-    
+    Args:
+        image_source (str):
+            你的图片来源。可以是一个本地文件的路径 (例如 "C:/images/photo.png")，
+            也可以是一个网络图片的URL (例如 "https://example.com/image.jpg")。
+
+        output_dir (str, optional):
+            【指定输出文件夹】你想把生成的音乐文件保存在哪个文件夹里。
+            如果不填，默认会保存在程序目录下的 "outputs/music" 文件夹中。
+
+        output_filename (Optional[str], optional):
+            【指定输出文件名】你想让生成的音乐文件叫什么名字 (例如 "my_song.mp3")。
+            如果不填，程序会自动根据你的图片名和当前时间生成一个。
+
+        model (Literal, optional):
+            选择一个生成音乐的模型。'Riffusion' 模型速度通常较快，适合测试。
+            默认为 'ACE Step'。
+
+        hf_token (Optional[str], optional):
+            你的 Hugging Face 访问令牌 (Token)，如果需要访问私有模型时使用。
+            默认为 None。
+
+    Returns:
+        str: 成功则返回生成的音频文件完整路径，失败则返回错误信息。
+    """
     try:
-        # Call the API with the image and parameters
-        result = client.predict(
-            image_in=handle_file(image_path),  # 正确处理图片文件
-            chosen_model=model,                # 选择模型
-            api_name="/infer"                  # 正确的API名称
-        )
-        
-        # 处理提示词
-        prompt_data = result[0]
-        if isinstance(prompt_data, dict) and 'value' in prompt_data:
-            prompt = prompt_data['value']
-            print(f"Generated inspirational prompt: {prompt}")
+        client = Client("fffiloni/image-to-music-v2", hf_token=HF_TOKEN)
+        is_url = image_source.lower().startswith(('http://', 'https://'))
+        if not is_url and not os.path.exists(image_source):
+            raise FileNotFoundError(f"can't found: {image_source}")
+        os.makedirs(output_dir, exist_ok=True)
+
+        if output_filename:
+            if not output_filename.lower().endswith('.mp3'):
+                output_filename += '.mp3'
+            final_filename = output_filename
         else:
-            print(f"Generated data: {prompt_data}")
-        
-        # 处理音频文件
-        audio_url = result[1]
-        
-        # 使用临时文件下载音频
-        temp_file = tempfile.NamedTemporaryFile(delete=False, suffix=".mp3")
-        temp_file.close()
-        
-        # 如果是URL，则下载
-        if isinstance(audio_url, str) and (audio_url.startswith('http://') or audio_url.startswith('https://')):
-            response = requests.get(audio_url)
-            if response.status_code == 200:
-                with open(temp_file.name, 'wb') as f:
-                    f.write(response.content)
+            if is_url:
+                path = urlparse(image_source).path
+                base_name = os.path.basename(path) if path else "image_from_url"
             else:
-                raise Exception(f"Failed to download audio file: {response.status_code}")
-        # 如果已经是本地文件路径
-        elif isinstance(audio_url, str) and os.path.exists(audio_url):
-            with open(audio_url, 'rb') as f_in:
-                with open(temp_file.name, 'wb') as f_out:
-                    f_out.write(f_in.read())
-        else:
-            raise Exception(f"Unexpected audio result format: {type(audio_url)}")
+                base_name = os.path.basename(image_source)
+            
+            file_stem, _ = os.path.splitext(base_name)
+            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+            final_filename = f"{file_stem}_{timestamp}.mp3"
         
-        # 复制到最终输出位置
-        with open(temp_file.name, "rb") as f_in:
+        output_file = os.path.join(output_dir, final_filename)
+
+        result = client.predict(
+            image_in=handle_file(image_source),
+            chosen_model=model,
+            api_name="/infer"
+        )
+
+        prompt_text = result[0]
+        temp_audio_path = result[1]
+        print(f"✅ prompt: {prompt_text}")
+
+        with open(temp_audio_path, "rb") as f_in:
             with open(output_file, "wb") as f_out:
                 f_out.write(f_in.read())
-        
-        # 清理临时文件
-        try:
-            os.unlink(temp_file.name)
-        except:
-            pass
-            
+
         return str(output_file)
+
     except Exception as e:
-        import traceback
-        return f"Error generating music: {str(e)}\n{traceback.format_exc()}"
+        return f"❌ error: {str(e)}\n{traceback.format_exc()}"
 
 
 
