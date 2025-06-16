@@ -134,7 +134,11 @@ Tool Kits provides specific available tools for each service in MCP Server. For 
     conda env create -f environment-lock.yml
     conda activate AudioFab
     ```
-
+3.Using Docker (optional) 
+ ```bash
+   docker build -t AudioFab .
+   docker run -it --gpus all --name your_container_name AudioFab
+ ```
 4. Configure the environment
 
     Edit the `.env` file:
@@ -172,6 +176,8 @@ Tool Kits provides specific available tools for each service in MCP Server. For 
     ```
 
     You can check if your configuration is correct by running `scripts/check.sh`.
+
+
 
 ### 2. External Dependency Deployment and Configuration
 
