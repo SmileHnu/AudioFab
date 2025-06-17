@@ -122,7 +122,7 @@ The APIs of several tools are integrated into API Servers, which can realize som
 | [index_tts_1.5_api](https://huggingface.co/spaces/IndexTeam/IndexTTS) | Generates speech for a target text by cloning the voice from a reference audio. |
 | [step_audio_tts_3b_api](https://modelscope.cn/studios/Swarmeta_AI/Step-Audio-TTS-3B) | Clones the timbre of a reference audio to generate new speech. |
 | [sparkTTS_tool_api](https://huggingface.co/spaces/thunnai/SparkTTS) | A text-to-speech tool that supports voice cloning and customization (gender, pitch, speed). |
-| [voicecraft_tts_and_edit_api](https://huggingface.co/spaces/Approximetal/VoiceCraft_gradio) | Primarily used for text-to-speech, but also supports editing the generated audio. |
+| [voicecraft_tts_and_edit_api](https://huggingface.co/spaces/krishnakm143/VoiceCraft_gradio) | Primarily used for text-to-speech, but also supports editing the generated audio. |
 
 **2. Music and Sound Effect Creation**
 
