@@ -2504,5 +2504,84 @@
           }
         }
       ]
+    },
+    "image2music_api": {
+      "description": "Generates music from a local image file or a web image URL using the image-to-music-v2 model.",
+      "detailed_description": "This tool creates a musical piece based on a provided image. The image can be a local file path or a URL. The user can specify the output directory and filename for the generated MP3 file. If not provided, a filename is automatically generated based on the input image name and the current timestamp, and it's saved in the 'outputs/music' directory. The tool supports several underlying models for music generation, with 'Riffusion' being the default, which is generally faster for testing.",
+      "parameters": {
+        "image_source": {
+          "type": "string",
+          "description": "The source of your image. This can be a local file path (e.g., \"C:/images/photo.png\") or a URL to an image on the web (e.g., \"https://example.com/image.jpg\"). Required.",
+          "required": true,
+          "example": "https://example.com/image.jpg"
+        },
+        "output_dir": {
+          "type": "string",
+          "description": "The folder where you want to save the generated music file. If not specified, it defaults to the 'outputs/music' folder in the program directory.",
+          "required": "optional",
+          "default": "outputs/music",
+          "example": "my_generated_music"
+        },
+        "output_filename": {
+          "type": "string",
+          "description": "The desired name for the output music file (e.g., \"my_song.mp3\"). If omitted, a name will be automatically generated from the image name and a timestamp.",
+          "required": "optional",
+          "example": "my_composition.mp3"
+        },
+        "model": {
+          "type": "string",
+          "description": "The model to use for music generation. 'Riffusion' is generally faster and suitable for quick tests.",
+          "required": "optional",
+          "default": "Riffusion",
+          "enum": [
+            "ACE Step",
+            "AudioLDM-2",
+            "Riffusion",
+            "Mustango",
+            "Stable Audio Open"
+          ],
+          "example": "ACE Step"
+        },
+        "hf_token": {
+          "type": "string",
+          "description": "Your Hugging Face access token, required if you need to use a private model.",
+          "required": "optional",
+          "example": "hf_xxxxxxxxxxxxxxxxxxxxxx"
+        }
+      },
+      "examples": [
+        {
+          "task_description": "Generate music from a local image file and save it to the default directory.",
+          "Act": {
+            "tool": "image2music_api",
+            "arguments": {
+              "image_source": "C:/Users/Admin/Pictures/sunset.png"
+            }
+          }
+        },
+        {
+          "task_description": "Generate music from an image URL, select the 'AudioLDM-2' model, and specify a custom output path and filename.",
+          "Act": {
+            "tool": "image2music_api",
+            "arguments": {
+              "image_source": "https://www.example.com/images/mountain_view.jpg",
+              "output_dir": "D:/my_music/landscapes",
+              "output_filename": "mountain_sonata.mp3",
+              "model": "AudioLDM-2"
+            }
+          }
+        },
+        {
+          "task_description": "Create a piece of music from a web image using the 'Stable Audio Open' model, allowing the system to auto-generate the filename.",
+          "Act": {
+            "tool": "image2music_api",
+            "arguments": {
+              "image_source": "https://anothersite.net/art/abstract.gif",
+              "model": "Stable Audio Open",
+              "output_dir": "outputs/abstract_tunes"
+            }
+          }
+        }
+      ]
     }
   }
