@@ -122,7 +122,7 @@ API Servers 中集成了部分工具的 API，能实现 FunTTS MCP Servers、Mus
 | [index_tts_1.5_api](https://huggingface.co/spaces/IndexTeam/IndexTTS) | 通过克隆参考音频中的声音来生成目标文本的语音 |
 | [step_audio_tts_3b_api](https://modelscope.cn/studios/Swarmeta_AI/Step-Audio-TTS-3B) | 克隆参考音频的音色以生成新的语音 |
 | [sparkTTS_tool_api](https://huggingface.co/spaces/thunnai/SparkTTS) | 支持声音克隆和自定义（性别、音高、速度）的文本转语音工具 |
-| [voicecraft_tts_and_edit_api](https://huggingface.co/spaces/Approximetal/VoiceCraft_gradio) | 主要用于文本转语音，也支持对生成的音频进行编辑 |
+| [voicecraft_tts_and_edit_api](https://huggingface.co/spaces/krishnakm143/VoiceCraft_gradio) | 主要用于文本转语音，也支持对生成的音频进行编辑 |
 
 **2. 音乐与音效创作**
 
