@@ -133,6 +133,7 @@ API Servers 中集成了部分工具的 API，能实现 FunTTS MCP Servers、Mus
 | [audiocraft_jasco_api](https://huggingface.co/spaces/Tonic/audiocraft) | 基于文本、和弦、旋律和鼓点生成音乐 |
 | [yue_api](https://huggingface.co/spaces/innova-ai/YuE-music-generator-demo) | 根据音乐流派、歌词或音频提示生成包含人声和伴奏的音乐 |
 | [AudioX_api](https://huggingface.co/spaces/Zeyue7/AudioX) | 根据文本、视频或音频提示生成爆炸、脚步等高质量通用音效 |
+| [image2music_api](https://huggingface.co/spaces/fffiloni/image-to-music-v2) | 根据图片生成音乐 |
 
 **3. 音频修复与分离**
 
