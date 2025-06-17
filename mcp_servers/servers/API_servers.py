@@ -1691,12 +1691,12 @@ def yue_api(
 
 @mcp.tool()
 def voicecraft_tts_and_edit_api(
-    # 1. 参数区
+    # 1. 参数区 (v3 修正版)
     mode: Literal['TTS', 'Edit', 'Long TTS'],
     transcript: str,
     audio_path: Optional[str] = None,
     output_path: str = "output.wav",
-    seed: int = -1,
+    seed: float = -1.0,
     smart_transcript: bool = True,
     prompt_end_time: float = 3.675,
     edit_start_time: float = 3.83,
@@ -1705,66 +1705,16 @@ def voicecraft_tts_and_edit_api(
     right_margin: float = 0.08,
     temperature: float = 1.0,
     top_p: float = 0.9,
-    top_k: int = 0,
-    sample_batch_size: int = 2,
-    stop_repetition: Literal['-1', '1', '2', '3', '4'] = "3",
-    kvcache: Literal['0', '1'] = "1",
+    top_k: float = 0.0,
+    sample_batch_size: float = 2.0,
+    stop_repetition: int = 3,
+    kvcache: int = 1,
     split_text: Literal['Newline', 'Sentence'] = "Newline",
     selected_sentence: Optional[str] = None,
-    codec_audio_sr: int = 16000,
-    codec_sr: int = 50,
+    codec_audio_sr: float = 16000.0,
+    codec_sr: float = 50.0,
     silence_tokens: str = "[1388,1898,131]"
 ):
-    """
-    使用 VoiceCraft 模型进行文本转语音（TTS）、音频编辑和长文本合成。
-
-    详细说明：
-    - 支持的API端点/任务: /run
-    - 支持三种模式:
-        1. 'TTS': 根据输入文本和参考音频（可选，用于音色克隆）生成语音。
-        2. 'Edit': 编辑输入音频的指定部分，根据新的文本进行替换。
-        3. 'Long TTS': 将长文本分割后，逐句生成并拼接成完整的长音频。
-    - 输入类型、范围、必填项:
-        - 'mode' 和 'transcript' 是必填项。
-        - 在 'Edit' 或 'Long TTS' 模式下，'audio_path' 是必填的。
-        - 'selected_sentence' 在 'Long TTS' 模式下是必填的。
-    - 返回值说明:
-        - 返回一个包含生成结果的字典，包括输出音频的路径和推断出的文本。
-    - 示例用法:
-        # 纯文本转语音 (TTS)
-        voicecraft_tts_and_edit(mode='TTS', transcript='Hello world, this is a test.', output_path='hello.wav')
-        
-        # 音频编辑 (Edit)
-        voicecraft_tts_and_edit(mode='Edit', transcript='The quick brown fox jumps over the lazy dog.', audio_path='original.wav', edit_start_time=1.2, edit_end_time=2.5, output_path='edited.wav')
-
-    Args:
-        mode (Literal['TTS', 'Edit', 'Long TTS']): 操作模式，必填。
-        transcript (str): 用于生成或编辑的文本，必填。
-        audio_path (Optional[str]): 输入音频文件路径。在 'Edit' 和 'Long TTS' 模式下是必需的。
-        output_path (str): 生成的音频文件的保存路径。默认 "output.wav"。
-        seed (int): 随机种子，用于可复现的结果。-1表示随机。默认 -1。
-        smart_transcript (bool): 是否启用智能转录。默认 True。
-        prompt_end_time (float): 在 'Edit' 模式下，作为提示的音频的结束时间点。默认 3.675。
-        edit_start_time (float): 在 'Edit' 模式下，需要编辑的起始时间点。默认 3.83。
-        edit_end_time (float): 在 'Edit' 模式下，需要编辑的结束时间点。默认 5.113。
-        left_margin (float): 音频左边界裕量。默认 0.08。
-        right_margin (float): 音频右边界裕量。默认 0.08。
-        temperature (float): 生成的多样性，越高越随机。默认 1.0。
-        top_p (float): nucleus采样阈值。默认 0.9。
-        top_k (int): top-k采样。0表示禁用。默认 0。
-        sample_batch_size (int): 采样批次大小，可视为影响语速。默认 2。
-        stop_repetition (Literal['-1', '1', '2', '3', '4']): 停止重复的等级。默认 "3"。
-        kvcache (Literal['0', '1']): 是否使用KV缓存。'1'为是，'0'为否。默认 "1"。
-        split_text (Literal['Newline', 'Sentence']): 在 'Long TTS' 模式下，文本分割的方式。默认 "Newline"。
-        selected_sentence (Optional[str]): 在 'Long TTS' 模式下，当前要处理的句子。此模式下必填。默认 None。
-        codec_audio_sr (int): 编解码器音频采样率。默认 16000。
-        codec_sr (int): 编解码器采样率。默认 50。
-        silence_tokens (str): 代表静音的token列表。默认 "[1388,1898,131]"。
-
-    Returns:
-        dict: 一个包含结果的字典，格式为 {'output_audio_path': str, 'inference_transcript': str}。
-    """
-
     # 2. 参数校验
     if not transcript:
         raise ValueError("参数 'transcript' 是必填项。")
@@ -1774,56 +1724,62 @@ def voicecraft_tts_and_edit_api(
             raise ValueError(f"在 '{mode}' 模式下, 'audio_path' 是必填参数。")
         if not os.path.exists(audio_path):
             raise FileNotFoundError(f"输入音频文件未找到: {audio_path}")
-    
+            
+    if mode == 'TTS' and audio_path and not os.path.exists(audio_path):
+        raise FileNotFoundError(f"为TTS提供音色克隆的音频文件未找到: {audio_path}")
+
     if mode == 'Long TTS' and not selected_sentence:
-        raise ValueError("在 'Long TTS' 模式下, 'selected_sentence' 是必填参数。")
+        raise ValueError("在 'Long TTS' 模式下, 'selected_sentence' 是必填参数，不能为 None。")
 
     # 3. 实例化API client
     try:
-        client = Client("Approximetal/VoiceCraft_gradio", hf_token=HF_TOKEN)
+        client = Client("alexnasa/VoiceCraft_gradio", hf_token=HF_TOKEN)
     except Exception as e:
-        raise ConnectionError(f"无法连接到Gradio Space 'Approximetal/VoiceCraft_gradio': {e}")
+        raise ConnectionError(f"无法连接到Gradio Space 'alexnasa/VoiceCraft_gradio': {e}")
 
     # 4. 文件参数处理
-    input_audio_file = file(audio_path) if audio_path else None
+    input_audio_file = handle_file(audio_path) if audio_path and os.path.exists(audio_path) else None
     
     # 5. 调用API
-    # API的 'selected_sentence' 参数是必需的，即使在非'Long TTS'模式下，因此我们传递None。
-    result = client.predict(
-        seed=seed,
-        left_margin=left_margin,
-        right_margin=right_margin,
-        codec_audio_sr=float(codec_audio_sr),
-        codec_sr=float(codec_sr),
-        top_k=top_k,
-        top_p=top_p,
-        temperature=temperature,
-        stop_repetition=stop_repetition,
-        sample_batch_size=float(sample_batch_size),
-        kvcache=kvcache,
-        silence_tokens=silence_tokens,
-        audio_path=input_audio_file,
-        transcript=transcript,
-        smart_transcript=smart_transcript,
-        mode=mode,
-        prompt_end_time=prompt_end_time,
-        edit_start_time=edit_start_time,
-        edit_end_time=edit_end_time,
-        split_text=split_text,
-        selected_sentence=selected_sentence,
-        api_name="/run"
-    )
+    try:
+        result = client.predict(
+            seed=float(seed),
+            left_margin=float(left_margin),
+            right_margin=float(right_margin),
+            codec_audio_sr=float(codec_audio_sr),
+            codec_sr=float(codec_sr),
+            top_k=float(top_k),
+            top_p=float(top_p),
+            temperature=float(temperature),
+            stop_repetition=stop_repetition,
+            sample_batch_size=float(sample_batch_size),
+            kvcache=kvcache,
+            silence_tokens=silence_tokens,
+            audio_path=input_audio_file,
+            transcript=transcript,
+            smart_transcript=smart_transcript,
+            mode=mode,
+            prompt_end_time=float(prompt_end_time),
+            edit_start_time=float(edit_start_time),
+            edit_end_time=float(edit_end_time),
+            split_text=split_text,
+            selected_sentence=selected_sentence, # 此处现在会正确地传递 None
+            api_name="/run"
+        )
+    except Exception as e:
+        raise RuntimeError(f"API调用失败: {e}")
     
-    # 6. 结果保存
-    # result是一个元组，第0个元素是输出音频的临时路径，第1个是推断文本
+    # 6. 结果保存与返回
+    if not isinstance(result, (list, tuple)) or len(result) < 2:
+        raise RuntimeError(f"API返回了非预期的结果格式: {result}")
+
     temp_audio_path, inference_transcript = result[0], result[1]
     
     if temp_audio_path and os.path.exists(temp_audio_path):
-        # 确保输出目录存在
         output_dir = os.path.dirname(os.path.abspath(output_path))
-        os.makedirs(output_dir, exist_ok=True)
+        if output_dir:
+            os.makedirs(output_dir, exist_ok=True)
         
-        # 将结果从临时路径复制到用户指定的路径
         shutil.copy(temp_audio_path, output_path)
         
         return {
@@ -1831,9 +1787,10 @@ def voicecraft_tts_and_edit_api(
             "inference_transcript": inference_transcript
         }
     elif not temp_audio_path:
-        raise RuntimeError("API调用成功，但未返回任何音频文件。请检查输入参数。")
+        raise RuntimeError(f"API调用成功，但未返回任何音频文件。推断文本: '{inference_transcript}'。请检查输入参数。")
     else:
         raise FileNotFoundError(f"API返回了一个临时的音频文件路径，但该文件不存在: {temp_audio_path}")
+
 
 
 
