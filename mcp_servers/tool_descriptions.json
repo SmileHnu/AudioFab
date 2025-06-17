@@ -5587,144 +5587,144 @@
   },
   "voicecraft_tts_and_edit_api": {
     "description": "Performs text-to-speech (TTS), audio editing, and long-form text synthesis using the VoiceCraft model.",
-    "detailed_description": "Provides three modes of operation: 'TTS' for generating speech from text (with optional voice cloning from a reference audio), 'Edit' for replacing a segment of an audio file with new speech, and 'Long TTS' for synthesizing long-form text by splitting it into sentences and generating them sequentially. The tool requires 'mode' and 'transcript' for all operations. An 'audio_path' is necessary for 'Edit' and 'Long TTS' modes. For 'Long TTS', the 'selected_sentence' to be synthesized is also required. It returns a dictionary containing the path to the generated audio file and the inferred transcript.",
+    "detailed_description": "Provides three modes of operation: 'TTS' for generating speech from text (with optional voice cloning from a reference audio), 'Edit' for replacing a segment of an audio file with new speech, and 'Long TTS' for synthesizing long-form text by splitting it into sentences and generating them sequentially. The tool requires 'mode' and 'transcript' for all operations. An 'audio_path' is necessary for 'Edit' and 'Long TTS' modes, and also optional for voice cloning in 'TTS' mode. For 'Long TTS', the 'selected_sentence' to be synthesized is also required. It returns a dictionary containing the path to the generated audio file and the inferred transcript.",
     "parameters": {
       "mode": {
         "type": "string",
-        "description": "The operating mode. 'TTS' for text-to-speech, 'Edit' for audio editing, 'Long TTS' for long text synthesis. Required.",
+        "description": "The operating mode. 'TTS' for text-to-speech, 'Edit' for audio editing, 'Long TTS' for long text synthesis.",
         "required": true,
         "enum": [
           "TTS",
           "Edit",
           "Long TTS"
         ],
-        "example": "Edit"
+        "example": "TTS"
       },
       "transcript": {
         "type": "string",
-        "description": "The text to be synthesized or used for editing. Required.",
+        "description": "The text to be synthesized or used for editing.",
         "required": true,
         "example": "The quick brown fox jumps over the lazy dog."
       },
       "audio_path": {
         "type": "string",
-        "description": "Path to the input audio file. Required for 'Edit' and 'Long TTS' modes.",
-        "required": "optional",
+        "description": "Path to the input audio file. Required for 'Edit' and 'Long TTS' modes. Optional for 'TTS' mode to enable voice cloning.",
+        "required": false,
         "example": "input/original_audio.wav"
       },
       "output_path": {
         "type": "string",
         "description": "Path to save the generated audio file.",
-        "required": "optional",
+        "required": false,
         "default": "output.wav",
         "example": "output/generated_speech.wav"
       },
       "seed": {
-        "type": "integer",
-        "description": "Random seed for reproducibility. Use -1 for a random seed.",
-        "required": "optional",
-        "default": -1,
+        "type": "number",
+        "description": "Random seed for reproducibility. Use -1.0 for a random seed.",
+        "required": false,
+        "default": -1.0,
         "example": 42
       },
       "smart_transcript": {
         "type": "boolean",
         "description": "Whether to enable smart transcription.",
-        "required": "optional",
+        "required": false,
         "default": true,
         "example": true
       },
       "prompt_end_time": {
         "type": "number",
         "description": "In 'Edit' mode, the end time of the audio prompt.",
-        "required": "optional",
+        "required": false,
         "default": 3.675,
         "example": 3.5
       },
       "edit_start_time": {
         "type": "number",
         "description": "In 'Edit' mode, the start time of the segment to be edited.",
-        "required": "optional",
+        "required": false,
         "default": 3.83,
         "example": 4.0
       },
       "edit_end_time": {
         "type": "number",
         "description": "In 'Edit' mode, the end time of the segment to be edited.",
-        "required": "optional",
+        "required": false,
         "default": 5.113,
         "example": 5.0
       },
       "left_margin": {
         "type": "number",
         "description": "Left margin for the audio processing.",
-        "required": "optional",
+        "required": false,
         "default": 0.08,
         "example": 0.1
       },
       "right_margin": {
         "type": "number",
         "description": "Right margin for the audio processing.",
-        "required": "optional",
+        "required": false,
         "default": 0.08,
         "example": 0.1
       },
       "temperature": {
         "type": "number",
         "description": "Controls the randomness of the generation. Higher values mean more randomness.",
-        "required": "optional",
+        "required": false,
         "default": 1.0,
         "example": 0.95
       },
       "top_p": {
         "type": "number",
         "description": "Nucleus sampling threshold.",
-        "required": "optional",
+        "required": false,
         "default": 0.9,
         "example": 0.9
       },
       "top_k": {
-        "type": "integer",
+        "type": "number",
         "description": "Top-k sampling. Set to 0 to disable.",
-        "required": "optional",
-        "default": 0,
+        "required": false,
+        "default": 0.0,
         "example": 5
       },
       "sample_batch_size": {
-        "type": "integer",
+        "type": "number",
         "description": "Sample batch size, which can affect the speech rate.",
-        "required": "optional",
-        "default": 2,
+        "required": false,
+        "default": 2.0,
         "example": 2
       },
       "stop_repetition": {
-        "type": "string",
-        "description": "Level for stopping repetition.",
-        "required": "optional",
-        "default": "3",
+        "type": "integer",
+        "description": "Level for stopping repetition. Must be a number.",
+        "required": false,
+        "default": 3,
         "enum": [
-          "-1",
-          "1",
-          "2",
-          "3",
-          "4"
+          -1,
+          1,
+          2,
+          3,
+          4
         ],
-        "example": "3"
+        "example": 3
       },
       "kvcache": {
-        "type": "string",
-        "description": "Whether to use KV caching. '1' for yes, '0' for no.",
-        "required": "optional",
-        "default": "1",
+        "type": "integer",
+        "description": "Whether to use KV caching. 1 for yes, 0 for no. Must be a number.",
+        "required": false,
+        "default": 1,
         "enum": [
-          "0",
-          "1"
+          0,
+          1
         ],
-        "example": "1"
+        "example": 1
       },
       "split_text": {
         "type": "string",
         "description": "In 'Long TTS' mode, how to split the text.",
-        "required": "optional",
+        "required": false,
         "default": "Newline",
         "enum": [
           "Newline",
@@ -5733,42 +5733,47 @@
         "example": "Sentence"
       },
       "selected_sentence": {
-        "type": "string",
-        "description": "In 'Long TTS' mode, the specific sentence to process. Required for this mode.",
-        "required": "optional",
+        "type": [
+          "string",
+          "null"
+        ],
+        "description": "In 'Long TTS' mode, the specific sentence to process. Required for this mode. Should be omitted or null for 'TTS' and 'Edit' modes.",
+        "required": false,
+        "default": null,
         "example": "This is the sentence to be synthesized."
       },
       "codec_audio_sr": {
-        "type": "integer",
+        "type": "number",
         "description": "Codec audio sample rate.",
-        "required": "optional",
-        "default": 16000,
+        "required": false,
+        "default": 16000.0,
         "example": 16000
       },
       "codec_sr": {
-        "type": "integer",
+        "type": "number",
         "description": "Codec sample rate.",
-        "required": "optional",
-        "default": 50,
+        "required": false,
+        "default": 50.0,
         "example": 50
       },
       "silence_tokens": {
         "type": "string",
         "description": "A string representing the list of silence tokens.",
-        "required": "optional",
+        "required": false,
         "default": "[1388,1898,131]",
         "example": "[1388,1898,131]"
       }
     },
     "examples": [
       {
-        "task_description": "Generate speech from a piece of text using the TTS mode.",
+        "task_description": "Generate speech from a piece of text using the TTS mode, cloning the voice from a provided audio file.",
         "Act": {
           "tool": "VoiceCraftTool",
           "arguments": {
             "mode": "TTS",
-            "transcript": "Hello world, this is a demonstration of text-to-speech.",
-            "output_path": "output/hello_world.wav"
+            "transcript": "Hello world, this is a demonstration of text-to-speech with voice cloning.",
+            "audio_path": "input/my_voice.wav",
+            "output_path": "output/hello_world_cloned.wav"
           }
         }
       },
