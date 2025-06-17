@@ -133,6 +133,7 @@ The APIs of several tools are integrated into API Servers, which can realize som
 | [audiocraft_jasco_api](https://huggingface.co/spaces/Tonic/audiocraft) | Generates music based on text, chords, melody, and drum beats. |
 | [yue_api](https://huggingface.co/spaces/innova-ai/YuE-music-generator-demo) | Generates music with vocals and accompaniment based on music genre, lyrics, or audio prompts. |
 | [AudioX_api](https://huggingface.co/spaces/Zeyue7/AudioX) | Generates high-quality general sound effects like explosions and footsteps based on text, video, or audio prompts. |
+| [image2music_api](https://huggingface.co/spaces/fffiloni/image-to-music-v2) | Generate music according to pictures. |
 
 **3. Audio Restoration and Separation**
 
