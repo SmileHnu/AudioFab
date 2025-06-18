@@ -324,4 +324,3 @@ dependencies:
       - yarl==1.8.2
       - zenodo-get==1.3.4
       - zsvision==0.7.8
-prefix: /home/chengz/anaconda3/envs/AudioSep
