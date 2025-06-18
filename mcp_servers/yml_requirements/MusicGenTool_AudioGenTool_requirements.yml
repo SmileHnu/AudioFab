@@ -178,4 +178,3 @@ dependencies:
       - websockets==15.0.1
       - wrapt==1.17.2
       - xformers==0.0.22.post7
-prefix: /home/chengz/anaconda3/envs/audiocraft
