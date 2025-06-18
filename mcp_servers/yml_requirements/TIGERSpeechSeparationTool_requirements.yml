@@ -157,4 +157,3 @@ dependencies:
       - wrapt==1.17.0
       - xxhash==3.5.0
       - yarl==1.18.0
-prefix: /home/qianshuaix/miniconda3/envs/tiger
