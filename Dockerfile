@@ -1,11 +1,8 @@
-# 使用官方NVIDIA CUDA镜像作为基础，确保GPU支持。
-FROM nvidia/cuda:12.4.0-devel-ubuntu24.04
-
+FROM nvidia/cuda:12.4.0-devel-ubuntu22.04
 
 # 设置环境变量，防止apt-get等工具在构建过程中进行交互式提问
 ENV DEBIAN_FRONTEND=noninteractive
 ENV TZ=Etc/UTC
-
 
 # 1. 安装系统级依赖
 # 包括 python, pip, git, ffmpeg, portaudio等
@@ -40,27 +37,21 @@ COPY environment.yml .
 RUN echo "--- Creating main environment: AudioFab ---" && \
     conda env create -f environment.yml
 
+
 # --- 4. 依次创建各个工具的 Conda 环境 ---
-
-
 # 复制所有的 requirements.txt 文件
 COPY mcp_servers/yml_requirements/*_requirements.yml ./
 
-# 注意：环境名称应为有效名称（无特殊字符）
 RUN for f in *_requirements.yml; do \
     echo "Creating conda env from $f"; \
     conda env create -f "$f"; \
 done
 
 
-# 5. 复制你的项目代码
+# 5. 复制项目代码
 COPY . .
 
 # 6. 设置默认的Shell和入口点
-# 设置默认启动时激活主控环境
 SHELL ["conda", "run", "-n", "AudioFab", "/bin/bash", "-c"]
 
-# 默认启动一个bash会话，你可以在其中手动运行你的程序
-# 或者，如果你有一个主启动脚本（如 main.py），可以替换成下面的CMD
 CMD ["python", "scripts/start_all.py"]
-
