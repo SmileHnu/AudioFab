@@ -138,7 +138,7 @@ Tool Kits provides specific available tools for each service in MCP Server. For 
 
    ```bash
      docker build -t audiofab:last .
-     docker run -it --gpus all --name your_container_name AudioFab
+     docker run -it --gpus all --name your_container_name audiofab
    ```
 4. Configure the environment
 
