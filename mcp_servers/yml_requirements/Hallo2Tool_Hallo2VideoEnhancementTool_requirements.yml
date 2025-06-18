@@ -240,4 +240,3 @@ dependencies:
       - wrapt==1.17.2
       - xformers==0.0.25.post1
       - zipp==3.21.0
-prefix: /home/chengz/anaconda3/envs/hallo
