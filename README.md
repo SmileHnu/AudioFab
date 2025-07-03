@@ -221,6 +221,22 @@ python scripts/start_all.py
 ```
 ## 💡 Use Case
 
+### 🎬 Video Demo
+
+We recorded a demo video that covers the following two scenarios:
+
+**Speech Emotion Analysis & Digital Human Video Generation:** Upload a speech recording with an angry tone, analyze its emotion, and then generate speech with the opposite sentiment. Finally, this new audio is used to drive a digital human model, synthesizing a completely new, lip-synced video.
+
+**Music Analysis & Processing:** Upload a song to separate the vocals from the accompaniment. Subsequently, analyze the musical style of the separated instrumental track to provide a basis for future music creation or adaptation.
+
+<div align="center">
+  <a href="./assets/audiofab_demo.mp4" target="_blank">
+    <img src="./assets/audiofab_demo_thumbnail.png" alt="AudioFab Demo" width="100%">
+  </a>
+</div>
+
+### 📄 Text and Image Example
+
 I want to understand the musical style of a song, extract its accompaniment, and create a new piece of music in the same style.
 
 Here's how I'd use it:
