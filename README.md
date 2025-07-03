@@ -227,13 +227,19 @@ We recorded a demo video that covers the following two scenarios:
 
 **Speech Emotion Analysis & Digital Human Video Generation:** Upload a speech recording with an angry tone, analyze its emotion, and then generate speech with the opposite sentiment. Finally, this new audio is used to drive a digital human model, synthesizing a completely new, lip-synced video.
 
+
+
+https://github.com/user-attachments/assets/ccb5d099-0b2f-43f1-b103-eeca9d5121b1
+
+
+
 **Music Analysis & Processing:** Upload a song to separate the vocals from the accompaniment. Subsequently, analyze the musical style of the separated instrumental track to provide a basis for future music creation or adaptation.
 
-<div align="center">
-  <a href="./assets/audiofab_demo.mp4" target="_blank">
-    <img src="./assets/audiofab_demo_thumbnail.png" alt="AudioFab Demo" width="100%">
-  </a>
-</div>
+
+
+https://github.com/user-attachments/assets/6fa210b5-b2dc-473b-baff-3f2918cb535d
+
+
 
 ### 📄 Text and Image Example
 
