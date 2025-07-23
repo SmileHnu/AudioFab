@@ -326,9 +326,12 @@ def Hallo2VideoEnhancementTool(
         # Run video enhancement directly
         import importlib
         import torch
-        import subprocess
         
-        # Try running the video_sr.py script directly using subprocess
+        # Import the standardized subprocess wrapper
+        import sys
+        sys.path.append(str(Path(__file__).parent.parent))
+        from utils.subprocess_wrapper import SubprocessWrapper, MCPSubprocessTool
+        
         script_path = "/home/chengz/LAMs/mcp_chatbot-audio/models/hallo2/scripts/video_sr.py"
         cmd = [
             sys.executable, 
@@ -348,17 +351,37 @@ def Hallo2VideoEnhancementTool(
             cmd.append("--only_center_face")
             
         print(f"Running command: {' '.join(cmd)}")
-        process = subprocess.run(cmd, capture_output=True, text=True)
         
-        if process.returncode != 0:
-            raise RuntimeError(f"Video enhancement failed: {process.stderr}")
+        # Use standardized subprocess execution
+        result = SubprocessWrapper.run_command(
+            cmd=cmd,
+            output_dir=str(output_dir),
+            expected_files=["*.mp4"],
+            check_output_files=True
+        )
+        
+        if not result.success:
+            # Use standardized error handling
+            return MCPSubprocessTool.format_error_result(
+                result, 
+                "Hallo2VideoEnhancementTool",
+                "Video enhancement failed"
+            )
             
-        # Find the enhanced video in the output directory
-        enhanced_videos = list(output_dir.glob("*.mp4"))
+        # Use the first enhanced video found
+        enhanced_videos = result.output_files
         if not enhanced_videos:
-            raise RuntimeError("No enhanced video was found in the output directory after processing")
+            return {
+                "success": False,
+                "error": "No enhanced video was found in the output directory after processing",
+                "details": {
+                    "stdout": result.stdout,
+                    "stderr": result.stderr,
+                    "output_dir": str(output_dir)
+                }
+            }
         
-        enhanced_video_path = str(enhanced_videos[0])
+        enhanced_video_path = enhanced_videos[0]
         
         end_time = datetime.now()
         processing_time = (end_time - start_time).total_seconds()
