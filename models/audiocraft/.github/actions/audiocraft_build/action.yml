@@ -1,0 +1,31 @@
+name: audiocraft_build
+description: 'Build audiocraft env.'
+runs:
+  using: "composite"
+  steps:
+  - uses: actions/setup-python@v2
+    with:
+      python-version: 3.9
+  - uses: actions/cache@v3
+    id: cache
+    with:
+      path: env
+      key: audiocraft_env-${{ hashFiles('**/requirements.txt') }}
+
+  - if: ${{ steps.cache.outputs.cache-hit != 'true' }}
+    name: Install dependencies
+    shell: bash
+    run: |
+      sudo apt-get update
+      sudo apt-get install libsndfile1-dev ffmpeg
+      python3 -m venv env
+      .  env/bin/activate
+      python -m pip install --upgrade pip
+      pip install 'numpy<2' torch==2.1.0 torchvision==0.16.0 torchaudio==2.1.0
+      pip install xformers==0.0.22.post7
+      pip install -e '.[dev,wm]'
+  - name: System Dependencies
+    shell: bash
+    run: |
+      sudo apt-get update
+      sudo apt-get install libsndfile1-dev ffmpeg

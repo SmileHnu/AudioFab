@@ -1,0 +1,98 @@
+name: publish-to-docker
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - pyproject.toml
+      - Dockerfile.cpu
+      - Dockerfile.gpu
+      - Dockerfile.runpod
+  workflow_dispatch:
+
+jobs:
+  build-and-push-docker:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Delete huge unnecessary tools folder
+        run: rm -rf /opt/hostedtoolcache
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Install TOML
+        run: pip install toml
+
+      - name: Get version from pyproject.toml
+        run: |
+          VERSION=$(python -c "import toml; print(toml.load('pyproject.toml')['tool']['poetry']['version'])")
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and push Docker image for CPU
+        if: ${{ github.ref == 'refs/heads/main' }}
+        uses: docker/build-push-action@v5
+        with:
+          file: Dockerfile.cpu
+          context: .
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: |
+            beveradb/audio-separator:cpu-${{ env.VERSION }}
+            beveradb/audio-separator:cpu
+            beveradb/audio-separator:latest
+
+      - name: Build and push Docker image for CUDA 11 GPU
+        if: ${{ github.ref == 'refs/heads/main' }}
+        uses: docker/build-push-action@v5
+        with:
+          file: Dockerfile.cuda11
+          context: .
+          platforms: linux/amd64
+          push: true
+          tags: |
+            beveradb/audio-separator:gpu-${{ env.VERSION }}
+            beveradb/audio-separator:gpu
+
+      - name: Build and push Docker image for CUDA 12 GPU
+        if: ${{ github.ref == 'refs/heads/main' }}
+        uses: docker/build-push-action@v5
+        with:
+          file: Dockerfile.cuda12
+          context: .
+          platforms: linux/amd64
+          push: true
+          tags: |
+            beveradb/audio-separator:cuda12-${{ env.VERSION }}
+            beveradb/audio-separator:cuda12
+
+      # Deliberately commented out because Github CI can't build this runpod image due to disk space limits
+      # Instead, I build this (17GB) image locally and push it to Docker Hub manually.
+      # - name: Build and push Docker image for Runpod
+      #   if: ${{ github.ref == 'refs/heads/main' }}
+      #   uses: docker/build-push-action@v5
+      #   with:
+      #     file: Dockerfile.runpod
+      #     context: .
+      #     platforms: linux/amd64
+      #     push: true
+      #     tags: |
+      #       beveradb/audio-separator:runpod-${{ env.VERSION }}
+      #       beveradb/audio-separator:runpod

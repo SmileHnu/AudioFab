@@ -1,0 +1,65 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environment
+.env
+.venv
+env/
+venv/
+ENV/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Logs
+logs/
+*.log
+
+# Audio files
+*.wav
+*.mp3
+*.ogg
+*.flac
+
+# Model files
+*.pt
+*.pth
+*.onnx
+*.bin
+
+# Temporary files
+.DS_Store
+Thumbs.db
+
+# Media and output directories (added per user request)
+media_save/
+media/
+user_media/
+output/
+checkpoints/
+mcp_servers/servers/Eva_Log/
+mcp_servers/servers/Pass_IN/
+mcp_servers/servers/Real_tool_Eva/
+mcp_servers/servers/Result/

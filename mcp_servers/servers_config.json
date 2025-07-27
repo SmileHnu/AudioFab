@@ -1,0 +1,76 @@
+{
+    "mcpServers": {
+        "markdown_servers": {
+            "command": "/home/chengz/anaconda3/bin/python",
+            "args": [
+                "mcp_servers/servers/markdown_servers.py"
+            ],
+            "env": {
+                "PYTHONPATH": "."
+            }
+        },
+        "dsp_servers": {
+            "command": "/home/chengz/anaconda3/bin/python",
+            "args": [
+                "mcp_servers/servers/dsp_servers.py"
+            ],
+            "env": {
+                "PYTHONPATH": "."
+            }
+        },
+        "audio_servers": {
+            "command": "/home/chengz/anaconda3/bin/python",
+            "args": [
+                "mcp_servers/servers/audio_servers.py"
+            ],
+            "env": {
+                "PYTHONPATH": "."
+            }
+        },
+        "tensor_servers": {
+            "command": "/home/chengz/anaconda3/bin/python",
+            "args": [
+                "mcp_servers/servers/tensor_servers.py"
+            ],
+            "env": {
+                "PYTHONPATH": "."
+            }
+        },
+        "tool_query_servers": {
+            "command": "/home/chengz/anaconda3/bin/python",
+            "args": [
+                "mcp_servers/servers/tool_query_servers.py"
+            ],
+            "env": {
+                "PYTHONPATH": "."
+            }
+        },
+        "FunTTS_mcp_servers": {
+            "command": "/home/chengz/anaconda3/bin/python",
+            "args": [
+                "mcp_servers/servers/FunTTS_mcp_servers.py"
+            ],
+            "env": {
+                "PYTHONPATH": "."
+            }
+        },
+        "music_mcp_servers": {
+            "command": "/home/chengz/anaconda3/bin/python",
+            "args": [
+                "mcp_servers/servers/music_mcp_servers.py"
+            ],
+            "env": {
+                "PYTHONPATH": "."
+            }
+        },
+        "Audioseparator_mcp_servers": {
+            "command": "/home/chengz/anaconda3/bin/python",
+            "args": [
+                "mcp_servers/servers/Audioseparator_mcp_servers.py"
+            ],
+            "env": {
+                "PYTHONPATH": "."
+            }
+        }
+    }
+}

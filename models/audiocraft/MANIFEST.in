@@ -1,0 +1,15 @@
+include Makefile
+include LICENSE
+include LICENSE_weights
+include *.md
+include *.ini
+include requirements.txt
+include audiocraft/py.typed
+include assets/*.mp3
+include datasets/*.mp3
+recursive-include config *.yaml
+recursive-include demos *.py
+recursive-include demos *.ipynb
+recursive-include scripts *.py
+recursive-include model_cards *.md
+recursive-include docs *.md
