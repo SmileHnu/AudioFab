@@ -26,6 +26,11 @@
 
 </div>
 
+## :star: Update
+1. We updated the retrieval model and retrieval ranking algorithm in the dev1.1 branch.
+2. This work has been accepted by ACM MM. The paper link will be available in the official revised version.
+
+
 ## 📌 Introduction
 
 AudioFab is a comprehensive and user-friendly open-source intelligent agent framework specifically designed for the audio domain. It aims to solve core challenges such as the complex integration of audio processing tools, frequent dependency conflicts, and the lack of reliability in tool invocation by large language models.
