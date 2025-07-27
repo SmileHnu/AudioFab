@@ -63,3 +63,8 @@ mcp_servers/servers/Eva_Log/
 mcp_servers/servers/Pass_IN/
 mcp_servers/servers/Real_tool_Eva/
 mcp_servers/servers/Result/
+
+
+# Ignore large model files
+*.th
+models/audio-separator/models/
